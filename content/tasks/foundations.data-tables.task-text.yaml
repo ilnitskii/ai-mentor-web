@@ -1,0 +1,17 @@
+schema_version: 1
+id: foundations.data-tables.task-text
+topic_id: foundations.data-tables
+learning_objective: Объяснить различие наблюдения и признака.
+type: text
+prompt: Объясните своими словами разницу между строкой и столбцом таблицы продаж.
+difficulty: medium
+estimated_minutes: 4
+prerequisites: []
+hints: [Свяжите строку с продажей, а столбец — с её характеристикой.]
+reference_solution: Строка описывает одну продажу, а столбец — один признак всех продаж.
+rubric:
+  - criterion: Строка связана с наблюдением
+    points: 50
+  - criterion: Столбец связан с признаком
+    points: 50
+status: active

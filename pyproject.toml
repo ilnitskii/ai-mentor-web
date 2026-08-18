@@ -1,0 +1,13 @@
+[tool.pytest.ini_options]
+addopts = "-q"
+pythonpath = ["tools/mentor_pipeline"]
+testpaths = ["tools/mentor_pipeline/tests"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["tools/mentor_pipeline"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+

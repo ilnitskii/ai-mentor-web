@@ -1,0 +1,7 @@
+{
+  "schema_version": 99,
+  "event_id": "../unsafe",
+  "event_type": "invented_event",
+  "payload": {}
+}
+

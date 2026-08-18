@@ -1,0 +1,17 @@
+schema_version: 1
+id: sql.window-functions.task-text
+topic_id: sql.window-functions
+prompt: Объясните своими словами, когда оконная функция полезнее GROUP BY.
+answer_type: text
+options: []
+checker:
+  mode: pending_review
+  expected_answers: []
+difficulty: medium
+estimated_minutes: 4
+hints: [Сравните детализацию результата.]
+reference_solution: Когда нужно сохранить исходные строки и добавить агрегат или ранг.
+rubric:
+  - criterion: Упомянуто сохранение строк
+    points: 100
+status: active

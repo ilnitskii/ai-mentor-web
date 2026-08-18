@@ -1,0 +1,16 @@
+schema_version: 1
+id: foundations.data-tables.task-choice
+topic_id: foundations.data-tables
+learning_objective: Определить зерно таблицы по идентификатору строки.
+type: choice
+prompt: В таблице продаж каждая строка имеет уникальный sale_id. Выберите зерно таблицы.
+options: [Одна продажа, Один город, Один календарный месяц]
+difficulty: easy
+estimated_minutes: 2
+prerequisites: []
+hints: [Посмотрите, что идентифицирует sale_id.]
+reference_solution: Одна продажа.
+rubric:
+  - criterion: Верно определено зерно
+    points: 100
+status: active

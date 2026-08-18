@@ -1,0 +1,7 @@
+#!/bin/sh
+set -eu
+
+MENTOR_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+export PYTHONPATH="$MENTOR_ROOT/tools/mentor_pipeline${PYTHONPATH:+:$PYTHONPATH}"
+exec "$MENTOR_ROOT/venv/bin/python" -m mentor_pipeline "$@"
+

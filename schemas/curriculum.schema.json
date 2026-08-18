@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aimentor.local/schemas/curriculum.schema.json",
+  "title": "AI Mentor curriculum track",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "track_id", "title", "target_role", "persona", "duration_weeks", "weekly_hours", "default_daily_minutes", "graduation", "stages"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "track_id": {"$ref": "#/$defs/id"},
+    "title": {"type": "string", "minLength": 1, "maxLength": 160},
+    "target_role": {"const": "data_analyst"},
+    "persona": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["education", "programming_experience", "math_background"],
+      "properties": {
+        "education": {"const": "higher_technical_mephi"},
+        "programming_experience": {"const": "none"},
+        "math_background": {"const": "strong"}
+      }
+    },
+    "duration_weeks": {"type": "integer", "minimum": 12, "maximum": 104},
+    "weekly_hours": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum", "target"],
+      "properties": {
+        "minimum": {"type": "integer", "minimum": 1, "maximum": 40},
+        "target": {"type": "integer", "minimum": 1, "maximum": 40}
+      }
+    },
+    "default_daily_minutes": {"type": "integer", "minimum": 15, "maximum": 180},
+    "graduation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["core_mastery", "capstone_score", "mock_interview_score", "portfolio_projects"],
+      "properties": {
+        "core_mastery": {"type": "integer", "minimum": 70, "maximum": 100},
+        "capstone_score": {"type": "integer", "minimum": 70, "maximum": 100},
+        "mock_interview_score": {"type": "integer", "minimum": 70, "maximum": 100},
+        "portfolio_projects": {"type": "integer", "minimum": 1, "maximum": 10}
+      }
+    },
+    "stages": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 30,
+      "items": {"$ref": "#/$defs/stage"}
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "minLength": 1, "maxLength": 160, "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+    "stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "weeks", "estimated_hours", "prerequisites", "gate_mastery", "outcome"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "weeks": {"oneOf": [{"type": "integer", "minimum": 1}, {"type": "string", "pattern": "^[1-9][0-9]*-[1-9][0-9]*$"}]},
+        "estimated_hours": {"type": "integer", "minimum": 1, "maximum": 500},
+        "prerequisites": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "gate_mastery": {"type": "integer", "minimum": 60, "maximum": 100},
+        "outcome": {"type": "string", "minLength": 1, "maxLength": 500}
+      }
+    }
+  }
+}

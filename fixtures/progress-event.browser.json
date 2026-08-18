@@ -1,0 +1,15 @@
+{
+  "device_id" : "test-device",
+  "event_id" : "0198-browser-event-0001",
+  "user_id" : "11111111-1111-4111-8111-111111111111",
+  "event_type" : "task_submitted",
+  "item_id" : "foundations.data-tables.task-choice",
+  "occurred_at" : "2026-04-19T00:00:00Z",
+  "payload" : {
+    "attempt" : 1,
+    "correct" : true
+  },
+  "profile_id" : "default",
+  "schema_version" : 1,
+  "timezone" : "Europe/Moscow"
+}

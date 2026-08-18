@@ -1,0 +1,15 @@
+schema_version: 1
+track_id: data-analytics.sql
+title: SQL для аналитика
+topics:
+  - id: sql.fundamentals
+    title: Основы SQL для аналитика
+    prerequisites:
+      - foundations.data-literacy
+      - spreadsheets.analysis
+    status: active
+  - id: sql.window-functions
+    title: Оконные функции SQL
+    prerequisites:
+      - sql.fundamentals
+    status: active

@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "profile_id": "default",
+  "topics": [{"id": "foundations.data-tables", "title": "Как устроены данные в таблице", "prerequisites": [], "status": "active"}],
+  "lessons": [
+    {
+      "id": "foundations.data-tables.intro",
+      "topic_id": "foundations.data-tables",
+      "title": "Строка, столбец и наблюдение",
+      "body": "# Как аналитик видит таблицу\n\nТаблица хранит наблюдения. Одна строка обычно описывает один объект или одно событие, а столбец — один его признак. Это правило называют **зерном таблицы**.\n\n| sale_id | date | city | amount |\n| --- | --- | --- | ---: |\n| 101 | 2026-08-15 | Москва | 1200 |\n| 102 | 2026-08-15 | Казань | 900 |\n\nЗдесь зерно — одна продажа: каждая строка имеет свой `sale_id`. `date`, `city` и `amount` — признаки продажи.\n\nТип значения важен: число 1200 можно складывать, а текст «1200 руб.» сначала придётся очистить. Перед анализом проверьте уникальность идентификатора, пропуски и соответствие типов смыслу.",
+      "estimated_minutes": 6,
+      "check": {"question": "Что описывает одна строка в примере?", "rule": {"mode": "normalized", "expected_answers": ["одну продажу", "продажу", "одно событие продажи"]}},
+      "status": "active"
+    }
+  ],
+  "cards": [
+    {
+      "id": "foundations.data-tables.card-001", "topic_id": "foundations.data-tables",
+      "prompt": "Что такое зерно таблицы?",
+      "answer": "Смысл одной строки: какой объект или событие она описывает.",
+      "type": "question_answer", "choices": [], "correct_choice_index": null,
+      "explanation": "Без определённого зерна нельзя надёжно считать строки и объединять таблицы.",
+      "source_lesson_id": "foundations.data-tables.intro", "difficulty": "easy", "status": "active"
+    },
+    {
+      "id": "foundations.data-tables.card-002", "topic_id": "foundations.data-tables",
+      "prompt": "Что обычно представляет столбец?", "answer": "Один признак наблюдения",
+      "type": "multiple_choice", "choices": ["Одно наблюдение", "Один признак", "Всю таблицу"], "correct_choice_index": 1,
+      "explanation": "Например, city — признак каждой продажи, а строка — сама продажа.",
+      "source_lesson_id": "foundations.data-tables.intro", "difficulty": "easy", "status": "active"
+    },
+    {
+      "id": "foundations.data-tables.card-003", "topic_id": "foundations.data-tables",
+      "prompt": "Текст «1200 руб.» можно сразу корректно суммировать как число.", "answer": "Ложь",
+      "type": "true_false", "choices": ["Верно", "Ложь"], "correct_choice_index": 1,
+      "explanation": "Единицу измерения нужно отделить, а значение привести к числовому типу.",
+      "source_lesson_id": "foundations.data-tables.intro", "difficulty": "easy", "status": "active"
+    },
+    {
+      "id": "foundations.data-tables.card-004", "topic_id": "foundations.data-tables",
+      "prompt": "В таблице продаж два одинаковых sale_id. Какую проверку это нарушает?", "answer": "Уникальность идентификатора",
+      "type": "question_answer", "choices": [], "correct_choice_index": null,
+      "explanation": "При зерне «одна продажа» идентификатор продажи должен быть уникален.",
+      "source_lesson_id": "foundations.data-tables.intro", "difficulty": "medium", "status": "active"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "foundations.data-tables.task-choice", "topic_id": "foundations.data-tables",
+      "prompt": "В таблице продаж каждая строка имеет уникальный sale_id. Выберите зерно таблицы.", "answer_type": "choice",
+      "options": ["Одна продажа", "Один город", "Один календарный месяц"],
+      "checker": {"mode": "exact", "expected_answers": ["Одна продажа"]},
+      "difficulty": "easy", "estimated_minutes": 2, "hints": ["Посмотрите, что идентифицирует sale_id."],
+      "reference_solution": "Одна продажа.",
+      "rubric": [{"criterion": "Верно определено зерно", "points": 100}], "status": "active"
+    },
+    {
+      "id": "foundations.data-tables.task-number", "topic_id": "foundations.data-tables",
+      "prompt": "В таблице есть заголовок и три строки продаж. Сколько в ней наблюдений?", "answer_type": "number", "options": [],
+      "checker": {"mode": "normalized", "expected_answers": ["3", "3.0"]},
+      "difficulty": "easy", "estimated_minutes": 2, "hints": ["Заголовок не является наблюдением."],
+      "reference_solution": "3", "rubric": [{"criterion": "Посчитаны строки данных без заголовка", "points": 100}], "status": "active"
+    },
+    {
+      "id": "foundations.data-tables.task-text", "topic_id": "foundations.data-tables",
+      "prompt": "Объясните своими словами разницу между строкой и столбцом таблицы продаж.", "answer_type": "text", "options": [],
+      "checker": {"mode": "pending_review", "expected_answers": []},
+      "difficulty": "medium", "estimated_minutes": 4, "hints": ["Свяжите строку с продажей, а столбец — с её характеристикой."],
+      "reference_solution": "Строка описывает одну продажу, а столбец — один признак всех продаж, например город или сумму.",
+      "rubric": [{"criterion": "Строка связана с наблюдением", "points": 50}, {"criterion": "Столбец связан с признаком", "points": 50}], "status": "active"
+    },
+    {
+      "id": "foundations.data-tables.task-quality", "topic_id": "foundations.data-tables",
+      "prompt": "Какой столбец нужно проверить на уникальность, если одна строка — одна продажа: sale_id, city или amount?", "answer_type": "text", "options": [],
+      "checker": {"mode": "normalized", "expected_answers": ["sale_id"]},
+      "difficulty": "medium", "estimated_minutes": 5, "hints": ["Ищите идентификатор продажи.", "Его имя заканчивается на _id."],
+      "reference_solution": "sale_id",
+      "rubric": [{"criterion": "Выбран идентификатор наблюдения", "points": 100}],
+      "status": "active"
+    }
+  ],
+  "daily_plan": {
+    "date": "2026-08-17", "target_minutes": 25,
+    "rationale": "Начните с языка данных: определите зерно таблицы, отличите наблюдение от признака и выполните первые проверки качества без программирования.",
+    "items": [
+      {"item_id": "foundations.data-tables.intro", "type": "lesson"},
+      {"item_id": "foundations.data-tables.card-001", "type": "card"},
+      {"item_id": "foundations.data-tables.card-002", "type": "card"},
+      {"item_id": "foundations.data-tables.card-003", "type": "card"},
+      {"item_id": "foundations.data-tables.card-004", "type": "card"},
+      {"item_id": "foundations.data-tables.task-choice", "type": "task"},
+      {"item_id": "foundations.data-tables.task-number", "type": "task"},
+      {"item_id": "foundations.data-tables.task-text", "type": "task"},
+      {"item_id": "foundations.data-tables.task-quality", "type": "task"}
+    ]
+  }
+}

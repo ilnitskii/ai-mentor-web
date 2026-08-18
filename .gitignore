@@ -1,0 +1,43 @@
+# Secrets and local settings
+.env
+.env.*
+!.env.example
+*.pem
+*.p8
+
+# JavaScript / TypeScript / Vite
+node_modules/
+.pnpm-store/
+.vite/
+*.tsbuildinfo
+apps/web/dist/
+coverage/
+playwright-report/
+test-results/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Local mentor runtime and generated exports
+.mentor/
+staging/
+dist/
+
+# Supabase CLI local state
+supabase/.branches/
+supabase/.temp/
+
+# Editors and macOS
+.DS_Store
+.idea/
+.vscode/

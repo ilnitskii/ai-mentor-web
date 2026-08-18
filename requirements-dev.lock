@@ -1,0 +1,25 @@
+# Exact environment resolved on Python 3.14.4 / macOS arm64 on 2026-08-17.
+# Regenerate intentionally when dependencies are upgraded.
+annotated-doc==0.0.5
+annotated-types==0.8.0
+attrs==26.1.0
+iniconfig==2.3.0
+jsonschema==4.26.0
+jsonschema-specifications==2025.9.1
+markdown-it-py==3.0.0
+mdurl==0.1.2
+packaging==26.3
+pluggy==1.6.0
+pydantic==2.13.4
+pydantic_core==2.46.4
+Pygments==2.21.0
+pytest==8.4.2
+PyYAML==6.0.3
+referencing==0.37.0
+rich==14.3.4
+rpds-py==2026.6.3
+ruff==0.16.3
+shellingham==1.5.4
+typer==0.27.1
+typing-inspection==0.4.4
+typing_extensions==4.16.0

@@ -1,0 +1,15 @@
+schema_version: 1
+id: foundations.data-tables.task-number
+topic_id: foundations.data-tables
+learning_objective: Отличить строки данных от заголовка.
+type: number
+prompt: В таблице есть заголовок и три строки продаж. Сколько в ней наблюдений?
+difficulty: easy
+estimated_minutes: 2
+prerequisites: []
+hints: [Заголовок не является наблюдением.]
+reference_solution: "3"
+rubric:
+  - criterion: Посчитаны строки данных без заголовка
+    points: 100
+status: active

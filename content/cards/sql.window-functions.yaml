@@ -1,0 +1,46 @@
+schema_version: 1
+cards:
+  - id: sql.window-functions.card-001
+    topic_id: sql.window-functions
+    prompt: Чем оконная функция принципиально отличается от GROUP BY?
+    answer: Она сохраняет исходную детализацию строк, добавляя вычисленное значение.
+    type: question_answer
+    choices: []
+    correct_choice_index: null
+    explanation: OVER вычисляет значение в окне, не объединяя строки результата.
+    source_lesson_id: sql.window-functions.intro
+    difficulty: easy
+    status: active
+  - id: sql.window-functions.card-002
+    topic_id: sql.window-functions
+    prompt: Какая часть выражения задаёт группы строк внутри окна?
+    answer: PARTITION BY
+    type: multiple_choice
+    choices: [GROUP BY, PARTITION BY, ORDER ONLY]
+    correct_choice_index: 1
+    explanation: PARTITION BY разделяет строки на независимые окна вычисления.
+    source_lesson_id: sql.window-functions.intro
+    difficulty: easy
+    status: active
+  - id: sql.window-functions.card-003
+    topic_id: sql.window-functions
+    prompt: Оконная SUM уменьшает количество строк результата.
+    answer: Ложь
+    type: true_false
+    choices: [Верно, Ложь]
+    correct_choice_index: 1
+    explanation: Оконная функция сохраняет каждую исходную строку.
+    source_lesson_id: sql.window-functions.intro
+    difficulty: easy
+    status: active
+  - id: sql.window-functions.card-004
+    topic_id: sql.window-functions
+    prompt: Что вернёт оконная SUM для двух строк одного клиента с amount 10 и 20?
+    answer: 30 и 30
+    type: sql_output_prediction
+    choices: [10 и 20, 30 и 30, 30 одной строкой]
+    correct_choice_index: 1
+    explanation: Сумма окна добавляется к каждой строке клиента.
+    source_lesson_id: sql.window-functions.intro
+    difficulty: medium
+    status: active

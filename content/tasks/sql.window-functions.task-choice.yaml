@@ -1,0 +1,20 @@
+schema_version: 1
+id: sql.window-functions.task-choice
+topic_id: sql.window-functions
+prompt: Выберите конструкцию, которая сохранит все продажи в результате.
+answer_type: choice
+options:
+  - SUM(amount) GROUP BY customer_id
+  - SUM(amount) OVER (PARTITION BY customer_id)
+checker:
+  mode: exact
+  expected_answers:
+    - SUM(amount) OVER (PARTITION BY customer_id)
+difficulty: easy
+estimated_minutes: 2
+hints: [Ищите ключевое слово OVER.]
+reference_solution: SUM(amount) OVER (PARTITION BY customer_id)
+rubric:
+  - criterion: Выбрана оконная агрегация
+    points: 100
+status: active

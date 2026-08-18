@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "profile_id": "default",
+  "generated_at": "2026-08-17T09:00:00Z",
+  "unseen_event_count": 0,
+  "topics": [
+    {
+      "topic_id": "foundations.data-literacy",
+      "mastery": 0,
+      "evidence_count": 0,
+      "recent_accuracy": null
+    }
+  ]
+}

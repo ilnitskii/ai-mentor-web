@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "0198-event-0001",
+  "user_id": "11111111-1111-4111-8111-111111111111",
+  "device_id": "test-device-01",
+  "profile_id": "default",
+  "item_id": "foundations.data-tables.task-choice",
+  "event_type": "task_submitted",
+  "occurred_at": "2026-08-17T08:42:11Z",
+  "timezone": "Europe/Moscow",
+  "payload": {
+    "attempt": 1,
+    "duration_seconds": 412,
+    "hints_used": 0,
+    "answer_ref": "answers/0198-event-0001.txt",
+    "correct": true
+  }
+}

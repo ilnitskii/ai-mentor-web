@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aimentor.local/schemas/course.schema.json",
+  "title": "AI Mentor normalized course snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "profile_id", "topics", "lessons", "cards", "tasks", "daily_plan"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "profile_id": { "$ref": "#/$defs/id" },
+    "topics": { "type": "array", "items": { "$ref": "#/$defs/topic" } },
+    "lessons": { "type": "array", "items": { "$ref": "#/$defs/lesson" } },
+    "cards": { "type": "array", "items": { "$ref": "#/$defs/card" } },
+    "tasks": { "type": "array", "items": { "$ref": "#/$defs/task" } },
+    "reviews": { "type": "array", "items": { "$ref": "#/$defs/review" } },
+    "daily_plan": { "$ref": "#/$defs/dailyPlan" }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "status": { "enum": ["active", "archived"] },
+    "difficulty": { "enum": ["easy", "medium", "hard"] },
+    "topic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "prerequisites", "status"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "title": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "prerequisites": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "status": { "$ref": "#/$defs/status" }
+      }
+    },
+    "lesson": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "topic_id", "title", "body", "estimated_minutes", "status"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "topic_id": { "$ref": "#/$defs/id" },
+        "title": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "body": { "type": "string", "minLength": 1, "maxLength": 100000 },
+        "estimated_minutes": { "type": "integer", "minimum": 1, "maximum": 60 },
+        "check": {
+          "oneOf": [
+            { "$ref": "#/$defs/lessonCheck" },
+            { "type": "null" }
+          ]
+        },
+        "status": { "$ref": "#/$defs/status" }
+      }
+    },
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "topic_id", "prompt", "answer", "difficulty", "status"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "topic_id": { "$ref": "#/$defs/id" },
+        "prompt": { "type": "string", "minLength": 1, "maxLength": 2000 },
+        "answer": { "type": "string", "minLength": 1, "maxLength": 10000 },
+        "type": {
+          "enum": ["question_answer", "multiple_choice", "true_false", "sql_output_prediction"]
+        },
+        "choices": {
+          "type": "array",
+          "maxItems": 8,
+          "items": { "type": "string", "minLength": 1, "maxLength": 2000 }
+        },
+        "correct_choice_index": {
+          "oneOf": [
+            { "type": "integer", "minimum": 0, "maximum": 7 },
+            { "type": "null" }
+          ]
+        },
+        "explanation": { "type": "string", "maxLength": 10000 },
+        "source_lesson_id": {
+          "oneOf": [
+            { "$ref": "#/$defs/id" },
+            { "type": "null" }
+          ]
+        },
+        "difficulty": { "$ref": "#/$defs/difficulty" },
+        "status": { "$ref": "#/$defs/status" }
+      }
+    },
+    "rubricItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["criterion", "points"],
+      "properties": {
+        "criterion": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "points": { "type": "integer", "minimum": 1, "maximum": 100 }
+      }
+    },
+    "answerCheckRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "expected_answers"],
+      "properties": {
+        "mode": { "enum": ["exact", "normalized", "pending_review"] },
+        "expected_answers": {
+          "type": "array",
+          "maxItems": 20,
+          "items": { "type": "string", "maxLength": 30000 }
+        }
+      }
+    },
+    "lessonCheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["question", "rule"],
+      "properties": {
+        "question": { "type": "string", "minLength": 1, "maxLength": 2000 },
+        "rule": { "$ref": "#/$defs/answerCheckRule" }
+      }
+    },
+    "task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "topic_id", "prompt", "difficulty", "estimated_minutes",
+        "hints", "reference_solution", "rubric", "status"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "topic_id": { "$ref": "#/$defs/id" },
+        "prompt": { "type": "string", "minLength": 1, "maxLength": 20000 },
+        "answer_type": { "enum": ["choice", "number", "text", "code_as_text"] },
+        "options": {
+          "type": "array",
+          "maxItems": 12,
+          "items": { "type": "string", "minLength": 1, "maxLength": 3000 }
+        },
+        "checker": { "$ref": "#/$defs/answerCheckRule" },
+        "difficulty": { "$ref": "#/$defs/difficulty" },
+        "estimated_minutes": { "type": "integer", "minimum": 1, "maximum": 180 },
+        "hints": { "type": "array", "maxItems": 5, "items": { "type": "string", "minLength": 1 } },
+        "reference_solution": { "type": "string", "minLength": 1, "maxLength": 30000 },
+        "rubric": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/rubricItem" } },
+        "status": { "$ref": "#/$defs/status" }
+      }
+    },
+    "reviewCriterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["criterion", "points_awarded", "points_possible"],
+      "properties": {
+        "criterion": {"type": "string", "minLength": 1, "maxLength": 500},
+        "points_awarded": {"type": "integer", "minimum": 0, "maximum": 100},
+        "points_possible": {"type": "integer", "minimum": 1, "maximum": 100}
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version", "review_id", "attempt_id", "task_id", "score", "feedback",
+        "misconceptions", "next_action", "criteria", "needs_human_review"
+      ],
+      "properties": {
+        "schema_version": {"const": 1},
+        "review_id": {"$ref": "#/$defs/id"},
+        "attempt_id": {"$ref": "#/$defs/id"},
+        "task_id": {"$ref": "#/$defs/id"},
+        "score": {"type": "integer", "minimum": 0, "maximum": 100},
+        "feedback": {"type": "string", "minLength": 1, "maxLength": 10000},
+        "misconceptions": {"type": "array", "maxItems": 20, "items": {"type": "string", "minLength": 1, "maxLength": 1000}},
+        "next_action": {"type": "string", "minLength": 1, "maxLength": 2000},
+        "strong_point": {"type": ["string", "null"], "maxLength": 2000},
+        "specific_error": {"type": ["string", "null"], "maxLength": 2000},
+        "improved_reasoning": {"type": ["string", "null"], "maxLength": 10000},
+        "needs_human_review": {"type": "boolean"},
+        "criteria": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/reviewCriterion"}}
+      }
+    },
+    "planItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["item_id", "type"],
+      "properties": {
+        "item_id": { "$ref": "#/$defs/id" },
+        "type": { "enum": ["lesson", "card", "task"] }
+      }
+    },
+    "dailyPlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["date", "target_minutes", "rationale", "items"],
+      "properties": {
+        "date": { "type": "string", "format": "date" },
+        "target_minutes": { "type": "integer", "minimum": 5, "maximum": 180 },
+        "rationale": { "type": "string", "minLength": 1, "maxLength": 1000 },
+        "items": { "type": "array", "minItems": 1, "maxItems": 20, "items": { "$ref": "#/$defs/planItem" } }
+      }
+    }
+  }
+}

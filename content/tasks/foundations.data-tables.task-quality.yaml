@@ -1,0 +1,17 @@
+schema_version: 1
+id: foundations.data-tables.task-quality
+topic_id: foundations.data-tables
+learning_objective: Выбрать ключ для проверки уникальности.
+type: text
+prompt: Какой столбец нужно проверить на уникальность, если одна строка — одна продажа?
+difficulty: medium
+estimated_minutes: 5
+prerequisites: []
+hints:
+  - Ищите идентификатор продажи.
+  - Его имя заканчивается на _id.
+reference_solution: sale_id
+rubric:
+  - criterion: Выбран идентификатор наблюдения
+    points: 100
+status: active

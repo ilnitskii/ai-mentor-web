@@ -1,0 +1,17 @@
+schema_version: 1
+id: sql.window-functions.task-number
+topic_id: sql.window-functions
+prompt: У клиента две продажи на 10 и 20. Какую сумму покажет окно?
+answer_type: number
+options: []
+checker:
+  mode: normalized
+  expected_answers: ["30", "30.0"]
+difficulty: easy
+estimated_minutes: 2
+hints: [Сложите обе продажи клиента.]
+reference_solution: "30"
+rubric:
+  - criterion: Получена сумма окна
+    points: 100
+status: active

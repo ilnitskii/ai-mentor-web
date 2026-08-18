@@ -1,0 +1,34 @@
+schema_version: 1
+cards:
+  - id: foundations.data-tables.card-001
+    topic_id: foundations.data-tables
+    prompt: Что такое зерно таблицы?
+    answer: "Смысл одной строки: какой объект или событие она описывает."
+    explanation: Без определённого зерна нельзя надёжно считать строки и объединять таблицы.
+    source_lesson_id: foundations.data-tables.intro
+    difficulty: easy
+    status: active
+  - id: foundations.data-tables.card-002
+    topic_id: foundations.data-tables
+    prompt: Что обычно представляет столбец?
+    answer: Один признак наблюдения.
+    explanation: "Например, city — признак каждой продажи, а строка — сама продажа."
+    source_lesson_id: foundations.data-tables.intro
+    difficulty: easy
+    status: active
+  - id: foundations.data-tables.card-003
+    topic_id: foundations.data-tables
+    prompt: Текст «1200 руб.» можно сразу корректно суммировать как число. Верно или ложно?
+    answer: Ложно — значение сначала нужно очистить и привести к числовому типу.
+    explanation: Число и строка текста — разные типы данных.
+    source_lesson_id: foundations.data-tables.intro
+    difficulty: easy
+    status: active
+  - id: foundations.data-tables.card-004
+    topic_id: foundations.data-tables
+    prompt: В таблице продаж два одинаковых sale_id. Какую проверку это нарушает?
+    answer: Уникальность идентификатора.
+    explanation: При зерне «одна продажа» идентификатор продажи должен быть уникален.
+    source_lesson_id: foundations.data-tables.intro
+    difficulty: medium
+    status: active

@@ -1,0 +1,85 @@
+schema_version: 1
+track_id: data-analytics.zero-to-job
+title: С нуля до Data Analyst
+target_role: data_analyst
+persona:
+  education: higher_technical_mephi
+  programming_experience: none
+  math_background: strong
+duration_weeks: 36
+weekly_hours:
+  minimum: 8
+  target: 10
+default_daily_minutes: 45
+graduation:
+  core_mastery: 80
+  capstone_score: 75
+  mock_interview_score: 75
+  portfolio_projects: 3
+stages:
+  - id: foundations.data-literacy
+    weeks: 1
+    estimated_hours: 8
+    prerequisites: []
+    gate_mastery: 70
+    outcome: Описать зерно, признаки, типы и проверки качества датасета.
+  - id: spreadsheets.analysis
+    weeks: 2-4
+    estimated_hours: 26
+    prerequisites: [foundations.data-literacy]
+    gate_mastery: 70
+    outcome: Подготовить воспроизводимый табличный отчёт со сводной и графиком.
+  - id: sql.fundamentals
+    weeks: 5-9
+    estimated_hours: 48
+    prerequisites: [spreadsheets.analysis]
+    gate_mastery: 80
+    outcome: Решать аналитические задачи с фильтрами, агрегациями, JOIN и CTE.
+  - id: sql.analytics
+    weeks: 10-12
+    estimated_hours: 30
+    prerequisites: [sql.fundamentals]
+    gate_mastery: 80
+    outcome: Строить оконные, когортные и воронковые SQL-расчёты.
+  - id: python.fundamentals
+    weeks: 13-17
+    estimated_hours: 46
+    prerequisites: [foundations.data-literacy]
+    gate_mastery: 80
+    outcome: Самостоятельно написать небольшую программу чтения и обработки CSV.
+  - id: python.analytics
+    weeks: 18-21
+    estimated_hours: 38
+    prerequisites: [python.fundamentals, sql.fundamentals]
+    gate_mastery: 80
+    outcome: Выполнить очистку и EDA в воспроизводимом notebook.
+  - id: statistics.applied
+    weeks: 22-25
+    estimated_hours: 38
+    prerequisites: [python.analytics]
+    gate_mastery: 80
+    outcome: Оценить неопределённость и корректно проверить гипотезу.
+  - id: product.analytics
+    weeks: 26-29
+    estimated_hours: 36
+    prerequisites: [sql.analytics, statistics.applied]
+    gate_mastery: 80
+    outcome: Разобрать метрики, воронку, retention и A/B-тест продуктового кейса.
+  - id: bi.communication
+    weeks: 30-32
+    estimated_hours: 28
+    prerequisites: [product.analytics]
+    gate_mastery: 75
+    outcome: Собрать дашборд и защитить решение за пять минут.
+  - id: analytics.engineering-basics
+    weeks: 33-34
+    estimated_hours: 18
+    prerequisites: [python.analytics, sql.analytics]
+    gate_mastery: 70
+    outcome: Оформить воспроизводимый репозиторий с data quality checks.
+  - id: career.capstone
+    weeks: 35-36
+    estimated_hours: 24
+    prerequisites: [bi.communication, analytics.engineering-basics]
+    gate_mastery: 75
+    outcome: Защитить capstone, портфолио и два пробных интервью.

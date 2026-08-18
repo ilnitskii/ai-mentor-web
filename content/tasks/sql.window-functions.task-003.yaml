@@ -1,0 +1,22 @@
+schema_version: 1
+id: sql.window-functions.task-code
+topic_id: sql.window-functions
+prompt: Для каждой продажи выведите сумму продаж её клиента, сохранив каждую исходную строку.
+answer_type: code_as_text
+options: []
+checker:
+  mode: normalized
+  expected_answers:
+    - SUM(amount) OVER (PARTITION BY customer_id)
+difficulty: medium
+estimated_minutes: 10
+hints:
+  - Используйте SUM как оконную функцию.
+  - Окно разделяется по customer_id.
+reference_solution: SELECT *, SUM(amount) OVER (PARTITION BY customer_id) AS customer_total FROM sales;
+rubric:
+  - criterion: Использована оконная SUM
+    points: 60
+  - criterion: Разбиение выполнено по customer_id
+    points: 40
+status: active
