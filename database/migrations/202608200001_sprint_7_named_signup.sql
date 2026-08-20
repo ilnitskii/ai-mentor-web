@@ -102,8 +102,10 @@ where not exists (
 )
 on conflict do nothing;
 
-revoke all on function public.handle_new_auth_user() from public;
-revoke all on function public.set_profile_identity_defaults() from public;
+-- Hosted Supabase grants newly created public-schema functions to API roles.
+-- Revoke those explicit grants as well as the PostgreSQL PUBLIC grant.
+revoke all on function public.handle_new_auth_user() from public, anon, authenticated;
+revoke all on function public.set_profile_identity_defaults() from public, anon, authenticated;
 grant execute on function public.handle_new_auth_user() to supabase_auth_admin, service_role;
 grant execute on function public.set_profile_identity_defaults() to service_role;
 
