@@ -3,7 +3,12 @@ id: foundations.data-tables.task-text
 topic_id: foundations.data-tables
 learning_objective: Объяснить различие наблюдения и признака.
 type: text
+answer_type: text
 prompt: Объясните своими словами разницу между строкой и столбцом таблицы продаж.
+options: []
+checker:
+  mode: pending_review
+  expected_answers: []
 difficulty: medium
 estimated_minutes: 4
 prerequisites: []

@@ -13,6 +13,36 @@ ROOT = repository_root()
 def _candidate(directory: Path, *, moved_topic: bool = False) -> None:
     directory.mkdir(parents=True, exist_ok=True)
     (directory / "run_summary.md").write_text("# Run summary\n\nWeak first evidence.\n")
+    (directory / "weekly_report.yaml").write_text(
+        """schema_version: 1
+report_id: weekly.synthetic.2026-08-18
+period_start: '2026-08-10'
+period_end: '2026-08-16'
+summary: Synthetic evidence summary.
+improvements: []
+weak_topics:
+  - topic_id: foundations.data-tables
+    evidence: One synthetic incorrect answer.
+    action: Repeat one independent task.
+next_focus: Table grain.
+""",
+        encoding="utf-8",
+    )
+    (directory / "assignment.yaml").write_text(
+        """schema_version: 1
+assignment_id: assignment.synthetic.2026-08-18
+report_id: weekly.synthetic.2026-08-18
+title: Synthetic control
+estimated_minutes: 25
+task_ids:
+  - foundations.data-tables.task-choice
+  - foundations.data-tables.task-number
+  - foundations.data-tables.task-quality
+  - foundations.data-tables.task-text
+rationale: Verify the evidenced weak topic independently.
+""",
+        encoding="utf-8",
+    )
     (directory / "daily_plan.yaml").write_text(
         """date: 2026-08-18
 target_minutes: 10

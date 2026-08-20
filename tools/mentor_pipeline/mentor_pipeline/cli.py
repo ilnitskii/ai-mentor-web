@@ -14,9 +14,20 @@ from mentor_pipeline.content import validate_course, validate_curriculum
 from mentor_pipeline.doctor import run_doctor
 from mentor_pipeline.ingest import ingest_directory
 from mentor_pipeline.paths import repository_root
+from mentor_pipeline.pipeline_state import CursorStore
 from mentor_pipeline.prompt import build_prompt_file
 from mentor_pipeline.report import make_report, write_run_report
 from mentor_pipeline.schema import load_json, validate_json
+from mentor_pipeline.supabase_adapter import (
+    FakePipelineAdapter,
+    PipelineConfig,
+    SupabasePipelineAdapter,
+)
+from mentor_pipeline.weekly import run_weekly_dry_run
+from mentor_pipeline.weekly_orchestrator import (
+    approve_candidate,
+    quarantine_candidate,
+)
 
 app = typer.Typer(no_args_is_help=True, help="AI Mentor deterministic content pipeline")
 console = Console()
@@ -113,3 +124,59 @@ def prepare_mentor_run(run_id: str | None = None) -> None:
     prompt = build_prompt_file(ROOT, resolved)
     console.print(f"[green]prepared[/green] {prompt}")
 
+
+@app.command("weekly-dry-run")
+def weekly_dry_run(
+    run_id: str | None = None,
+    fake_source: Annotated[Path | None, typer.Option("--fake-source")] = None,
+) -> None:
+    """Fetch isolated user batches and aggregate locally without Codex or DB writes."""
+    resolved = run_id or datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
+    run_directory = ROOT / ".mentor/runs" / resolved
+    if run_directory.exists():
+        raise typer.BadParameter("run_id already exists")
+    if fake_source is not None:
+        source = load_json(_path(fake_source))
+        adapter = FakePipelineAdapter(
+            profiles=source["profiles"],
+            events=source["events"],
+            pending_reviews=source["pending_reviews"],
+            tables=source["tables"],
+        )
+    else:
+        adapter = SupabasePipelineAdapter(PipelineConfig.from_environment())
+    report = run_weekly_dry_run(
+        adapter,
+        CursorStore(ROOT / ".mentor/pipeline/cursors.json"),
+        run_directory,
+    )
+    table = Table("User ref", "Events", "Pending reviews", "Event IDs")
+    for user in report["users"]:
+        table.add_row(
+            str(user["user_ref"]),
+            str(user["event_count"]),
+            str(user["pending_review_count"]),
+            ", ".join(user["event_ids"]),
+        )
+    console.print(table)
+    console.print(
+        f"[green]dry-run complete[/green] users={report['user_count']} "
+        f"remote_writes={report['remote_writes']} cursor_advanced={report['cursor_advanced']}"
+    )
+
+
+@app.command("candidate-digest")
+def candidate_digest(path: Path) -> None:
+    """Print the manual-approval digest for one validated candidate directory."""
+    approval = approve_candidate(_path(path))
+    console.print(approval.digest)
+
+
+@app.command("quarantine-candidate")
+def quarantine_candidate_command(
+    path: Path,
+    destination: Path = Path(".mentor/quarantine"),
+) -> None:
+    """Move a rejected candidate into the local ignored quarantine area."""
+    quarantined = quarantine_candidate(_path(path), _path(destination))
+    console.print(f"[yellow]quarantined[/yellow] {quarantined.relative_to(ROOT)}")

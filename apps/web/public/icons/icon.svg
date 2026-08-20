@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">AI Mentor</title>
+  <rect width="512" height="512" rx="112" fill="#173d35" />
+  <path d="M120 344V174c0-25 20-46 46-46h180c25 0 46 21 46 46v170c0 22-18 40-40 40H160c-22 0-40-18-40-40Z" fill="#f4f3ee" />
+  <path d="m170 304 58-108c12-22 44-22 56 0l58 108" fill="none" stroke="#d46b3c" stroke-linecap="round" stroke-width="32" />
+  <path d="M199 274h114" stroke="#173d35" stroke-linecap="round" stroke-width="24" />
+  <circle cx="256" cy="105" r="27" fill="#e9b949" />
+</svg>

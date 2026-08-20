@@ -3,7 +3,12 @@ id: foundations.data-tables.task-number
 topic_id: foundations.data-tables
 learning_objective: Отличить строки данных от заголовка.
 type: number
+answer_type: number
 prompt: В таблице есть заголовок и три строки продаж. Сколько в ней наблюдений?
+options: []
+checker:
+  mode: normalized
+  expected_answers: ["3", "3.0"]
 difficulty: easy
 estimated_minutes: 2
 prerequisites: []

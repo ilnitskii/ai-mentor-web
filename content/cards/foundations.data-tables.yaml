@@ -4,6 +4,9 @@ cards:
     topic_id: foundations.data-tables
     prompt: Что такое зерно таблицы?
     answer: "Смысл одной строки: какой объект или событие она описывает."
+    type: question_answer
+    choices: []
+    correct_choice_index: null
     explanation: Без определённого зерна нельзя надёжно считать строки и объединять таблицы.
     source_lesson_id: foundations.data-tables.intro
     difficulty: easy
@@ -12,6 +15,9 @@ cards:
     topic_id: foundations.data-tables
     prompt: Что обычно представляет столбец?
     answer: Один признак наблюдения.
+    type: multiple_choice
+    choices: [Одно наблюдение, Один признак, Вся таблица]
+    correct_choice_index: 1
     explanation: "Например, city — признак каждой продажи, а строка — сама продажа."
     source_lesson_id: foundations.data-tables.intro
     difficulty: easy
@@ -20,6 +26,9 @@ cards:
     topic_id: foundations.data-tables
     prompt: Текст «1200 руб.» можно сразу корректно суммировать как число. Верно или ложно?
     answer: Ложно — значение сначала нужно очистить и привести к числовому типу.
+    type: true_false
+    choices: [Верно, Ложь]
+    correct_choice_index: 1
     explanation: Число и строка текста — разные типы данных.
     source_lesson_id: foundations.data-tables.intro
     difficulty: easy
@@ -28,7 +37,21 @@ cards:
     topic_id: foundations.data-tables
     prompt: В таблице продаж два одинаковых sale_id. Какую проверку это нарушает?
     answer: Уникальность идентификатора.
+    type: question_answer
+    choices: []
+    correct_choice_index: null
     explanation: При зерне «одна продажа» идентификатор продажи должен быть уникален.
     source_lesson_id: foundations.data-tables.intro
     difficulty: medium
+    status: active
+  - id: foundations.data-tables.card-005
+    topic_id: foundations.data-tables
+    prompt: Какую проблему качества обозначает пустая ячейка в столбце city?
+    answer: Пропущенное значение.
+    type: multiple_choice
+    choices: [Дубликат строки, Пропущенное значение, Неверное зерно]
+    correct_choice_index: 1
+    explanation: Пустая ячейка — пропуск; перед анализом нужно понять его причину и способ обработки.
+    source_lesson_id: foundations.data-tables.intro
+    difficulty: easy
     status: active

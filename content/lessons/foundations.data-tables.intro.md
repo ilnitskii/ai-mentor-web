@@ -4,6 +4,11 @@ id: foundations.data-tables.intro
 topic_id: foundations.data-tables
 title: Строка, столбец и наблюдение
 estimated_minutes: 6
+check:
+  question: Что описывает одна строка в примере?
+  rule:
+    mode: normalized
+    expected_answers: [одну продажу, продажу, одно событие продажи]
 status: active
 ---
 

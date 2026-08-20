@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aimentor.local/schemas/weekly-report.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "report_id", "period_start", "period_end", "summary", "improvements", "weak_topics", "next_focus"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "report_id": {"$ref": "#/$defs/id"},
+    "period_start": {"type": "string", "format": "date"},
+    "period_end": {"type": "string", "format": "date"},
+    "summary": {"type": "string", "minLength": 1, "maxLength": 5000},
+    "improvements": {"type": "array", "maxItems": 10, "items": {"type": "string", "minLength": 1, "maxLength": 1000}},
+    "weak_topics": {
+      "type": "array", "maxItems": 3,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["topic_id", "evidence", "action"],
+        "properties": {
+          "topic_id": {"$ref": "#/$defs/id"},
+          "evidence": {"type": "string", "minLength": 1, "maxLength": 2000},
+          "action": {"type": "string", "minLength": 1, "maxLength": 2000}
+        }
+      }
+    },
+    "next_focus": {"type": "string", "minLength": 1, "maxLength": 2000}
+  },
+  "$defs": {"id": {"type": "string", "minLength": 1, "maxLength": 160, "pattern": "^[a-z0-9][a-z0-9._-]*$"}}
+}

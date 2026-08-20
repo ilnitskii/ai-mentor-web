@@ -14,6 +14,7 @@ apps/web/dist/
 coverage/
 playwright-report/
 test-results/
+output/playwright/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -41,3 +42,4 @@ supabase/.temp/
 .DS_Store
 .idea/
 .vscode/
+database/supabase/.temp/

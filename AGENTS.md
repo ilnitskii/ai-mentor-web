@@ -8,3 +8,4 @@ For a weekly mentor/content-generation run, read and follow `codex.md`; its stag
 
 Never place Supabase secret/service-role keys, direct Postgres credentials, Codex tokens or real user answers in git, frontend bundles, fixtures or logs. A Supabase publishable key may be used in the frontend only with tested Row Level Security policies.
 
+The project has a connected Supabase MCP server. Use it for read-only project inspection, generated types, logs and security/performance advisors. Keep versioned SQL migrations in `database/migrations/` as the source of truth: inspect the remote schema before a change, review the local migration, and only then apply it remotely. Never copy keys, credentials, tokens or real answer bodies from MCP responses into files or logs.

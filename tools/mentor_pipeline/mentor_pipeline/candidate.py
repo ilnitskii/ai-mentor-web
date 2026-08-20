@@ -261,6 +261,10 @@ def validate_and_compile_candidate(
 
     allowed_top = {
         "run_summary.md",
+        "weekly_report.yaml",
+        "weekly_report.yml",
+        "assignment.yaml",
+        "assignment.yml",
         "daily_plan.yaml",
         "daily_plan.yml",
         "lessons",
@@ -276,6 +280,40 @@ def validate_and_compile_candidate(
     summary_path = candidate_directory / "run_summary.md"
     if not summary_path.is_file() or not summary_path.read_text(encoding="utf-8").strip():
         raise PipelineError("VALIDATION_FAILED", "run_summary.md is required")
+    report_path = next(
+        (
+            path
+            for path in (
+                candidate_directory / "weekly_report.yaml",
+                candidate_directory / "weekly_report.yml",
+            )
+            if path.is_file()
+        ),
+        None,
+    )
+    assignment_path = next(
+        (
+            path
+            for path in (
+                candidate_directory / "assignment.yaml",
+                candidate_directory / "assignment.yml",
+            )
+            if path.is_file()
+        ),
+        None,
+    )
+    if report_path is None or assignment_path is None:
+        raise PipelineError("VALIDATION_FAILED", "weekly report and assignment are required")
+    weekly_report = _yaml(report_path)
+    assignment = _yaml(assignment_path)
+    validate_json(weekly_report, root / "schemas/weekly-report.schema.json")
+    validate_json(assignment, root / "schemas/assignment.schema.json")
+    if assignment["report_id"] != weekly_report["report_id"]:
+        raise PipelineError("VALIDATION_FAILED", "Assignment must reference its weekly report")
+    if date.fromisoformat(weekly_report["period_end"]) < date.fromisoformat(
+        weekly_report["period_start"]
+    ):
+        raise PipelineError("VALIDATION_FAILED", "Weekly report period is invalid")
     plan_paths = [candidate_directory / "daily_plan.yaml", candidate_directory / "daily_plan.yml"]
     plan_path = next((path for path in plan_paths if path.is_file()), None)
     if plan_path is None:
@@ -331,6 +369,14 @@ def validate_and_compile_candidate(
     course["cards"] = _merge(base["cards"], cards)
     course["tasks"] = _merge(base["tasks"], tasks)
     course["daily_plan"] = plan
+    known_task_ids = {item["id"] for item in course["tasks"]}
+    unknown_assignment_tasks = set(assignment["task_ids"]) - known_task_ids
+    if unknown_assignment_tasks:
+        raise PipelineError(
+            "VALIDATION_FAILED",
+            "Assignment references unknown tasks",
+            task_ids=sorted(unknown_assignment_tasks),
+        )
 
     reviews: list[dict[str, Any]] = []
     for review in _items(candidate_directory / "reviews", "reviews"):
