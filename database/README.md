@@ -4,6 +4,21 @@
 safe to run again against the same schema. Supabase normally records migration
 versions and rejects an already applied version before SQL is executed.
 
+## Current hosted state
+
+As of 2026-08-20, all six migrations through
+`202608200001_sprint_7_named_signup.sql` are applied to the hosted project and
+recorded as `applied` in `supabase_migrations.schema_migrations`. The schema was
+initially executed in SQL Editor; `supabase migration repair` was then used only
+to reconcile migration history. It did not execute the migration SQL again.
+The synthetic seed has never been applied to the hosted project.
+
+For the next database change, add a new migration after the six existing files,
+inspect the hosted schema and migration list, review the new SQL, then use the
+normal Supabase migration workflow. Do not repair an existing version unless
+the schema was applied by another audited path and the SQL state has first been
+verified to match that version.
+
 ## Local verification
 
 Install dependencies, then run the fast empty-database and RLS check from the
