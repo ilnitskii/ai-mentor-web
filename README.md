@@ -53,7 +53,7 @@ Versioned reducer `progress-v1` строит mastery/evidence history, расп�
 
 Weekly orchestration использует exclusive lock, отдельный candidate каждого пользователя, schema/policy/stable-ID checks, manual digest approval и quarantine. PostgreSQL RPC публикует report, assignment, reviews и audit cursor одной транзакцией; локальный cursor записывается последним. Идемпотентный повтор не создаёт второй assignment, а tampering, invalid review или DB error не меняют cursor. Реальные первые hosted/Codex runs намеренно оставлены ручным release gate.
 
-Markdown рендерится без raw HTML, закрытые ответы проверяются детерминированно, а свободные получают `pending_review`. Контент собирается из `content/` в типизированный web snapshot и сохраняется в публичный IndexedDB cache. Миграции пользовательских и projection-таблиц, RLS и pgTAP tests находятся в `database/`. Применение к hosted project и отключение signup выполняются владельцем по `database/README.md` после backup/test.
+Markdown рендерится без raw HTML, закрытые ответы проверяются детерминированно, а свободные получают `pending_review`. Контент собирается из `content/` в типизированный web snapshot и сохраняется в публичный IndexedDB cache. Миграции пользовательских и projection-таблиц, RLS и pgTAP tests находятся в `database/`. Все шесть миграций применены к hosted Supabase и отмечены в migration history; самостоятельная регистрация по имени и паролю включена, synthetic seed не применялся.
 
 ## Структура
 

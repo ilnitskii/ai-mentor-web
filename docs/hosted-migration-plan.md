@@ -55,11 +55,12 @@
 - Confirm email выключен, email/password signup включён, anonymous signup
   выключен.
 
-Применение выполнялось через SQL Editor, поэтому таблица
-`supabase_migrations.schema_migrations` не была создана. Перед первым
-подключением Supabase CLI и `supabase db push` нужно выполнить официальный
-`migration repair` для шести версий выше; повторно выполнять миграции вслепую
-нельзя.
+Применение выполнялось через SQL Editor, поэтому первоначально журнал
+`supabase_migrations.schema_migrations` отсутствовал. 2026-08-20 выполнен
+официальный `supabase migration repair`: CLI и Supabase MCP показывают все шесть
+версий выше со статусом `applied`. SQL миграций повторно не выполнялся,
+synthetic seed не запускался. Следующий `supabase db push` должен добавлять
+только новые версии миграций.
 
 ## Rollback
 

@@ -42,3 +42,4 @@ supabase/.temp/
 .DS_Store
 .idea/
 .vscode/
+database/supabase/.temp/
