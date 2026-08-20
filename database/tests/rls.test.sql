@@ -1,7 +1,7 @@
 begin;
 
 create extension if not exists pgtap with schema extensions;
-select plan(62);
+select plan(66);
 
 -- Seed is loaded by `supabase test db`; these upserts also make the test standalone.
 insert into auth.users (instance_id, id, aud, role, email, raw_app_meta_data, raw_user_meta_data)
@@ -88,6 +88,22 @@ select ok(not has_table_privilege('anon', 'public.card_states', 'select'), 'anon
 select ok(not has_table_privilege('anon', 'public.weekly_reports', 'select'), 'anonymous cannot select weekly reports');
 select ok(not has_table_privilege('anon', 'public.assignments', 'select'), 'anonymous cannot select assignments');
 select ok(not has_table_privilege('anon', 'public.reviews', 'select'), 'anonymous cannot select reviews');
+select ok(
+  not has_function_privilege('anon', 'public.handle_new_auth_user()', 'execute'),
+  'anonymous cannot execute the security-definer signup trigger'
+);
+select ok(
+  not has_function_privilege('authenticated', 'public.handle_new_auth_user()', 'execute'),
+  'browser users cannot execute the security-definer signup trigger'
+);
+select ok(
+  not has_function_privilege('anon', 'public.set_profile_identity_defaults()', 'execute'),
+  'anonymous cannot execute the profile-defaults trigger'
+);
+select ok(
+  not has_function_privilege('authenticated', 'public.set_profile_identity_defaults()', 'execute'),
+  'browser users cannot execute the profile-defaults trigger'
+);
 
 set local role authenticated;
 select set_config('request.jwt.claims', '{"sub":"10000000-0000-4000-8000-000000000001","role":"authenticated"}', true);
