@@ -1,6 +1,7 @@
-# План первого применения миграций в hosted Supabase
+# План и результат первого применения миграций в hosted Supabase
 
-Статус: подготовлено, удалённая БД не изменялась.
+Статус на 2026-08-20: все шесть миграций применены к пустому hosted project в
+указанном ниже порядке. Synthetic seed не применялся.
 
 ## Release gate
 
@@ -37,6 +38,28 @@
 - security/performance advisors не показывают новых критичных проблем;
 - регистрация тестового пользователя выполняется только после настройки Auth
   из `docs/environment.md`.
+
+Фактический post-check от 2026-08-20:
+
+- созданы девять ожидаемых таблиц и RPC `publish_weekly_bundle`;
+- RLS включён на всех девяти таблицах, установлены 11 ожидаемых policies;
+- `anon` не читает `profiles`, а browser roles не выполняют
+  `publish_weekly_bundle` и signup trigger functions;
+- `service_role` сохраняет доступ к transactional publish, а
+  `supabase_auth_admin` — к auth trigger;
+- Security Advisor: 0 errors, 0 warnings; единственная info-рекомендация про
+  отсутствие policy у `pipeline_runs` ожидаема, потому что таблица доступна
+  только `service_role`;
+- Performance Advisor: 0 errors, 0 warnings; info содержит ожидаемые для пустой
+  базы unused indexes и две рекомендации по индексам внешних ключей;
+- Confirm email выключен, email/password signup включён, anonymous signup
+  выключен.
+
+Применение выполнялось через SQL Editor, поэтому таблица
+`supabase_migrations.schema_migrations` не была создана. Перед первым
+подключением Supabase CLI и `supabase db push` нужно выполнить официальный
+`migration repair` для шести версий выше; повторно выполнять миграции вслепую
+нельзя.
 
 ## Rollback
 
