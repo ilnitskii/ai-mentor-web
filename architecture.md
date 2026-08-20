@@ -2,14 +2,14 @@
 
 Статус: Architecture Baseline 2.0  
 Дата: 2026-08-18  
-Решение: [ADR-002](docs/adr/ADR-002-web-pwa-github-pages-supabase.md)
+Решения: [ADR-002](docs/adr/ADR-002-web-pwa-github-pages-supabase.md), [ADR-003](docs/adr/ADR-003-self-service-named-signup.md)
 
 ## 1. Зафиксированные решения
 
 1. **Web/PWA вместо native iOS.** Единственный пользовательский клиент — responsive SPA/PWA, оптимизированная для Safari на iPhone и desktop‑браузеров.
 2. **GitHub Pages обслуживает только статику.** HTML, CSS, JavaScript, service worker и публичный учебный контент собираются GitHub Actions и публикуются на Pages.
 3. **Supabase — backend MVP.** Используются Postgres, Auth и Data API на Free plan. Собственный постоянно работающий сервер отсутствует.
-4. **Маленькая закрытая группа.** Система рассчитана на 1–3 заранее созданных пользователя. Публичная регистрация после bootstrap выключена.
+4. **Маленькая закрытая группа.** Система рассчитана на 1–3 пользователей. Они регистрируются по имени + паролю в короткое bootstrap-окно, после чего signup можно выключить.
 5. **Браузер обращается к БД через RLS.** Frontend использует только publishable key и JWT пользователя. Каждая пользовательская таблица защищена Row Level Security.
 6. **Append-only progress events.** Учебные действия записываются как неизменяемые события с уникальным `event_id`; повторная отправка идемпотентна.
 7. **Локальный offline buffer.** IndexedDB хранит кэш контента, активную сессию и очередь неподтверждённых событий. Postgres остаётся источником истины после подтверждения sync.
@@ -60,7 +60,7 @@ flowchart LR
 |---|---|
 | База | Supabase Postgres Free |
 | Browser API | Supabase Data API через `supabase-js` |
-| Auth | email/password; пользователей создаёт владелец, signup выключен |
+| Auth | имя + пароль поверх Supabase email/password с внутренним техническим email |
 | Авторизация | RLS: `auth.uid() = user_id`; admin access только локальному pipeline |
 | Миграции | SQL в `database/migrations/`, последовательно и идемпотентно |
 | Seed | только публичный учебный контент и synthetic users/fixtures |
@@ -175,8 +175,8 @@ ai_mentor_app/
 
 ## 6. Auth и RLS
 
-1. Владелец вручную создаёт до трёх пользователей в Supabase Dashboard.
-2. Публичный signup выключается.
+1. Владелец временно разрешает signup и отключает email confirmation.
+2. До трёх пользователей регистрируются по уникальному имени и паролю; затем signup можно выключить.
 3. После login браузер получает JWT.
 4. На каждой пользовательской таблице включён RLS до выдачи frontend grants.
 5. `select/insert/update` разрешаются только строкам текущего `auth.uid()` и только нужным операциям.

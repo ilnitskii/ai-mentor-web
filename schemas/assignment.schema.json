@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aimentor.local/schemas/assignment.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "assignment_id", "report_id", "title", "estimated_minutes", "task_ids", "rationale"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "assignment_id": {"$ref": "#/$defs/id"},
+    "report_id": {"$ref": "#/$defs/id"},
+    "title": {"type": "string", "minLength": 1, "maxLength": 300},
+    "estimated_minutes": {"type": "integer", "minimum": 20, "maximum": 40},
+    "task_ids": {"type": "array", "minItems": 4, "maxItems": 8, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+    "rationale": {"type": "string", "minLength": 1, "maxLength": 3000}
+  },
+  "$defs": {"id": {"type": "string", "minLength": 1, "maxLength": 160, "pattern": "^[a-z0-9][a-z0-9._-]*$"}}
+}

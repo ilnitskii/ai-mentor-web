@@ -1,0 +1,62 @@
+{
+  "profiles": [
+    {
+      "user_id": "10000000-0000-4000-8000-000000000001",
+      "timezone": "Europe/Moscow",
+      "goal": "Synthetic Alice goal",
+      "level": "beginner",
+      "learning_role": "data_analyst"
+    },
+    {
+      "user_id": "20000000-0000-4000-8000-000000000002",
+      "timezone": "UTC",
+      "goal": "Synthetic Bob goal",
+      "level": "junior",
+      "learning_role": "data_analyst"
+    }
+  ],
+  "events": [
+    {
+      "schema_version": 1,
+      "event_id": "71000000-0000-4000-8000-000000000001",
+      "user_id": "10000000-0000-4000-8000-000000000001",
+      "device_id": "alice-fixture-device",
+      "profile_id": "default",
+      "item_id": "foundations.data-tables.task-choice",
+      "event_type": "task_submitted",
+      "occurred_at": "2026-08-18T08:00:00Z",
+      "timezone": "Europe/Moscow",
+      "payload": { "correct": false, "hints_used": 1 },
+      "received_at": "2026-08-18T08:00:01Z"
+    },
+    {
+      "schema_version": 1,
+      "event_id": "72000000-0000-4000-8000-000000000002",
+      "user_id": "20000000-0000-4000-8000-000000000002",
+      "device_id": "bob-fixture-device",
+      "profile_id": "default",
+      "item_id": "foundations.data-tables.card-001",
+      "event_type": "card_reviewed",
+      "occurred_at": "2026-08-18T09:00:00Z",
+      "timezone": "UTC",
+      "payload": { "correct": true, "rating": "good" },
+      "received_at": "2026-08-18T09:00:01Z"
+    }
+  ],
+  "pending_reviews": [
+    {
+      "review_id": "73000000-0000-4000-8000-000000000003",
+      "attempt_id": "73000000-0000-4000-8000-000000000004",
+      "user_id": "10000000-0000-4000-8000-000000000001",
+      "task_id": "foundations.data-tables.task-text",
+      "answer": "Synthetic private Alice answer",
+      "status": "pending_review",
+      "submitted_at": "2026-08-18T08:30:00Z"
+    }
+  ],
+  "tables": {
+    "weekly_reports": [],
+    "assignments": [],
+    "reviews": []
+  }
+}

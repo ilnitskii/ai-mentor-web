@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from collections import defaultdict
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 from mentor_pipeline.models import ProgressEvent
@@ -33,7 +33,7 @@ def _outcome(event: ProgressEvent) -> bool | None:
     return None
 
 
-def _evidence_weight(event: ProgressEvent) -> float:
+def _evidence_weight(event: ProgressEvent, as_of: datetime, repeated: bool) -> float:
     base = {
         "lesson_completed": 0.2,
         "card_reviewed": 0.6,
@@ -42,7 +42,15 @@ def _evidence_weight(event: ProgressEvent) -> float:
         "plan_completed": 0.0,
     }[event.event_type]
     hints = event.payload.get("hints_used", 0)
-    return base * (0.5 if isinstance(hints, int) and hints > 0 else 1.0)
+    if isinstance(hints, int) and hints > 0:
+        base *= 0.5
+    if event.payload.get("solution_viewed") is True:
+        base *= 0.5
+    age_days = max(0.0, (as_of - event.occurred_at).total_seconds() / 86_400)
+    base *= 1.0 if age_days <= 7 else 0.85 if age_days <= 30 else 0.7
+    if repeated:
+        base *= 0.25
+    return round(base, 4)
 
 
 def _write_pending_review(root: Path, event: ProgressEvent) -> None:
@@ -70,7 +78,13 @@ def _write_pending_review(root: Path, event: ProgressEvent) -> None:
     )
 
 
-def aggregate_events(source: Path, output: Path, profile_id: str) -> dict:
+def aggregate_events(
+    source: Path,
+    output: Path,
+    profile_id: str,
+    *,
+    as_of: datetime | None = None,
+) -> dict:
     ensure_within_workspace(source)
     ensure_within_workspace(output)
     topics: dict[str, dict] = defaultdict(
@@ -81,19 +95,32 @@ def aggregate_events(source: Path, output: Path, profile_id: str) -> dict:
             "weighted_correct": 0.0,
             "weight": 0.0,
             "lesson_only": True,
+            "items_seen": set(),
         }
     )
-    events = []
+    projection_time = (as_of or datetime.now(UTC)).astimezone(UTC)
+    parsed_events = []
+    seen_event_ids: set[str] = set()
     for path in sorted(source.glob("*.json")):
         event = ProgressEvent.model_validate(load_json(path))
         if event.profile_id != profile_id:
             continue
-        events.append(event)
+        if event.event_id in seen_event_ids:
+            continue
+        seen_event_ids.add(event.event_id)
+        if event.occurred_at > projection_time + timedelta(minutes=5):
+            continue
+        parsed_events.append(event)
         _write_pending_review(output.parents[2], event)
+
+    events = sorted(parsed_events, key=lambda item: (item.occurred_at, item.event_id))
+    for event in events:
         item = topics[_topic_id(event)]
         item["evidence_count"] += 1
         correct = _outcome(event)
-        weight = _evidence_weight(event)
+        repeated = event.item_id in item["items_seen"]
+        item["items_seen"].add(event.item_id)
+        weight = _evidence_weight(event, projection_time, repeated)
         if event.event_type != "lesson_completed":
             item["lesson_only"] = False
         if correct is not None:
@@ -138,7 +165,7 @@ def aggregate_events(source: Path, output: Path, profile_id: str) -> dict:
     summary = {
         "schema_version": 1,
         "profile_id": profile_id,
-        "generated_at": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
+        "generated_at": projection_time.isoformat().replace("+00:00", "Z"),
         "unseen_event_count": len(events),
         "topics": topic_rows,
     }

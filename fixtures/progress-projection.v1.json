@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "algorithm_version": "progress-v1",
+  "as_of": "2026-08-18T12:00:00Z",
+  "events": [
+    {
+      "event_id": "51000000-0000-4000-8000-000000000001",
+      "user_id": "10000000-0000-4000-8000-000000000001",
+      "schema_version": 1,
+      "profile_id": "default",
+      "device_id": "fixture-device",
+      "item_id": "foundations.data-tables.intro",
+      "event_type": "lesson_completed",
+      "occurred_at": "2026-08-18T08:00:00Z",
+      "timezone": "Europe/Moscow",
+      "payload": { "correct": true }
+    },
+    {
+      "event_id": "51000000-0000-4000-8000-000000000002",
+      "user_id": "10000000-0000-4000-8000-000000000001",
+      "schema_version": 1,
+      "profile_id": "default",
+      "device_id": "fixture-device",
+      "item_id": "foundations.data-tables.card-001",
+      "event_type": "card_reviewed",
+      "occurred_at": "2026-08-18T09:00:00Z",
+      "timezone": "Europe/Moscow",
+      "payload": { "correct": true, "rating": "good" }
+    },
+    {
+      "event_id": "51000000-0000-4000-8000-000000000003",
+      "user_id": "10000000-0000-4000-8000-000000000001",
+      "schema_version": 1,
+      "profile_id": "default",
+      "device_id": "fixture-device",
+      "item_id": "foundations.data-tables.task-choice",
+      "event_type": "task_submitted",
+      "occurred_at": "2026-08-18T10:00:00Z",
+      "timezone": "Europe/Moscow",
+      "payload": { "correct": true, "hints_used": 1 }
+    },
+    {
+      "event_id": "51000000-0000-4000-8000-000000000004",
+      "user_id": "10000000-0000-4000-8000-000000000001",
+      "schema_version": 1,
+      "profile_id": "default",
+      "device_id": "fixture-device",
+      "item_id": "foundations.data-tables.task-choice",
+      "event_type": "task_submitted",
+      "occurred_at": "2026-08-18T11:00:00Z",
+      "timezone": "Europe/Moscow",
+      "payload": { "correct": false, "hints_used": 0 }
+    }
+  ],
+  "expected": {
+    "topic_id": "foundations.data-tables",
+    "mastery": 84,
+    "evidence_count": 4,
+    "recent_accuracy": 0.75,
+    "total_xp": 25,
+    "card_due_at": "2026-08-20T09:00:00.000Z",
+    "recent_mistake_count": 1
+  }
+}

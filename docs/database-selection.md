@@ -81,7 +81,7 @@ Secret/service-role key обходит RLS. Его нельзя добавлят
 3. Создать таблицы migrations, а не вручную без истории.
 4. Включить RLS на таблице до выдачи `anon/authenticated` grants.
 5. Владелец создаёт 1–3 пользователей вручную.
-6. Выключить public signup.
+6. После регистрации известных пользователей выключить public signup.
 7. Для каждой таблицы протестировать anonymous, Alice, Bob и admin.
 8. Для `progress_events` разрешить пользователю `select/insert`, но не `update/delete`.
 9. Не доверять `user_id` из JSON; policy должна сравнивать его с `auth.uid()`.
@@ -104,4 +104,3 @@ Secret/service-role key обходит RLS. Его нельзя добавлят
 - RLS/authorization acceptance cases воспроизведены;
 - browser не получает privileged credentials;
 - Python pipeline имеет read/write adapter и idempotent cursor.
-

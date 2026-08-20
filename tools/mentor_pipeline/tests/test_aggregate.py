@@ -1,10 +1,34 @@
 import json
 import shutil
+from datetime import UTC, datetime
 
 from mentor_pipeline.aggregate import aggregate_events
 from mentor_pipeline.paths import repository_root
 
 ROOT = repository_root()
+
+
+def test_aggregate_matches_shared_progress_v1_fixture() -> None:
+    fixture = json.loads((ROOT / "fixtures/progress-projection.v1.json").read_text())
+    workspace = ROOT / ".mentor/sprint5-shared-fixture"
+    shutil.rmtree(workspace, ignore_errors=True)
+    source = workspace / "raw"
+    source.mkdir(parents=True)
+    for index, event in enumerate(fixture["events"]):
+        (source / f"{index}.json").write_text(json.dumps(event), encoding="utf-8")
+
+    summary = aggregate_events(
+        source,
+        workspace / "summary.json",
+        "default",
+        as_of=datetime.fromisoformat(fixture["as_of"].replace("Z", "+00:00")).astimezone(UTC),
+    )
+
+    topic = summary["topics"][0]
+    assert topic["topic_id"] == fixture["expected"]["topic_id"]
+    assert topic["mastery"] == fixture["expected"]["mastery"]
+    assert topic["evidence_count"] == fixture["expected"]["evidence_count"]
+    assert topic["recent_accuracy"] == fixture["expected"]["recent_accuracy"]
 
 
 def test_aggregate_builds_weak_topic_and_private_pending_review_context() -> None:

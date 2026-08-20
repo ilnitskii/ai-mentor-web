@@ -1,0 +1,25 @@
+{
+  "name": "ai-mentor-web-workspace",
+  "private": true,
+  "workspaces": [
+    "apps/web"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace @ai-mentor/web",
+    "build": "npm run build --workspace @ai-mentor/web",
+    "lint": "npm run lint --workspace @ai-mentor/web",
+    "typecheck": "npm run typecheck --workspace @ai-mentor/web",
+    "test": "npm run test --workspace @ai-mentor/web",
+    "test:run": "npm run test:run --workspace @ai-mentor/web",
+    "format:check": "npm run format:check --workspace @ai-mentor/web",
+    "content:build": "node tools/content/build-web-content.mjs",
+    "db:test": "node tools/database/test-pglite.mjs",
+    "db:test:supabase": "tools/database/test.sh",
+    "check": "npm run content:build && npm run lint && npm run typecheck && npm run test:run && npm run format:check && npm run build"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.5",
+    "supabase": "^2.115.0",
+    "yaml": "^2.9.0"
+  }
+}
