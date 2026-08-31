@@ -65,6 +65,25 @@ describe("App shell", () => {
     expect(window.location.hash).toBe("#/progress");
   });
 
+  it("shows all four weeks and twenty selectable lessons", async () => {
+    render(<App services={createFakeBackendServices()} />);
+    const user = await signIn();
+
+    await user.click(screen.getAllByRole("link", { name: /учиться/i })[0]);
+
+    expect(
+      await screen.findByRole("heading", {
+        name: "Старт и грамотность работы с данными",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        name: "Визуализация и завершённый табличный отчёт",
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getAllByRole("link", { name: /день \d/i })).toHaveLength(20);
+  });
+
   it("clears the current user cache on logout", async () => {
     const cache = new MemoryUserCache();
     render(<App services={createFakeBackendServices(null, cache)} />);

@@ -3,12 +3,9 @@ import { Link } from "react-router-dom";
 
 import { useAuth } from "../../app/useAuth";
 import { useSync } from "../../app/useSync";
-import {
-  foundationCards,
-  foundationLesson,
-  foundationTasks,
-} from "../../content/course";
+import { getSessionContent } from "../../content/course";
 import type { LearningTask } from "../../content/types";
+import { useCourse } from "../../content/useCourse";
 import type { BackendServices } from "../../data/backendServices";
 import type { Json } from "../../data/database.types";
 import type { PendingReviewInput } from "../../data/mentorDatabase";
@@ -28,12 +25,28 @@ import { LessonRenderer } from "./LessonRenderer";
 import { TaskRunner } from "./TaskRunner";
 
 interface LearningSessionPageProps {
+  requestedDay?: number;
+  requestedWeek?: number;
   services: BackendServices;
 }
 
 const asJson = (state: LearningSessionState) => state as unknown as Json;
 
-export function LearningSessionPage({ services }: LearningSessionPageProps) {
+function persistedSession(sessionKey: string, state: LearningSessionState) {
+  return { session_key: sessionKey, state: asJson(state) } as Json;
+}
+
+function restoredSession(saved: Json | null, sessionKey: string) {
+  if (!saved || typeof saved !== "object" || Array.isArray(saved)) return null;
+  if (saved.session_key !== sessionKey) return null;
+  return isLearningSessionState(saved.state) ? saved.state : null;
+}
+
+export function LearningSessionPage({
+  requestedDay,
+  requestedWeek,
+  services,
+}: LearningSessionPageProps) {
   const { user } = useAuth();
   const { refreshPending, syncNow } = useSync();
   const [state, dispatch] = useReducer(
@@ -45,6 +58,15 @@ export function LearningSessionPage({ services }: LearningSessionPageProps) {
   const [busy, setBusy] = useState(false);
   const [restoring, setRestoring] = useState(true);
   const [errorCode, setErrorCode] = useState<string | null>(null);
+  const activeCourse = useCourse(services);
+  const {
+    week,
+    day,
+    lesson: foundationLesson,
+    cards: foundationCards,
+    tasks: foundationTasks,
+  } = getSessionContent(activeCourse, requestedWeek, requestedDay);
+  const sessionKey = `${activeCourse.track_id}@${activeCourse.release_version}:week-${week.week}:day-${day.day}`;
   const pendingAttempt = useRef<{
     attemptId: string;
     reviewId: string;
@@ -56,8 +78,14 @@ export function LearningSessionPage({ services }: LearningSessionPageProps) {
     void services.offline
       .loadSession(user.id)
       .then((saved) => {
-        if (active && isLearningSessionState(saved)) {
-          dispatch({ type: "restore", state: saved });
+        const restored = restoredSession(saved, sessionKey);
+        if (active) {
+          dispatch({
+            type: "restore",
+            state: restored ?? initialLearningSession,
+          });
+          setLessonAnswer("");
+          setLessonFeedback(null);
         }
       })
       .finally(() => {
@@ -66,7 +94,7 @@ export function LearningSessionPage({ services }: LearningSessionPageProps) {
     return () => {
       active = false;
     };
-  }, [services.offline, user]);
+  }, [services.offline, sessionKey, user]);
 
   if (!user) return null;
 
@@ -88,7 +116,7 @@ export function LearningSessionPage({ services }: LearningSessionPageProps) {
     await services.offline.commitProgress(
       user!.id,
       createProgressEvent(itemId, eventType, payload),
-      asJson(nextState),
+      persistedSession(sessionKey, nextState),
       pendingReview,
     );
     dispatch(action);
@@ -98,7 +126,10 @@ export function LearningSessionPage({ services }: LearningSessionPageProps) {
 
   async function saveLocalAction(action: LearningSessionAction) {
     const nextState = learningSessionReducer(state, action);
-    await services.offline.saveSession(user!.id, asJson(nextState));
+    await services.offline.saveSession(
+      user!.id,
+      persistedSession(sessionKey, nextState),
+    );
     dispatch(action);
   }
 
@@ -195,6 +226,12 @@ export function LearningSessionPage({ services }: LearningSessionPageProps) {
 
   return (
     <div className="page session-page">
+      <div className="session-context">
+        <Link to="/learn">← Все уроки</Link>
+        <span>
+          Неделя {week.week} · день {day.day}
+        </span>
+      </div>
       <div className="session-progress" aria-label="Этап учебной сессии">
         <span className={state.stage === "lesson" ? "active" : "done"}>
           Урок
@@ -236,6 +273,7 @@ export function LearningSessionPage({ services }: LearningSessionPageProps) {
           <p className="eyebrow">
             Микроурок · {foundationLesson.estimated_minutes} минут
           </p>
+          <h1 className="lesson-title">{foundationLesson.title}</h1>
           <LessonRenderer body={foundationLesson.body} />
           {foundationLesson.check && (
             <div className="lesson-check">

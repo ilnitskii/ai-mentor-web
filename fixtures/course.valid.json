@@ -1,26 +1,139 @@
 {
   "schema_version": 1,
   "profile_id": "default",
+  "track_id": "data-analytics.zero-to-job",
+  "release_version": 1,
+  "title": "С нуля до Data Analyst — недели 1–4",
+  "start_week": 1,
+  "end_week": 4,
   "topics": [
     {
       "id": "foundations.data-tables",
-      "title": "Строка, столбец и наблюдение",
+      "title": "Строка, столбец и зерно таблицы",
       "prerequisites": [],
       "status": "active"
     },
     {
-      "id": "sql.window-functions",
-      "title": "Зачем нужны оконные функции",
-      "prerequisites": [],
+      "id": "foundations.data-types",
+      "title": "Типы данных и форматы",
+      "prerequisites": ["foundations.data-tables"],
+      "status": "active"
+    },
+    {
+      "id": "foundations.missing-duplicates",
+      "title": "Пропуски и дубликаты",
+      "prerequisites": ["foundations.data-types"],
+      "status": "active"
+    },
+    {
+      "id": "foundations.quality-checks",
+      "title": "Пять базовых проверок качества",
+      "prerequisites": ["foundations.missing-duplicates"],
+      "status": "active"
+    },
+    {
+      "id": "foundations.data-passport",
+      "title": "CSV, XLSX и паспорт датасета",
+      "prerequisites": ["foundations.quality-checks"],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.formulas",
+      "title": "Формулы и порядок вычислений",
+      "prerequisites": ["foundations.data-passport"],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.references",
+      "title": "Относительные и абсолютные ссылки",
+      "prerequisites": ["spreadsheets.formulas"],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.sort-filter",
+      "title": "Сортировка и фильтры без искажения таблицы",
+      "prerequisites": ["spreadsheets.references"],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.cleaning",
+      "title": "Очистка текста, чисел и дат",
+      "prerequisites": ["spreadsheets.sort-filter"],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.basic-metrics",
+      "title": "Сумма, среднее, медиана и доля",
+      "prerequisites": ["spreadsheets.cleaning"],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.logic",
+      "title": "IF, AND и OR",
+      "prerequisites": ["spreadsheets.basic-metrics"],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.conditional-aggregates",
+      "title": "SUMIF(S) и COUNTIF(S)",
+      "prerequisites": ["spreadsheets.logic"],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.lookups",
+      "title": "XLOOKUP и контроль соединения",
+      "prerequisites": ["spreadsheets.conditional-aggregates"],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.pivots",
+      "title": "Сводные таблицы",
+      "prerequisites": ["spreadsheets.lookups"],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.reproducible-report",
+      "title": "Воспроизводимый табличный отчёт",
+      "prerequisites": ["spreadsheets.pivots"],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.chart-choice",
+      "title": "Выбор графика по вопросу",
+      "prerequisites": ["spreadsheets.reproducible-report"],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.chart-integrity",
+      "title": "Честные оси и визуальные ошибки",
+      "prerequisites": ["spreadsheets.chart-choice"],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.dashboard-layout",
+      "title": "Иерархия простого дашборда",
+      "prerequisites": ["spreadsheets.chart-integrity"],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.validation",
+      "title": "Валидация ввода и обработка ошибок",
+      "prerequisites": ["spreadsheets.dashboard-layout"],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.business-summary",
+      "title": "Вывод, доказательство и ограничение",
+      "prerequisites": ["spreadsheets.validation"],
       "status": "active"
     }
   ],
   "lessons": [
     {
-      "id": "foundations.data-tables.intro",
+      "id": "foundations.data-tables.lesson",
       "topic_id": "foundations.data-tables",
-      "title": "Строка, столбец и наблюдение",
-      "body": "# Как аналитик видит таблицу\n\nОдна строка обычно описывает один объект или событие, а столбец — один его признак. Смысл одной строки называют зерном таблицы.\n\n| sale_id | date | city | amount |\n| --- | --- | --- | ---: |\n| 101 | 2026-08-15 | Москва | 1200 |\n| 102 | 2026-08-15 | Казань | 900 |\n\nЗдесь зерно — одна продажа. До расчётов проверьте уникальность `sale_id`, пропуски и типы значений. Например, число 1200 можно складывать, а текст «1200 руб.» сначала нужно очистить.\n\nКонтрольный вопрос: что описывает одна строка в примере?",
+      "title": "Строка, столбец и зерно таблицы",
+      "body": "# Как аналитик видит таблицу\n\nТаблица описывает объекты или события. Одна строка — одно наблюдение, столбец — один признак, а ячейка — значение признака для наблюдения. Смысл одной строки называют **зерном**.\n\n| sale_id | date | city | amount |\n| --- | --- | --- | ---: |\n| 101 | 2026-08-15 | Москва | 1200 |\n| 102 | 2026-08-15 | Казань | 900 |\n\nЗдесь зерно — одна продажа. До расчётов сформулируйте зерно одним предложением и найдите поле, которое должно однозначно идентифицировать строку.",
       "estimated_minutes": 6,
       "check": {
         "question": "Что описывает одна строка в примере?",
@@ -36,16 +149,327 @@
       "status": "active"
     },
     {
-      "id": "sql.window-functions.intro",
-      "topic_id": "sql.window-functions",
-      "title": "Зачем нужны оконные функции",
-      "body": "# Оконные функции\n\n`GROUP BY` объединяет несколько строк в одну строку результата. Оконная функция считает значение по группе, но сохраняет каждую исходную строку.\n\n```sql\nSELECT\n  sale_id,\n  customer_id,\n  amount,\n  SUM(amount) OVER (PARTITION BY customer_id) AS customer_total\nFROM sales;\n```\n\nЗдесь `PARTITION BY` определяет независимые группы вычисления, но не меняет количество строк.\n\n## Контрольный вопрос\n\nПочему нельзя получить тот же набор колонок обычным `GROUP BY customer_id` без дополнительного соединения?",
-      "estimated_minutes": 5,
+      "id": "foundations.data-types.lesson",
+      "topic_id": "foundations.data-types",
+      "title": "Типы данных и форматы",
+      "body": "# Тип определяет допустимые операции\n\nЧисло можно складывать, дату — сравнивать по времени, текст — искать и объединять. Вид значения не гарантирует правильный тип: `\"1200\"` может быть текстом, а `01.02.03` — неоднозначной датой.\n\nРазличайте **смысл** и **хранение**. Телефон состоит из цифр, но является идентификатором: складывать телефоны бессмысленно. Сумма заказа — числовая мера. Дату храните в однозначном формате `YYYY-MM-DD`, а категорию — в согласованном словаре.",
+      "estimated_minutes": 7,
       "check": {
-        "question": "Какая конструкция сохраняет исходную детализацию строк: GROUP BY или OVER?",
+        "question": "Почему номер телефона обычно считают текстом, а не числом?",
         "rule": {
           "mode": "normalized",
-          "expected_answers": ["OVER", "оконная функция", "window function"]
+          "expected_answers": [
+            "это идентификатор",
+            "номер телефона это идентификатор",
+            "его не складывают",
+            "телефоны не складывают"
+          ]
+        }
+      },
+      "status": "active"
+    },
+    {
+      "id": "foundations.missing-duplicates.lesson",
+      "topic_id": "foundations.missing-duplicates",
+      "title": "Пропуски и дубликаты",
+      "body": "# Две разные проблемы качества\n\nПропуск означает отсутствие известного значения. Причины различаются: значение не собирали, оно неприменимо или потерялось. Поэтому нельзя автоматически заменять все пропуски нулём.\n\nДубликат определяется относительно зерна. Полностью одинаковые строки могут быть технической копией, а одинаковые customer_id — нормальны, если зерно таблицы «одна покупка». Сначала назовите ключ зерна, затем проверяйте его уникальность.",
+      "estimated_minutes": 7,
+      "check": {
+        "question": "Можно ли всегда заменить пропуск нулём?",
+        "rule": {
+          "mode": "normalized",
+          "expected_answers": ["нет", "нельзя", "нет нельзя", "не всегда"]
+        }
+      },
+      "status": "active"
+    },
+    {
+      "id": "foundations.quality-checks.lesson",
+      "topic_id": "foundations.quality-checks",
+      "title": "Пять базовых проверок качества",
+      "body": "# Минимальный data quality checklist\n\nПеред анализом проверьте: соответствие зерну, уникальность ключа, полноту обязательных полей, допустимость значений и согласованность типов/форматов. Дополнительно полезно оценить свежесть данных.\n\nПроверка должна быть измеримой: не «данные хорошие», а «sale_id уникален в 10 000 из 10 000 строк» или «amount неотрицателен во всех строках». Для каждой ошибки зафиксируйте количество, пример и решение.",
+      "estimated_minutes": 7,
+      "check": {
+        "question": "Назовите проверку, которая обнаружит отрицательную сумму продажи.",
+        "rule": {
+          "mode": "normalized",
+          "expected_answers": [
+            "допустимость значений",
+            "проверка диапазона",
+            "диапазон",
+            "amount неотрицателен",
+            "проверка на отрицательные значения"
+          ]
+        }
+      },
+      "status": "active"
+    },
+    {
+      "id": "foundations.data-passport.lesson",
+      "topic_id": "foundations.data-passport",
+      "title": "CSV, XLSX и паспорт датасета",
+      "body": "# Сделайте данные понятными другому человеку\n\nCSV — текстовый табличный формат: важны кодировка, разделитель и десятичный знак. XLSX может хранить формулы, форматирование и несколько листов, поэтому внешний вид способен скрывать исходное значение.\n\nПаспорт датасета содержит источник, период, зерно, число строк, ключ, словарь полей, ограничения и результаты проверок качества. Он отделяет факты о данных от выводов анализа и помогает воспроизвести работу.",
+      "estimated_minutes": 7,
+      "check": {
+        "question": "Какой пункт паспорта объясняет смысл одной строки?",
+        "rule": {
+          "mode": "normalized",
+          "expected_answers": ["зерно", "зерно таблицы", "описание зерна"]
+        }
+      },
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.formulas.lesson",
+      "topic_id": "spreadsheets.formulas",
+      "title": "Формулы и порядок вычислений",
+      "body": "# Расчёт должен жить в формуле\n\nФормула начинается со знака `=` и ссылается на ячейки, а не переписывает их значения. Операции выполняются с обычным приоритетом: скобки, степени, умножение/деление, сложение/вычитание.\n\nДля строки заказа `=C2*D2` вычисляет выручку из количества и цены. Если исходные данные изменятся, результат пересчитается. Проверяйте формулу на нескольких строках, включая ноль и необычно большое значение.",
+      "estimated_minutes": 6,
+      "check": {
+        "question": "Почему ссылка =C2*D2 лучше вручную введённой суммы?",
+        "rule": {
+          "mode": "normalized",
+          "expected_answers": [
+            "она пересчитывается",
+            "формула пересчитывается",
+            "зависит от исходных данных",
+            "обновляется автоматически"
+          ]
+        }
+      },
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.references.lesson",
+      "topic_id": "spreadsheets.references",
+      "title": "Относительные и абсолютные ссылки",
+      "body": "# Что должно сдвигаться при копировании\n\nОтносительная ссылка `C2` меняется при копировании формулы. Абсолютная `$F$1` остаётся закреплённой. Смешанные ссылки `$F1` и `F$1` фиксируют только столбец или строку.\n\nЕсли цена в `C2`, количество в `D2`, а ставка НДС одна для всей таблицы в `F1`, формула может быть `=C2*D2*$F$1`. Перед протягиванием решите для каждой ссылки, должна ли она двигаться.",
+      "estimated_minutes": 7,
+      "check": {
+        "question": "Какая запись полностью закрепляет ячейку F1?",
+        "rule": { "mode": "normalized", "expected_answers": ["$F$1", "$F$1"] }
+      },
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.sort-filter.lesson",
+      "topic_id": "spreadsheets.sort-filter",
+      "title": "Сортировка и фильтры без искажения таблицы",
+      "body": "# Отбирайте строки, не разрушая связи\n\nФильтр временно скрывает строки по условию; сортировка меняет их порядок. Сортировать нужно весь диапазон, иначе значения разных столбцов перестанут относиться к одной записи.\n\nПеред операцией убедитесь, что есть одна строка заголовков, нет пустых разделительных строк и выбран весь набор. После фильтра отличайте видимые строки от общего числа записей.",
+      "estimated_minutes": 6,
+      "check": {
+        "question": "Почему опасно сортировать только один столбец таблицы?",
+        "rule": {
+          "mode": "normalized",
+          "expected_answers": [
+            "строки рассинхронизируются",
+            "данные рассинхронизируются",
+            "нарушатся связи между столбцами",
+            "значения перестанут относиться к одной записи"
+          ]
+        }
+      },
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.cleaning.lesson",
+      "topic_id": "spreadsheets.cleaning",
+      "title": "Очистка текста, чисел и дат",
+      "body": "# Приведите значения к одному правилу\n\nПробелы, разный регистр и невидимые символы создают ложные категории. `TRIM`/`СЖПРОБЕЛЫ` убирает лишние пробелы, функции регистра стандартизируют написание. Числа с валютой сначала очищают, затем преобразуют в числовой тип.\n\nДаты проверяют особенно внимательно: строка, похожая на дату, может оставаться текстом. Сохраните исходный столбец и создайте очищенный рядом — это делает преобразование проверяемым.",
+      "estimated_minutes": 7,
+      "check": {
+        "question": "Почему исходный столбец лучше сохранить рядом с очищенным?",
+        "rule": {
+          "mode": "normalized",
+          "expected_answers": [
+            "для проверки",
+            "чтобы проверить преобразование",
+            "для воспроизводимости",
+            "чтобы сравнить исходные данные"
+          ]
+        }
+      },
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.basic-metrics.lesson",
+      "topic_id": "spreadsheets.basic-metrics",
+      "title": "Сумма, среднее, медиана и доля",
+      "body": "# Метрика отвечает на конкретный вопрос\n\nСумма показывает общий объём, среднее — объём на наблюдение, медиана — центральное значение, устойчивое к выбросам. Доля равна части, делённой на целое; заранее определите знаменатель.\n\nНабор `100, 100, 100, 100, 4600` имеет среднее 1000, но медиану 100. Поэтому для «типичного» заказа полезно смотреть обе метрики и распределение, а не выбирать функцию по привычке.",
+      "estimated_minutes": 7,
+      "check": {
+        "question": "Какая метрика устойчивее к одному очень крупному выбросу?",
+        "rule": { "mode": "normalized", "expected_answers": ["медиана"] }
+      },
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.logic.lesson",
+      "topic_id": "spreadsheets.logic",
+      "title": "IF, AND и OR",
+      "body": "# Переведите бизнес-правило в условие\n\n`IF`/`ЕСЛИ` возвращает один результат, когда условие истинно, и другой — когда ложно. `AND` требует выполнения всех условий, `OR` — хотя бы одного.\n\nПравило «крупный заказ — сумма не меньше 10 000 и оплата подтверждена» состоит из двух проверок, соединённых `AND`. Границы (`>` или `>=`) фиксируйте явно и тестируйте на значении ровно 10 000, пустой ячейке и ошибочном статусе.",
+      "estimated_minutes": 7,
+      "check": {
+        "question": "Какую функцию используют, когда должны выполняться все условия?",
+        "rule": { "mode": "normalized", "expected_answers": ["AND", "И"] }
+      },
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.conditional-aggregates.lesson",
+      "topic_id": "spreadsheets.conditional-aggregates",
+      "title": "SUMIF(S) и COUNTIF(S)",
+      "body": "# Считайте только подходящие строки\n\n`COUNTIF` считает строки по одному условию, `COUNTIFS` — по нескольким. `SUMIF` и `SUMIFS` суммируют меру только для строк, удовлетворяющих критериям.\n\nРазделяйте диапазон условия и диапазон суммы. В `SUMIFS(amount, city, \"Казань\", status, \"paid\")` все диапазоны должны иметь одинаковую длину. Сверьте результат с фильтром и общей суммой.",
+      "estimated_minutes": 7,
+      "check": {
+        "question": "Какая функция суммирует значения по нескольким условиям?",
+        "rule": {
+          "mode": "normalized",
+          "expected_answers": ["SUMIFS", "СУММЕСЛИМН"]
+        }
+      },
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.lookups.lesson",
+      "topic_id": "spreadsheets.lookups",
+      "title": "XLOOKUP и контроль соединения",
+      "body": "# Добавьте признак из справочника\n\n`XLOOKUP` ищет ключ в справочнике и возвращает связанное значение. Это табличный аналог соединения: например, по `product_id` добавить категорию товара.\n\nКлюч в справочнике должен быть уникален, форматы ключей — совпадать, а отсутствие совпадения — обрабатываться явно. После поиска посчитайте долю ненайденных ключей и убедитесь, что число строк основной таблицы не изменилось.",
+      "estimated_minutes": 7,
+      "check": {
+        "question": "Что нужно проверить в справочнике до XLOOKUP?",
+        "rule": {
+          "mode": "normalized",
+          "expected_answers": [
+            "уникальность ключа",
+            "ключ уникален",
+            "уникальность идентификатора"
+          ]
+        }
+      },
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.pivots.lesson",
+      "topic_id": "spreadsheets.pivots",
+      "title": "Сводные таблицы",
+      "body": "# Быстрый разрез меры по категориям\n\nСводная таблица группирует строки: измерения помещают в строки/столбцы, меры — в значения, ограничения — в фильтры. Всегда проверяйте способ агрегации: сумма, количество и среднее отвечают на разные вопросы.\n\nИсточник должен быть прямоугольной таблицей с одной строкой заголовков. После обновления raw-данных обновите сводную и сверьте общий итог с независимой формулой.",
+      "estimated_minutes": 7,
+      "check": {
+        "question": "Куда в сводной обычно помещают выручку?",
+        "rule": {
+          "mode": "normalized",
+          "expected_answers": ["в значения", "значения", "в область значений"]
+        }
+      },
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.reproducible-report.lesson",
+      "topic_id": "spreadsheets.reproducible-report",
+      "title": "Воспроизводимый табличный отчёт",
+      "body": "# Отделите вход, обработку и результат\n\nНадёжная книга содержит отдельные слои: `raw` для неизменённых данных, `clean` для явных преобразований, `calc` для расчётов и `report` для итогов. Параметры и словари хранятся отдельно, а не зашиваются во множество формул.\n\nДобавьте контрольные ячейки: число строк, сумму ключевой меры, количество уникальных ключей и ошибок поиска. README на первом листе объясняет источник, дату обновления и порядок пересчёта.",
+      "estimated_minutes": 7,
+      "check": {
+        "question": "На каком листе сохраняют исходные данные без ручных исправлений?",
+        "rule": {
+          "mode": "normalized",
+          "expected_answers": ["raw", "на листе raw", "исходные данные"]
+        }
+      },
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.chart-choice.lesson",
+      "topic_id": "spreadsheets.chart-choice",
+      "title": "Выбор графика по вопросу",
+      "body": "# Сначала вопрос, затем график\n\nДля динамики во времени подходит линия, для сравнения категорий — столбцы, для распределения — гистограмма, для связи двух чисел — точечная диаграмма. Круговая диаграмма допустима только для малого числа частей одного целого.\n\nОдин график должен отвечать на один вопрос. Заголовок формулируйте как наблюдение, подпишите единицы и период, а лишние цвета и 3D удалите.",
+      "estimated_minutes": 7,
+      "check": {
+        "question": "Какой график обычно выбирают для динамики выручки по месяцам?",
+        "rule": {
+          "mode": "normalized",
+          "expected_answers": ["линейный", "линия", "линейный график"]
+        }
+      },
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.chart-integrity.lesson",
+      "topic_id": "spreadsheets.chart-integrity",
+      "title": "Честные оси и визуальные ошибки",
+      "body": "# Не усиливайте разницу оформлением\n\nУ столбчатой диаграммы числовая ось обычно начинается с нуля: длина кодирует величину. Обрезанная ось способна сделать малое отличие огромным. Для линии ненулевой минимум иногда допустим, но его нужно ясно показать.\n\nНе используйте 3D, двойную ось без необходимости и несогласованные цвета. Сверяйте значения на графике с таблицей и проверяйте, не исключил ли фильтр важные строки.",
+      "estimated_minutes": 7,
+      "check": {
+        "question": "Почему столбчатую ось обычно начинают с нуля?",
+        "rule": {
+          "mode": "normalized",
+          "expected_answers": [
+            "чтобы длины не искажали разницу",
+            "длина показывает величину",
+            "чтобы не преувеличивать различия",
+            "для честного сравнения"
+          ]
+        }
+      },
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.dashboard-layout.lesson",
+      "topic_id": "spreadsheets.dashboard-layout",
+      "title": "Иерархия простого дашборда",
+      "body": "# Ведите читателя от ответа к деталям\n\nСверху разместите 3–5 ключевых показателей с периодом и сравнением, ниже — динамику и основные разрезы, затем детали. Фильтры должны быть немногочисленными и менять все связанные элементы предсказуемо.\n\nИспользуйте один формат чисел, стабильные цвета категорий и визуальное выравнивание. Под каждым показателем должно быть понятно, как он рассчитан и когда обновлены данные.",
+      "estimated_minutes": 7,
+      "check": {
+        "question": "Что обычно размещают в верхней части дашборда?",
+        "rule": {
+          "mode": "normalized",
+          "expected_answers": [
+            "ключевые показатели",
+            "KPI",
+            "3–5 ключевых показателей",
+            "основные метрики"
+          ]
+        }
+      },
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.validation.lesson",
+      "topic_id": "spreadsheets.validation",
+      "title": "Валидация ввода и обработка ошибок",
+      "body": "# Предотвращайте ошибку до расчёта\n\nПроверка данных ограничивает ввод списком, диапазоном или типом. Выпадающий список снижает число вариантов написания статуса. Условное форматирование помогает увидеть нарушение, но не исправляет его.\n\n`IFERROR` может дать понятное сообщение, однако не должен молча превращать любую ошибку в ноль. Сначала определите ожидаемые ошибки, посчитайте их и покажите контрольный индикатор качества.",
+      "estimated_minutes": 7,
+      "check": {
+        "question": "Почему нельзя бездумно заменять все ошибки нулём через IFERROR?",
+        "rule": {
+          "mode": "normalized",
+          "expected_answers": [
+            "это скрывает ошибки",
+            "ноль и ошибка имеют разный смысл",
+            "потеряется причина ошибки",
+            "ошибки станут незаметны"
+          ]
+        }
+      },
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.business-summary.lesson",
+      "topic_id": "spreadsheets.business-summary",
+      "title": "Вывод, доказательство и ограничение",
+      "body": "# Завершите анализ решением\n\nХороший итог содержит: ответ на вопрос, 2–3 числа-доказательства, интерпретацию, ограничение и рекомендуемое действие. Не пересказывайте все графики и не называйте корреляцию причиной.\n\nФормула: «За период X показатель изменился на Y; основной вклад дал сегмент Z. Рекомендуем A. Вывод ограничен B, поэтому проверим C». Читатель должен отличить измеренный факт от предположения.",
+      "estimated_minutes": 7,
+      "check": {
+        "question": "Что кроме вывода и доказательства обязательно назвать для честной рекомендации?",
+        "rule": {
+          "mode": "normalized",
+          "expected_answers": [
+            "ограничение",
+            "ограничения",
+            "границы анализа",
+            "неопределенность"
+          ]
         }
       },
       "status": "active"
@@ -56,12 +480,12 @@
       "id": "foundations.data-tables.card-001",
       "topic_id": "foundations.data-tables",
       "prompt": "Что такое зерно таблицы?",
-      "answer": "Смысл одной строки: какой объект или событие она описывает.",
+      "answer": "Смысл одной строки.",
       "type": "question_answer",
       "choices": [],
       "correct_choice_index": null,
-      "explanation": "Без определённого зерна нельзя надёжно считать строки и объединять таблицы.",
-      "source_lesson_id": "foundations.data-tables.intro",
+      "explanation": "Без зерна нельзя корректно считать и объединять данные.",
+      "source_lesson_id": "foundations.data-tables.lesson",
       "difficulty": "easy",
       "status": "active"
     },
@@ -70,260 +494,2165 @@
       "topic_id": "foundations.data-tables",
       "prompt": "Что обычно представляет столбец?",
       "answer": "Один признак наблюдения.",
-      "type": "multiple_choice",
-      "choices": ["Одно наблюдение", "Один признак", "Вся таблица"],
-      "correct_choice_index": 1,
-      "explanation": "Например, city — признак каждой продажи, а строка — сама продажа.",
-      "source_lesson_id": "foundations.data-tables.intro",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Столбец city хранит один и тот же вид признака для всех продаж.",
+      "source_lesson_id": "foundations.data-tables.lesson",
       "difficulty": "easy",
       "status": "active"
     },
     {
       "id": "foundations.data-tables.card-003",
       "topic_id": "foundations.data-tables",
-      "prompt": "Текст «1200 руб.» можно сразу корректно суммировать как число. Верно или ложно?",
-      "answer": "Ложно — значение сначала нужно очистить и привести к числовому типу.",
-      "type": "true_false",
-      "choices": ["Верно", "Ложь"],
-      "correct_choice_index": 1,
-      "explanation": "Число и строка текста — разные типы данных.",
-      "source_lesson_id": "foundations.data-tables.intro",
+      "prompt": "Что представляет ячейка?",
+      "answer": "Значение признака для конкретной строки.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Ячейка находится на пересечении наблюдения и признака.",
+      "source_lesson_id": "foundations.data-tables.lesson",
       "difficulty": "easy",
       "status": "active"
     },
     {
       "id": "foundations.data-tables.card-004",
       "topic_id": "foundations.data-tables",
-      "prompt": "В таблице продаж два одинаковых sale_id. Какую проверку это нарушает?",
-      "answer": "Уникальность идентификатора.",
+      "prompt": "Какой кандидат на ключ есть в примере?",
+      "answer": "sale_id",
       "type": "question_answer",
       "choices": [],
       "correct_choice_index": null,
-      "explanation": "При зерне «одна продажа» идентификатор продажи должен быть уникален.",
-      "source_lesson_id": "foundations.data-tables.intro",
+      "explanation": "Идентификатор продажи должен отличать одну продажу от другой.",
+      "source_lesson_id": "foundations.data-tables.lesson",
       "difficulty": "medium",
       "status": "active"
     },
     {
       "id": "foundations.data-tables.card-005",
       "topic_id": "foundations.data-tables",
-      "prompt": "Какую проблему качества обозначает пустая ячейка в столбце city?",
-      "answer": "Пропущенное значение.",
-      "type": "multiple_choice",
-      "choices": ["Дубликат строки", "Пропущенное значение", "Неверное зерно"],
-      "correct_choice_index": 1,
-      "explanation": "Пустая ячейка — пропуск; перед анализом нужно понять его причину и способ обработки.",
-      "source_lesson_id": "foundations.data-tables.intro",
-      "difficulty": "easy",
-      "status": "active"
-    },
-    {
-      "id": "sql.window-functions.card-001",
-      "topic_id": "sql.window-functions",
-      "prompt": "Чем оконная функция принципиально отличается от GROUP BY?",
-      "answer": "Она сохраняет исходную детализацию строк, добавляя вычисленное значение.",
+      "prompt": "Почему зерно формулируют до расчётов?",
+      "answer": "Чтобы понимать смысл количества строк и агрегатов.",
       "type": "question_answer",
       "choices": [],
       "correct_choice_index": null,
-      "explanation": "OVER вычисляет значение в окне, не объединяя строки результата.",
-      "source_lesson_id": "sql.window-functions.intro",
+      "explanation": "Иначе одна и та же сущность может быть посчитана несколько раз.",
+      "source_lesson_id": "foundations.data-tables.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "foundations.data-types.card-001",
+      "topic_id": "foundations.data-types",
+      "prompt": "Какой тип подходит сумме заказа?",
+      "answer": "Число.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "С суммой выполняют арифметические операции.",
+      "source_lesson_id": "foundations.data-types.lesson",
       "difficulty": "easy",
       "status": "active"
     },
     {
-      "id": "sql.window-functions.card-002",
-      "topic_id": "sql.window-functions",
-      "prompt": "Какая часть выражения задаёт группы строк внутри окна?",
-      "answer": "PARTITION BY",
-      "type": "multiple_choice",
-      "choices": ["GROUP BY", "PARTITION BY", "ORDER ONLY"],
-      "correct_choice_index": 1,
-      "explanation": "PARTITION BY разделяет строки на независимые окна вычисления.",
-      "source_lesson_id": "sql.window-functions.intro",
+      "id": "foundations.data-types.card-002",
+      "topic_id": "foundations.data-types",
+      "prompt": "Какой тип подходит номеру телефона?",
+      "answer": "Текст или идентификатор.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Арифметика для номера не имеет смысла.",
+      "source_lesson_id": "foundations.data-types.lesson",
       "difficulty": "easy",
       "status": "active"
     },
     {
-      "id": "sql.window-functions.card-003",
-      "topic_id": "sql.window-functions",
-      "prompt": "Оконная SUM уменьшает количество строк результата.",
-      "answer": "Ложь",
-      "type": "true_false",
-      "choices": ["Верно", "Ложь"],
-      "correct_choice_index": 1,
-      "explanation": "Оконная функция сохраняет каждую исходную строку.",
-      "source_lesson_id": "sql.window-functions.intro",
+      "id": "foundations.data-types.card-003",
+      "topic_id": "foundations.data-types",
+      "prompt": "Какой формат даты однозначнее?",
+      "answer": "YYYY-MM-DD",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Порядок год-месяц-день не зависит от локали.",
+      "source_lesson_id": "foundations.data-types.lesson",
       "difficulty": "easy",
       "status": "active"
     },
     {
-      "id": "sql.window-functions.card-004",
-      "topic_id": "sql.window-functions",
-      "prompt": "Что вернёт оконная SUM для двух строк одного клиента с amount 10 и 20?",
-      "answer": "30 и 30",
-      "type": "sql_output_prediction",
-      "choices": ["10 и 20", "30 и 30", "30 одной строкой"],
-      "correct_choice_index": 1,
-      "explanation": "Сумма окна добавляется к каждой строке клиента.",
-      "source_lesson_id": "sql.window-functions.intro",
+      "id": "foundations.data-types.card-004",
+      "topic_id": "foundations.data-types",
+      "prompt": "Почему «1200 руб.» не готово к суммированию?",
+      "answer": "В значении смешаны число и текст.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Валюту хранят отдельно или очищают строку.",
+      "source_lesson_id": "foundations.data-types.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "foundations.data-types.card-005",
+      "topic_id": "foundations.data-types",
+      "prompt": "Что важнее внешнего вида значения?",
+      "answer": "Его смысл и допустимые операции.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Цифры могут обозначать категорию или идентификатор.",
+      "source_lesson_id": "foundations.data-types.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "foundations.missing-duplicates.card-001",
+      "topic_id": "foundations.missing-duplicates",
+      "prompt": "Что означает пропуск?",
+      "answer": "Значение отсутствует или неизвестно.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Причину пропуска нужно выяснить до обработки.",
+      "source_lesson_id": "foundations.missing-duplicates.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "foundations.missing-duplicates.card-002",
+      "topic_id": "foundations.missing-duplicates",
+      "prompt": "Когда ноль не равен пропуску?",
+      "answer": "Когда ноль является измеренным значением.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Нулевые продажи и неизвестные продажи — разные факты.",
+      "source_lesson_id": "foundations.missing-duplicates.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "foundations.missing-duplicates.card-003",
+      "topic_id": "foundations.missing-duplicates",
+      "prompt": "Относительно чего определяют дубликат?",
+      "answer": "Относительно зерна и ключа.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Повтор customer_id допустим при зерне «заказ».",
+      "source_lesson_id": "foundations.missing-duplicates.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "foundations.missing-duplicates.card-004",
+      "topic_id": "foundations.missing-duplicates",
+      "prompt": "Что проверить перед удалением дублей?",
+      "answer": "Какие поля образуют ключ строки.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Иначе можно удалить реальные повторные события.",
+      "source_lesson_id": "foundations.missing-duplicates.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "foundations.missing-duplicates.card-005",
+      "topic_id": "foundations.missing-duplicates",
+      "prompt": "Что делать с пропусками сначала?",
+      "answer": "Посчитать их и изучить причины.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Способ обработки зависит от механизма появления.",
+      "source_lesson_id": "foundations.missing-duplicates.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "foundations.quality-checks.card-001",
+      "topic_id": "foundations.quality-checks",
+      "prompt": "Что проверяет уникальность?",
+      "answer": "Отсутствие повторов ключа зерна.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Для одной продажи sale_id должен быть уникален.",
+      "source_lesson_id": "foundations.quality-checks.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "foundations.quality-checks.card-002",
+      "topic_id": "foundations.quality-checks",
+      "prompt": "Что проверяет полнота?",
+      "answer": "Наличие значений в обязательных полях.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Пропуски считают по каждому важному столбцу.",
+      "source_lesson_id": "foundations.quality-checks.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "foundations.quality-checks.card-003",
+      "topic_id": "foundations.quality-checks",
+      "prompt": "Что проверяет допустимость?",
+      "answer": "Принадлежность значений правилам и диапазонам.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Сумма продажи обычно не должна быть отрицательной.",
+      "source_lesson_id": "foundations.quality-checks.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "foundations.quality-checks.card-004",
+      "topic_id": "foundations.quality-checks",
+      "prompt": "Как формулировать проверку?",
+      "answer": "Как измеримое условие с результатом.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Число нарушений позволяет воспроизвести вывод.",
+      "source_lesson_id": "foundations.quality-checks.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "foundations.quality-checks.card-005",
+      "topic_id": "foundations.quality-checks",
+      "prompt": "Зачем сохранять пример ошибки?",
+      "answer": "Чтобы проверить причину и способ исправления.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Один пример делает агрегированный счёт понятным.",
+      "source_lesson_id": "foundations.quality-checks.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "foundations.data-passport.card-001",
+      "topic_id": "foundations.data-passport",
+      "prompt": "Что нужно знать при чтении CSV?",
+      "answer": "Кодировку и разделитель.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Неверные параметры искажают столбцы и символы.",
+      "source_lesson_id": "foundations.data-passport.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "foundations.data-passport.card-002",
+      "topic_id": "foundations.data-passport",
+      "prompt": "Что дополнительно хранит XLSX?",
+      "answer": "Формулы",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "форматирование и листы.",
+      "source_lesson_id": "foundations.data-passport.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "foundations.data-passport.card-003",
+      "topic_id": "foundations.data-passport",
+      "prompt": "Что обязательно указать в паспорте?",
+      "answer": "Источник",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "период",
+      "source_lesson_id": "foundations.data-passport.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "foundations.data-passport.card-004",
+      "topic_id": "foundations.data-passport",
+      "prompt": "Зачем нужен словарь полей?",
+      "answer": "Чтобы определить смысл и тип каждого столбца.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Название поля не всегда однозначно.",
+      "source_lesson_id": "foundations.data-passport.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "foundations.data-passport.card-005",
+      "topic_id": "foundations.data-passport",
+      "prompt": "Чем ограничение отличается от вывода?",
+      "answer": "Ограничение описывает границы достоверности данных.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Вывод отвечает на аналитический вопрос.",
+      "source_lesson_id": "foundations.data-passport.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.formulas.card-001",
+      "topic_id": "spreadsheets.formulas",
+      "prompt": "С какого знака начинается формула?",
+      "answer": "=",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Так приложение отличает расчёт от текста.",
+      "source_lesson_id": "spreadsheets.formulas.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.formulas.card-002",
+      "topic_id": "spreadsheets.formulas",
+      "prompt": "Что вычисляется раньше сложения?",
+      "answer": "Умножение и деление.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Скобки позволяют изменить порядок.",
+      "source_lesson_id": "spreadsheets.formulas.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.formulas.card-003",
+      "topic_id": "spreadsheets.formulas",
+      "prompt": "Почему нельзя вводить итог вручную?",
+      "answer": "Он не обновится при изменении данных.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Формула сохраняет происхождение результата.",
+      "source_lesson_id": "spreadsheets.formulas.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.formulas.card-004",
+      "topic_id": "spreadsheets.formulas",
+      "prompt": "Как проверить новую формулу?",
+      "answer": "На обычном и граничных примерах.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Ноль и крупное значение выявляют ошибки.",
+      "source_lesson_id": "spreadsheets.formulas.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.formulas.card-005",
+      "topic_id": "spreadsheets.formulas",
+      "prompt": "Что означает ошибка деления на ноль?",
+      "answer": "Знаменатель равен нулю или пуст.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Причину нужно обработать явно.",
+      "source_lesson_id": "spreadsheets.formulas.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.references.card-001",
+      "topic_id": "spreadsheets.references",
+      "prompt": "Как ведёт себя C2 при копировании вниз?",
+      "answer": "Становится C3.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Это относительная ссылка.",
+      "source_lesson_id": "spreadsheets.references.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.references.card-002",
+      "topic_id": "spreadsheets.references",
+      "prompt": "Как записать абсолютную ссылку на F1?",
+      "answer": "$F$1",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Закреплены и столбец и строка.",
+      "source_lesson_id": "spreadsheets.references.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.references.card-003",
+      "topic_id": "spreadsheets.references",
+      "prompt": "Что фиксирует $F1?",
+      "answer": "Столбец F.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Номер строки может изменяться.",
+      "source_lesson_id": "spreadsheets.references.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.references.card-004",
+      "topic_id": "spreadsheets.references",
+      "prompt": "Что фиксирует F$1?",
+      "answer": "Первую строку.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Буква столбца может изменяться.",
+      "source_lesson_id": "spreadsheets.references.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.references.card-005",
+      "topic_id": "spreadsheets.references",
+      "prompt": "Когда полезна абсолютная ссылка?",
+      "answer": "Для общей ставки или параметра.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Одна константа используется во многих строках.",
+      "source_lesson_id": "spreadsheets.references.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.sort-filter.card-001",
+      "topic_id": "spreadsheets.sort-filter",
+      "prompt": "Что делает фильтр?",
+      "answer": "Временно показывает строки по условию.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Остальные строки не удаляются.",
+      "source_lesson_id": "spreadsheets.sort-filter.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.sort-filter.card-002",
+      "topic_id": "spreadsheets.sort-filter",
+      "prompt": "Что делает сортировка?",
+      "answer": "Меняет порядок строк.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Значения внутри строки должны двигаться вместе.",
+      "source_lesson_id": "spreadsheets.sort-filter.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.sort-filter.card-003",
+      "topic_id": "spreadsheets.sort-filter",
+      "prompt": "Как избежать рассинхронизации?",
+      "answer": "Сортировать весь диапазон.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Один столбец отдельно сортировать нельзя.",
+      "source_lesson_id": "spreadsheets.sort-filter.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.sort-filter.card-004",
+      "topic_id": "spreadsheets.sort-filter",
+      "prompt": "Зачем нужна одна строка заголовков?",
+      "answer": "Она задаёт имена полей для фильтра.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Сложные шапки мешают табличным операциям.",
+      "source_lesson_id": "spreadsheets.sort-filter.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.sort-filter.card-005",
+      "topic_id": "spreadsheets.sort-filter",
+      "prompt": "Удаляет ли фильтр данные?",
+      "answer": "Нет.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Он меняет только видимость строк.",
+      "source_lesson_id": "spreadsheets.sort-filter.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.cleaning.card-001",
+      "topic_id": "spreadsheets.cleaning",
+      "prompt": "Что исправляет TRIM?",
+      "answer": "Лишние пробелы.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Пробелы создают разные категории с одинаковым видом.",
+      "source_lesson_id": "spreadsheets.cleaning.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.cleaning.card-002",
+      "topic_id": "spreadsheets.cleaning",
+      "prompt": "Зачем стандартизировать регистр?",
+      "answer": "Чтобы одинаковые категории совпадали.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "«Москва» и «МОСКВА» иначе могут считаться разными.",
+      "source_lesson_id": "spreadsheets.cleaning.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.cleaning.card-003",
+      "topic_id": "spreadsheets.cleaning",
+      "prompt": "Что сделать с «1 200 руб.»?",
+      "answer": "Удалить текст и преобразовать в число.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Только затем значение можно суммировать.",
+      "source_lesson_id": "spreadsheets.cleaning.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.cleaning.card-004",
+      "topic_id": "spreadsheets.cleaning",
+      "prompt": "Как проверить настоящую дату?",
+      "answer": "Изменить формат и выполнить расчёт с датой.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Текст не ведёт себя как дата.",
+      "source_lesson_id": "spreadsheets.cleaning.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.cleaning.card-005",
+      "topic_id": "spreadsheets.cleaning",
+      "prompt": "Почему не перезаписывать исходник?",
+      "answer": "Нужна возможность сравнения и отката.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Очистка должна быть воспроизводимой.",
+      "source_lesson_id": "spreadsheets.cleaning.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.basic-metrics.card-001",
+      "topic_id": "spreadsheets.basic-metrics",
+      "prompt": "Что показывает сумма?",
+      "answer": "Общий объём.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Она зависит от числа наблюдений.",
+      "source_lesson_id": "spreadsheets.basic-metrics.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.basic-metrics.card-002",
+      "topic_id": "spreadsheets.basic-metrics",
+      "prompt": "Что показывает среднее?",
+      "answer": "Сумму на одно наблюдение.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Выбросы могут сильно его изменить.",
+      "source_lesson_id": "spreadsheets.basic-metrics.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.basic-metrics.card-003",
+      "topic_id": "spreadsheets.basic-metrics",
+      "prompt": "Что показывает медиана?",
+      "answer": "Центральное упорядоченное значение.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Половина наблюдений не больше медианы.",
+      "source_lesson_id": "spreadsheets.basic-metrics.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.basic-metrics.card-004",
+      "topic_id": "spreadsheets.basic-metrics",
+      "prompt": "Как вычислить долю?",
+      "answer": "Часть разделить на целое.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Знаменатель должен соответствовать вопросу.",
+      "source_lesson_id": "spreadsheets.basic-metrics.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.basic-metrics.card-005",
+      "topic_id": "spreadsheets.basic-metrics",
+      "prompt": "Почему сравнивают среднее и медиану?",
+      "answer": "Расхождение указывает на асимметрию или выбросы.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Одна метрика скрывает форму распределения.",
+      "source_lesson_id": "spreadsheets.basic-metrics.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.logic.card-001",
+      "topic_id": "spreadsheets.logic",
+      "prompt": "Что делает IF?",
+      "answer": "Выбирает результат по условию.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "У функции есть ветви истина и ложь.",
+      "source_lesson_id": "spreadsheets.logic.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.logic.card-002",
+      "topic_id": "spreadsheets.logic",
+      "prompt": "Когда нужен AND?",
+      "answer": "Когда истинны все условия.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Одного выполненного условия недостаточно.",
+      "source_lesson_id": "spreadsheets.logic.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.logic.card-003",
+      "topic_id": "spreadsheets.logic",
+      "prompt": "Когда нужен OR?",
+      "answer": "Когда достаточно любого условия.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Он истинен при хотя бы одном совпадении.",
+      "source_lesson_id": "spreadsheets.logic.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.logic.card-004",
+      "topic_id": "spreadsheets.logic",
+      "prompt": "Чем >= отличается от >?",
+      "answer": "Первое включает границу.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Для суммы ровно 10000 ответы различаются.",
+      "source_lesson_id": "spreadsheets.logic.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.logic.card-005",
+      "topic_id": "spreadsheets.logic",
+      "prompt": "Какие тесты нужны условию?",
+      "answer": "Граница",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "пустое и обычные значения.",
+      "source_lesson_id": "spreadsheets.logic.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.conditional-aggregates.card-001",
+      "topic_id": "spreadsheets.conditional-aggregates",
+      "prompt": "Что возвращает COUNTIF?",
+      "answer": "Количество совпавших строк.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Значения не суммируются.",
+      "source_lesson_id": "spreadsheets.conditional-aggregates.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.conditional-aggregates.card-002",
+      "topic_id": "spreadsheets.conditional-aggregates",
+      "prompt": "Что возвращает SUMIF?",
+      "answer": "Сумму по одному условию.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Критерий определяет включённые строки.",
+      "source_lesson_id": "spreadsheets.conditional-aggregates.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.conditional-aggregates.card-003",
+      "topic_id": "spreadsheets.conditional-aggregates",
+      "prompt": "Когда нужен SUMIFS?",
+      "answer": "При нескольких условиях.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Например город и статус оплаты.",
+      "source_lesson_id": "spreadsheets.conditional-aggregates.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.conditional-aggregates.card-004",
+      "topic_id": "spreadsheets.conditional-aggregates",
+      "prompt": "Какими должны быть диапазоны?",
+      "answer": "Одинакового размера.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Иначе строки не сопоставляются.",
+      "source_lesson_id": "spreadsheets.conditional-aggregates.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.conditional-aggregates.card-005",
+      "topic_id": "spreadsheets.conditional-aggregates",
+      "prompt": "Как быстро проверить результат?",
+      "answer": "Сравнить с фильтром и общим итогом.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Условная сумма не должна превышать общую при неотрицательных значениях.",
+      "source_lesson_id": "spreadsheets.conditional-aggregates.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.lookups.card-001",
+      "topic_id": "spreadsheets.lookups",
+      "prompt": "Что делает XLOOKUP?",
+      "answer": "Возвращает значение по найденному ключу.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Основная таблица обогащается признаком.",
+      "source_lesson_id": "spreadsheets.lookups.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.lookups.card-002",
+      "topic_id": "spreadsheets.lookups",
+      "prompt": "Почему ключ справочника должен быть уникален?",
+      "answer": "Иначе результат неоднозначен.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Одному product_id должно соответствовать одно значение категории.",
+      "source_lesson_id": "spreadsheets.lookups.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.lookups.card-003",
+      "topic_id": "spreadsheets.lookups",
+      "prompt": "Почему 001 и 1 могут не совпасть?",
+      "answer": "У ключей разный формат или тип.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Идентификаторы нужно нормализовать.",
+      "source_lesson_id": "spreadsheets.lookups.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.lookups.card-004",
+      "topic_id": "spreadsheets.lookups",
+      "prompt": "Как обработать ненайденный ключ?",
+      "answer": "Вернуть явную метку и посчитать такие строки.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Пустота не должна скрывать проблему.",
+      "source_lesson_id": "spreadsheets.lookups.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.lookups.card-005",
+      "topic_id": "spreadsheets.lookups",
+      "prompt": "Какой контроль нужен после поиска?",
+      "answer": "Число строк не изменилось.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Поиск не должен терять заказы.",
+      "source_lesson_id": "spreadsheets.lookups.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.pivots.card-001",
+      "topic_id": "spreadsheets.pivots",
+      "prompt": "Что является измерением?",
+      "answer": "Категория для разреза.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Например город или месяц.",
+      "source_lesson_id": "spreadsheets.pivots.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.pivots.card-002",
+      "topic_id": "spreadsheets.pivots",
+      "prompt": "Что является мерой?",
+      "answer": "Числовой показатель для агрегации.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Например сумма выручки.",
+      "source_lesson_id": "spreadsheets.pivots.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.pivots.card-003",
+      "topic_id": "spreadsheets.pivots",
+      "prompt": "Почему важно проверить агрегацию?",
+      "answer": "Среднее и сумма дают разные смыслы.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Приложение может выбрать функцию автоматически.",
+      "source_lesson_id": "spreadsheets.pivots.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.pivots.card-004",
+      "topic_id": "spreadsheets.pivots",
+      "prompt": "Каким должен быть источник?",
+      "answer": "Прямоугольным с одной шапкой.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Объединённые ячейки мешают обновлению.",
+      "source_lesson_id": "spreadsheets.pivots.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.pivots.card-005",
+      "topic_id": "spreadsheets.pivots",
+      "prompt": "Что сделать после изменения raw?",
+      "answer": "Обновить сводную и сверить итог.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Старая сводная может не включить новые строки.",
+      "source_lesson_id": "spreadsheets.pivots.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.reproducible-report.card-001",
+      "topic_id": "spreadsheets.reproducible-report",
+      "prompt": "Что хранит raw?",
+      "answer": "Неизменённый входной набор.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Это точка для повторного запуска.",
+      "source_lesson_id": "spreadsheets.reproducible-report.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.reproducible-report.card-002",
+      "topic_id": "spreadsheets.reproducible-report",
+      "prompt": "Что хранит clean?",
+      "answer": "Явно очищенные поля.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Исходные значения остаются доступны.",
+      "source_lesson_id": "spreadsheets.reproducible-report.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.reproducible-report.card-003",
+      "topic_id": "spreadsheets.reproducible-report",
+      "prompt": "Что хранит report?",
+      "answer": "Итоговые показатели и графики.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Технические расчёты не должны заслонять вывод.",
+      "source_lesson_id": "spreadsheets.reproducible-report.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.reproducible-report.card-004",
+      "topic_id": "spreadsheets.reproducible-report",
+      "prompt": "Зачем выносить параметры?",
+      "answer": "Чтобы менять правило в одном месте.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Захардкоженные значения трудно проверить.",
+      "source_lesson_id": "spreadsheets.reproducible-report.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.reproducible-report.card-005",
+      "topic_id": "spreadsheets.reproducible-report",
+      "prompt": "Какие контрольные итоги нужны?",
+      "answer": "Строки",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "сумма",
+      "source_lesson_id": "spreadsheets.reproducible-report.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.chart-choice.card-001",
+      "topic_id": "spreadsheets.chart-choice",
+      "prompt": "Какой график показывает динамику?",
+      "answer": "Линейный.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Ось X сохраняет порядок времени.",
+      "source_lesson_id": "spreadsheets.chart-choice.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.chart-choice.card-002",
+      "topic_id": "spreadsheets.chart-choice",
+      "prompt": "Как сравнить категории?",
+      "answer": "Столбчатой диаграммой.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Длины столбцов легко сопоставлять.",
+      "source_lesson_id": "spreadsheets.chart-choice.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.chart-choice.card-003",
+      "topic_id": "spreadsheets.chart-choice",
+      "prompt": "Как показать распределение?",
+      "answer": "Гистограммой.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Она группирует числовые значения по интервалам.",
+      "source_lesson_id": "spreadsheets.chart-choice.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.chart-choice.card-004",
+      "topic_id": "spreadsheets.chart-choice",
+      "prompt": "Как показать связь двух чисел?",
+      "answer": "Точечной диаграммой.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Каждая точка представляет наблюдение.",
+      "source_lesson_id": "spreadsheets.chart-choice.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.chart-choice.card-005",
+      "topic_id": "spreadsheets.chart-choice",
+      "prompt": "Что должен сообщать заголовок?",
+      "answer": "Вопрос или ключевое наблюдение.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "«График 1» не помогает читателю.",
+      "source_lesson_id": "spreadsheets.chart-choice.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.chart-integrity.card-001",
+      "topic_id": "spreadsheets.chart-integrity",
+      "prompt": "Почему опасна обрезанная ось столбцов?",
+      "answer": "Она преувеличивает различия.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Длина столбца воспринимается от нулевой базы.",
+      "source_lesson_id": "spreadsheets.chart-integrity.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.chart-integrity.card-002",
+      "topic_id": "spreadsheets.chart-integrity",
+      "prompt": "Когда ненулевой минимум допустим?",
+      "answer": "Иногда для линии при явной маркировке.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Контекст изменения должен оставаться видимым.",
+      "source_lesson_id": "spreadsheets.chart-integrity.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.chart-integrity.card-003",
+      "topic_id": "spreadsheets.chart-integrity",
+      "prompt": "Почему вреден 3D?",
+      "answer": "Перспектива искажает размеры.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Декор мешает точному сравнению.",
+      "source_lesson_id": "spreadsheets.chart-integrity.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.chart-integrity.card-004",
+      "topic_id": "spreadsheets.chart-integrity",
+      "prompt": "Чем опасна двойная ось?",
+      "answer": "Масштабы можно подобрать для ложной связи.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Лучше разделить графики или явно обосновать.",
+      "source_lesson_id": "spreadsheets.chart-integrity.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.chart-integrity.card-005",
+      "topic_id": "spreadsheets.chart-integrity",
+      "prompt": "Что сверить после построения?",
+      "answer": "Значения",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "фильтры",
+      "source_lesson_id": "spreadsheets.chart-integrity.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.dashboard-layout.card-001",
+      "topic_id": "spreadsheets.dashboard-layout",
+      "prompt": "Что находится сверху дашборда?",
+      "answer": "Ключевые показатели.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Читатель сначала получает общий ответ.",
+      "source_lesson_id": "spreadsheets.dashboard-layout.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.dashboard-layout.card-002",
+      "topic_id": "spreadsheets.dashboard-layout",
+      "prompt": "Что размещают ниже KPI?",
+      "answer": "Динамику и основные разрезы.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Они объясняют изменение итогов.",
+      "source_lesson_id": "spreadsheets.dashboard-layout.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.dashboard-layout.card-003",
+      "topic_id": "spreadsheets.dashboard-layout",
+      "prompt": "Сколько фильтров нужно?",
+      "answer": "Только необходимые для решений.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Избыток усложняет интерпретацию.",
+      "source_lesson_id": "spreadsheets.dashboard-layout.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.dashboard-layout.card-004",
+      "topic_id": "spreadsheets.dashboard-layout",
+      "prompt": "Почему цвета должны быть стабильны?",
+      "answer": "Одна категория сохраняет значение во всех графиках.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Иначе читатель заново расшифровывает легенду.",
+      "source_lesson_id": "spreadsheets.dashboard-layout.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.dashboard-layout.card-005",
+      "topic_id": "spreadsheets.dashboard-layout",
+      "prompt": "Что указать рядом с метрикой?",
+      "answer": "Период",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "единицы и правило расчёта.",
+      "source_lesson_id": "spreadsheets.dashboard-layout.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.validation.card-001",
+      "topic_id": "spreadsheets.validation",
+      "prompt": "Что даёт выпадающий список?",
+      "answer": "Ограниченный словарь допустимых значений.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Это предотвращает варианты написания.",
+      "source_lesson_id": "spreadsheets.validation.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.validation.card-002",
+      "topic_id": "spreadsheets.validation",
+      "prompt": "Что делает условное форматирование?",
+      "answer": "Визуально отмечает условие.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Оно не меняет исходное значение.",
+      "source_lesson_id": "spreadsheets.validation.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.validation.card-003",
+      "topic_id": "spreadsheets.validation",
+      "prompt": "Что делает IFERROR?",
+      "answer": "Подменяет результат при ошибке.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Подмена должна сохранять смысл проблемы.",
+      "source_lesson_id": "spreadsheets.validation.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.validation.card-004",
+      "topic_id": "spreadsheets.validation",
+      "prompt": "Почему ошибка не равна нулю?",
+      "answer": "Ноль может быть валидным измерением.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Ошибка означает",
+      "source_lesson_id": "spreadsheets.validation.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.validation.card-005",
+      "topic_id": "spreadsheets.validation",
+      "prompt": "Как контролировать ошибки?",
+      "answer": "Считать и показывать их количество.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Скрытая ошибка опаснее явной.",
+      "source_lesson_id": "spreadsheets.validation.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.business-summary.card-001",
+      "topic_id": "spreadsheets.business-summary",
+      "prompt": "С чего начинается итог?",
+      "answer": "С ответа на бизнес-вопрос.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Детали идут после решения.",
+      "source_lesson_id": "spreadsheets.business-summary.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.business-summary.card-002",
+      "topic_id": "spreadsheets.business-summary",
+      "prompt": "Чем подкрепляют вывод?",
+      "answer": "Двумя-тремя релевантными числами.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "График без чисел допускает разное чтение.",
+      "source_lesson_id": "spreadsheets.business-summary.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.business-summary.card-003",
+      "topic_id": "spreadsheets.business-summary",
+      "prompt": "Что такое ограничение?",
+      "answer": "Причина не обобщать вывод безусловно.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Например неполный период или пропуски.",
+      "source_lesson_id": "spreadsheets.business-summary.lesson",
+      "difficulty": "easy",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.business-summary.card-004",
+      "topic_id": "spreadsheets.business-summary",
+      "prompt": "Почему корреляция не доказывает причину?",
+      "answer": "Возможны другие факторы и обратная связь.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Нужен дизайн причинной проверки.",
+      "source_lesson_id": "spreadsheets.business-summary.lesson",
+      "difficulty": "medium",
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.business-summary.card-005",
+      "topic_id": "spreadsheets.business-summary",
+      "prompt": "Чем заканчивается записка?",
+      "answer": "Действием или следующей проверкой.",
+      "type": "question_answer",
+      "choices": [],
+      "correct_choice_index": null,
+      "explanation": "Анализ должен помогать принять решение.",
+      "source_lesson_id": "spreadsheets.business-summary.lesson",
       "difficulty": "medium",
       "status": "active"
     }
   ],
   "tasks": [
     {
-      "id": "foundations.data-tables.task-choice",
+      "id": "foundations.data-tables.task",
       "topic_id": "foundations.data-tables",
-      "prompt": "В таблице продаж каждая строка имеет уникальный sale_id. Выберите зерно таблицы.",
+      "prompt": "В таблице каждая строка имеет уникальный sale_id. Выберите зерно таблицы.",
       "answer_type": "choice",
-      "options": ["Одна продажа", "Один город", "Один календарный месяц"],
+      "options": ["Одна продажа", "Один город", "Один месяц"],
       "checker": { "mode": "exact", "expected_answers": ["Одна продажа"] },
-      "difficulty": "easy",
-      "estimated_minutes": 2,
-      "hints": ["Посмотрите", "что идентифицирует sale_id."],
-      "reference_solution": "Одна продажа.",
-      "rubric": [{ "criterion": "Верно определено зерно", "points": 100 }],
+      "difficulty": "medium",
+      "estimated_minutes": 35,
+      "hints": [
+        "Сначала сформулируйте, какой факт или правило проверяется.",
+        "Сверьте ответ с определениями и контрольным примером из урока."
+      ],
+      "reference_solution": "Одна строка описывает одну продажу.",
+      "rubric": [
+        { "criterion": "Ответ соответствует условию", "points": 70 },
+        { "criterion": "Ход решения можно проверить", "points": 30 }
+      ],
       "status": "active"
     },
     {
-      "id": "foundations.data-tables.task-number",
-      "topic_id": "foundations.data-tables",
-      "prompt": "В таблице есть заголовок и три строки продаж. Сколько в ней наблюдений?",
+      "id": "foundations.data-types.task",
+      "topic_id": "foundations.data-types",
+      "prompt": "Какой столбец следует хранить как текст, даже если он состоит только из цифр?",
+      "answer_type": "choice",
+      "options": ["Количество товаров", "Телефон клиента", "Сумма заказа"],
+      "checker": { "mode": "exact", "expected_answers": ["Телефон клиента"] },
+      "difficulty": "medium",
+      "estimated_minutes": 35,
+      "hints": [
+        "Сначала сформулируйте, какой факт или правило проверяется.",
+        "Сверьте ответ с определениями и контрольным примером из урока."
+      ],
+      "reference_solution": "Телефон — идентификатор; его не складывают и ведущий ноль нельзя терять.",
+      "rubric": [
+        { "criterion": "Ответ соответствует условию", "points": 70 },
+        { "criterion": "Ход решения можно проверить", "points": 30 }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "foundations.missing-duplicates.task",
+      "topic_id": "foundations.missing-duplicates",
+      "prompt": "В столбце city 100 строк, из них 7 пустых. Сколько пропусков нужно указать в отчёте качества?",
       "answer_type": "number",
       "options": [],
-      "checker": { "mode": "normalized", "expected_answers": ["3", "3.0"] },
-      "difficulty": "easy",
-      "estimated_minutes": 2,
-      "hints": ["Заголовок не является наблюдением."],
-      "reference_solution": "3",
-      "rubric": [
-        { "criterion": "Посчитаны строки данных без заголовка", "points": 100 }
-      ],
-      "status": "active"
-    },
-    {
-      "id": "foundations.data-tables.task-quality",
-      "topic_id": "foundations.data-tables",
-      "prompt": "Какой столбец нужно проверить на уникальность, если одна строка — одна продажа?",
-      "answer_type": "code_as_text",
-      "options": [],
-      "checker": { "mode": "normalized", "expected_answers": ["sale_id"] },
+      "checker": { "mode": "normalized", "expected_answers": ["7"] },
       "difficulty": "medium",
-      "estimated_minutes": 5,
+      "estimated_minutes": 35,
       "hints": [
-        "Ищите идентификатор продажи.",
-        "Его имя заканчивается на _id."
+        "Сначала сформулируйте, какой факт или правило проверяется.",
+        "Сверьте ответ с определениями и контрольным примером из урока."
       ],
-      "reference_solution": "sale_id",
+      "reference_solution": "Семь пустых значений означают 7 пропусков.",
       "rubric": [
-        { "criterion": "Выбран идентификатор наблюдения", "points": 100 }
+        { "criterion": "Ответ соответствует условию", "points": 70 },
+        { "criterion": "Ход решения можно проверить", "points": 30 }
       ],
       "status": "active"
     },
     {
-      "id": "foundations.data-tables.task-text",
-      "topic_id": "foundations.data-tables",
-      "prompt": "Объясните своими словами разницу между строкой и столбцом таблицы продаж.",
+      "id": "foundations.quality-checks.task",
+      "topic_id": "foundations.quality-checks",
+      "prompt": "Сформулируйте измеримую проверку качества для столбца sale_id.",
       "answer_type": "text",
-      "options": [],
-      "checker": { "mode": "pending_review", "expected_answers": [] },
-      "difficulty": "medium",
-      "estimated_minutes": 4,
-      "hints": [
-        "Свяжите строку с продажей",
-        "а столбец — с её характеристикой."
-      ],
-      "reference_solution": "Строка описывает одну продажу, а столбец — один признак всех продаж.",
-      "rubric": [
-        { "criterion": "Строка связана с наблюдением", "points": 50 },
-        { "criterion": "Столбец связан с признаком", "points": 50 }
-      ],
-      "status": "active"
-    },
-    {
-      "id": "sql.window-functions.task-code",
-      "topic_id": "sql.window-functions",
-      "prompt": "Для каждой продажи выведите сумму продаж её клиента, сохранив каждую исходную строку.",
-      "answer_type": "code_as_text",
       "options": [],
       "checker": {
         "mode": "normalized",
-        "expected_answers": ["SUM(amount) OVER (PARTITION BY customer_id)"]
+        "expected_answers": [
+          "sale_id уникален",
+          "уникальность sale_id",
+          "sale_id не повторяется"
+        ]
       },
       "difficulty": "medium",
-      "estimated_minutes": 10,
+      "estimated_minutes": 35,
       "hints": [
-        "Используйте SUM как оконную функцию.",
-        "Окно разделяется по customer_id."
+        "Сначала сформулируйте, какой факт или правило проверяется.",
+        "Сверьте ответ с определениями и контрольным примером из урока."
       ],
-      "reference_solution": "SELECT *, SUM(amount) OVER (PARTITION BY customer_id) AS customer_total FROM sales;",
+      "reference_solution": "Количество уникальных sale_id должно равняться количеству строк; пропуски не допускаются.",
       "rubric": [
-        { "criterion": "Использована оконная SUM", "points": 60 },
-        { "criterion": "Разбиение выполнено по customer_id", "points": 40 }
+        { "criterion": "Ответ соответствует условию", "points": 70 },
+        { "criterion": "Ход решения можно проверить", "points": 30 }
       ],
       "status": "active"
     },
     {
-      "id": "sql.window-functions.task-choice",
-      "topic_id": "sql.window-functions",
-      "prompt": "Выберите конструкцию, которая сохранит все продажи в результате.",
-      "answer_type": "choice",
-      "options": [
-        "SUM(amount) GROUP BY customer_id",
-        "SUM(amount) OVER (PARTITION BY customer_id)"
-      ],
-      "checker": {
-        "mode": "exact",
-        "expected_answers": ["SUM(amount) OVER (PARTITION BY customer_id)"]
-      },
-      "difficulty": "easy",
-      "estimated_minutes": 2,
-      "hints": ["Ищите ключевое слово OVER."],
-      "reference_solution": "SUM(amount) OVER (PARTITION BY customer_id)",
-      "rubric": [{ "criterion": "Выбрана оконная агрегация", "points": 100 }],
-      "status": "active"
-    },
-    {
-      "id": "sql.window-functions.task-number",
-      "topic_id": "sql.window-functions",
-      "prompt": "У клиента две продажи на 10 и 20. Какую сумму покажет окно?",
-      "answer_type": "number",
+      "id": "foundations.data-passport.task",
+      "topic_id": "foundations.data-passport",
+      "prompt": "Напишите одной фразой зерно таблицы, где уникальный order_id обозначает заказ.",
+      "answer_type": "text",
       "options": [],
-      "checker": { "mode": "normalized", "expected_answers": ["30", "30.0"] },
-      "difficulty": "easy",
-      "estimated_minutes": 2,
-      "hints": ["Сложите обе продажи клиента."],
-      "reference_solution": "30",
-      "rubric": [{ "criterion": "Получена сумма окна", "points": 100 }],
+      "checker": {
+        "mode": "normalized",
+        "expected_answers": [
+          "одна строка — один заказ",
+          "одна строка один заказ",
+          "один заказ"
+        ]
+      },
+      "difficulty": "medium",
+      "estimated_minutes": 35,
+      "hints": [
+        "Сначала сформулируйте, какой факт или правило проверяется.",
+        "Сверьте ответ с определениями и контрольным примером из урока."
+      ],
+      "reference_solution": "Одна строка описывает один заказ.",
+      "rubric": [
+        { "criterion": "Ответ соответствует условию", "points": 70 },
+        { "criterion": "Ход решения можно проверить", "points": 30 }
+      ],
       "status": "active"
     },
     {
-      "id": "sql.window-functions.task-text",
-      "topic_id": "sql.window-functions",
-      "prompt": "Объясните своими словами, когда оконная функция полезнее GROUP BY.",
+      "id": "foundations.data-passport.project-week-01",
+      "topic_id": "foundations.data-passport",
+      "prompt": "Подготовьте паспорт учебной таблицы продаж: источник и период, зерно, ключ, словарь пяти полей, количество строк и пять измеримых проверок качества. Для каждой найденной проблемы укажите количество и пример.",
       "answer_type": "text",
       "options": [],
       "checker": { "mode": "pending_review", "expected_answers": [] },
+      "difficulty": "hard",
+      "estimated_minutes": 180,
+      "hints": [
+        "Начните с результата и критериев приёмки, затем перечислите проверки.",
+        "Сохраните исходные данные и отделите их от преобразований и отчёта."
+      ],
+      "reference_solution": "В хорошем паспорте явно разделены описание данных, результаты проверок и ограничения. Проверки покрывают ключ, пропуски, типы, диапазоны и допустимые категории.",
+      "rubric": [
+        {
+          "criterion": "Корректность данных и контрольные проверки",
+          "points": 40
+        },
+        { "criterion": "Воспроизводимость результата", "points": 30 },
+        { "criterion": "Обоснованность вывода", "points": 30 }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.formulas.task",
+      "topic_id": "spreadsheets.formulas",
+      "prompt": "Количество равно 4, цена — 750. Чему равна выручка по формуле количество × цена?",
+      "answer_type": "number",
+      "options": [],
+      "checker": {
+        "mode": "normalized",
+        "expected_answers": ["3000", "3 000"]
+      },
       "difficulty": "medium",
-      "estimated_minutes": 4,
-      "hints": ["Сравните детализацию результата."],
-      "reference_solution": "Когда нужно сохранить исходные строки и добавить агрегат или ранг.",
-      "rubric": [{ "criterion": "Упомянуто сохранение строк", "points": 100 }],
+      "estimated_minutes": 45,
+      "hints": [
+        "Сначала сформулируйте, какой факт или правило проверяется.",
+        "Сверьте ответ с определениями и контрольным примером из урока."
+      ],
+      "reference_solution": "4 × 750 = 3000.",
+      "rubric": [
+        { "criterion": "Ответ соответствует условию", "points": 70 },
+        { "criterion": "Ход решения можно проверить", "points": 30 }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.references.task",
+      "topic_id": "spreadsheets.references",
+      "prompt": "Запишите ссылку на ячейку B1, которая не изменится при копировании формулы ни вниз, ни вправо.",
+      "answer_type": "text",
+      "options": [],
+      "checker": { "mode": "normalized", "expected_answers": ["$B$1"] },
+      "difficulty": "medium",
+      "estimated_minutes": 45,
+      "hints": [
+        "Сначала сформулируйте, какой факт или правило проверяется.",
+        "Сверьте ответ с определениями и контрольным примером из урока."
+      ],
+      "reference_solution": "Абсолютная ссылка записывается как $B$1.",
+      "rubric": [
+        { "criterion": "Ответ соответствует условию", "points": 70 },
+        { "criterion": "Ход решения можно проверить", "points": 30 }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.sort-filter.task",
+      "topic_id": "spreadsheets.sort-filter",
+      "prompt": "Что безопаснее сделать перед сортировкой продаж по сумме?",
+      "answer_type": "choice",
+      "options": [
+        "Выделить только сумму",
+        "Выделить всю таблицу",
+        "Скопировать суммы вручную"
+      ],
+      "checker": {
+        "mode": "exact",
+        "expected_answers": ["Выделить всю таблицу"]
+      },
+      "difficulty": "medium",
+      "estimated_minutes": 45,
+      "hints": [
+        "Сначала сформулируйте, какой факт или правило проверяется.",
+        "Сверьте ответ с определениями и контрольным примером из урока."
+      ],
+      "reference_solution": "Вся строка должна перемещаться вместе, поэтому сортируют полный диапазон.",
+      "rubric": [
+        { "criterion": "Ответ соответствует условию", "points": 70 },
+        { "criterion": "Ход решения можно проверить", "points": 30 }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.cleaning.task",
+      "topic_id": "spreadsheets.cleaning",
+      "prompt": "Какой подход к очистке безопаснее?",
+      "answer_type": "choice",
+      "options": [
+        "Перезаписать исходный столбец",
+        "Создать очищенный столбец рядом",
+        "Исправлять только видимые ошибки вручную"
+      ],
+      "checker": {
+        "mode": "exact",
+        "expected_answers": ["Создать очищенный столбец рядом"]
+      },
+      "difficulty": "medium",
+      "estimated_minutes": 45,
+      "hints": [
+        "Сначала сформулируйте, какой факт или правило проверяется.",
+        "Сверьте ответ с определениями и контрольным примером из урока."
+      ],
+      "reference_solution": "Отдельный очищенный столбец сохраняет исходные данные для сравнения.",
+      "rubric": [
+        { "criterion": "Ответ соответствует условию", "points": 70 },
+        { "criterion": "Ход решения можно проверить", "points": 30 }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.basic-metrics.task",
+      "topic_id": "spreadsheets.basic-metrics",
+      "prompt": "Найдите медиану набора 2, 3, 3, 5, 100.",
+      "answer_type": "number",
+      "options": [],
+      "checker": { "mode": "normalized", "expected_answers": ["3"] },
+      "difficulty": "medium",
+      "estimated_minutes": 45,
+      "hints": [
+        "Сначала сформулируйте, какой факт или правило проверяется.",
+        "Сверьте ответ с определениями и контрольным примером из урока."
+      ],
+      "reference_solution": "После упорядочивания центральное третье значение равно 3.",
+      "rubric": [
+        { "criterion": "Ответ соответствует условию", "points": 70 },
+        { "criterion": "Ход решения можно проверить", "points": 30 }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.cleaning.project-week-02",
+      "topic_id": "spreadsheets.cleaning",
+      "prompt": "Создайте очищенную копию учебной таблицы заказов. Сохраните исходные столбцы, стандартизируйте города, преобразуйте суммы и даты, отметьте дубликаты, посчитайте пропуски и добавьте контрольные итоги до и после очистки.",
+      "answer_type": "text",
+      "options": [],
+      "checker": { "mode": "pending_review", "expected_answers": [] },
+      "difficulty": "hard",
+      "estimated_minutes": 180,
+      "hints": [
+        "Начните с результата и критериев приёмки, затем перечислите проверки.",
+        "Сохраните исходные данные и отделите их от преобразований и отчёта."
+      ],
+      "reference_solution": "Результат содержит лист raw, лист clean, журнал правил очистки и проверки числа строк, суммы и уникальности ключа.",
+      "rubric": [
+        {
+          "criterion": "Корректность данных и контрольные проверки",
+          "points": 40
+        },
+        { "criterion": "Воспроизводимость результата", "points": 30 },
+        { "criterion": "Обоснованность вывода", "points": 30 }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.logic.task",
+      "topic_id": "spreadsheets.logic",
+      "prompt": "Заказ считается срочным, если priority = high И paid = yes. Какой оператор связывает условия?",
+      "answer_type": "choice",
+      "options": ["AND", "OR", "SUM"],
+      "checker": { "mode": "exact", "expected_answers": ["AND"] },
+      "difficulty": "medium",
+      "estimated_minutes": 45,
+      "hints": [
+        "Сначала сформулируйте, какой факт или правило проверяется.",
+        "Сверьте ответ с определениями и контрольным примером из урока."
+      ],
+      "reference_solution": "Оба условия обязательны, значит нужен AND.",
+      "rubric": [
+        { "criterion": "Ответ соответствует условию", "points": 70 },
+        { "criterion": "Ход решения можно проверить", "points": 30 }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.conditional-aggregates.task",
+      "topic_id": "spreadsheets.conditional-aggregates",
+      "prompt": "Оплаченные заказы имеют суммы 100, 250 и 150, неоплаченный — 900. Чему равна SUMIF по статусу paid?",
+      "answer_type": "number",
+      "options": [],
+      "checker": { "mode": "normalized", "expected_answers": ["500"] },
+      "difficulty": "medium",
+      "estimated_minutes": 45,
+      "hints": [
+        "Сначала сформулируйте, какой факт или правило проверяется.",
+        "Сверьте ответ с определениями и контрольным примером из урока."
+      ],
+      "reference_solution": "100 + 250 + 150 = 500; неоплаченный заказ исключён.",
+      "rubric": [
+        { "criterion": "Ответ соответствует условию", "points": 70 },
+        { "criterion": "Ход решения можно проверить", "points": 30 }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.lookups.task",
+      "topic_id": "spreadsheets.lookups",
+      "prompt": "После XLOOKUP найдено 97 из 100 product_id. Что нужно отразить в проверке качества?",
+      "answer_type": "choice",
+      "options": ["Три ненайденных ключа", "Только 97 найденных", "Ничего"],
+      "checker": {
+        "mode": "exact",
+        "expected_answers": ["Три ненайденных ключа"]
+      },
+      "difficulty": "medium",
+      "estimated_minutes": 45,
+      "hints": [
+        "Сначала сформулируйте, какой факт или правило проверяется.",
+        "Сверьте ответ с определениями и контрольным примером из урока."
+      ],
+      "reference_solution": "Ненайденные ключи — явная проблема покрытия справочника.",
+      "rubric": [
+        { "criterion": "Ответ соответствует условию", "points": 70 },
+        { "criterion": "Ход решения можно проверить", "points": 30 }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.pivots.task",
+      "topic_id": "spreadsheets.pivots",
+      "prompt": "Нужно получить выручку по городам. Что поместить в строки и значения сводной?",
+      "answer_type": "choice",
+      "options": [
+        "Строки — город; значения — сумма выручки",
+        "Строки — выручка; значения — город",
+        "Только фильтр"
+      ],
+      "checker": {
+        "mode": "exact",
+        "expected_answers": ["Строки — город; значения — сумма выручки"]
+      },
+      "difficulty": "medium",
+      "estimated_minutes": 45,
+      "hints": [
+        "Сначала сформулируйте, какой факт или правило проверяется.",
+        "Сверьте ответ с определениями и контрольным примером из урока."
+      ],
+      "reference_solution": "Город задаёт разрез, выручка является суммируемой мерой.",
+      "rubric": [
+        { "criterion": "Ответ соответствует условию", "points": 70 },
+        { "criterion": "Ход решения можно проверить", "points": 30 }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.reproducible-report.task",
+      "topic_id": "spreadsheets.reproducible-report",
+      "prompt": "Назовите четыре слоя воспроизводимой рабочей книги по порядку.",
+      "answer_type": "text",
+      "options": [],
+      "checker": {
+        "mode": "normalized",
+        "expected_answers": [
+          "raw clean calc report",
+          "raw",
+          "clean",
+          "calc",
+          "report"
+        ]
+      },
+      "difficulty": "medium",
+      "estimated_minutes": 45,
+      "hints": [
+        "Сначала сформулируйте, какой факт или правило проверяется.",
+        "Сверьте ответ с определениями и контрольным примером из урока."
+      ],
+      "reference_solution": "Raw → clean → calc → report.",
+      "rubric": [
+        { "criterion": "Ответ соответствует условию", "points": 70 },
+        { "criterion": "Ход решения можно проверить", "points": 30 }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.reproducible-report.project-week-03",
+      "topic_id": "spreadsheets.reproducible-report",
+      "prompt": "Соберите книгу raw → clean → calc → report. Добавьте категории из справочника, рассчитайте выручку и статус заказа, постройте сводную по городам и категориям и добавьте минимум четыре контрольных итога.",
+      "answer_type": "text",
+      "options": [],
+      "checker": { "mode": "pending_review", "expected_answers": [] },
+      "difficulty": "hard",
+      "estimated_minutes": 180,
+      "hints": [
+        "Начните с результата и критериев приёмки, затем перечислите проверки.",
+        "Сохраните исходные данные и отделите их от преобразований и отчёта."
+      ],
+      "reference_solution": "Итог пересчитывается после замены raw-данных, не содержит ручных итогов и явно показывает ненайденные ключи и расхождения контролей.",
+      "rubric": [
+        {
+          "criterion": "Корректность данных и контрольные проверки",
+          "points": 40
+        },
+        { "criterion": "Воспроизводимость результата", "points": 30 },
+        { "criterion": "Обоснованность вывода", "points": 30 }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.chart-choice.task",
+      "topic_id": "spreadsheets.chart-choice",
+      "prompt": "Какой график выбрать для сравнения выручки десяти городов?",
+      "answer_type": "choice",
+      "options": [
+        "Столбчатый",
+        "Линейный без временной оси",
+        "Круговой из десяти секторов"
+      ],
+      "checker": { "mode": "exact", "expected_answers": ["Столбчатый"] },
+      "difficulty": "medium",
+      "estimated_minutes": 45,
+      "hints": [
+        "Сначала сформулируйте, какой факт или правило проверяется.",
+        "Сверьте ответ с определениями и контрольным примером из урока."
+      ],
+      "reference_solution": "Для сравнения категорий наиболее читаемы длины столбцов.",
+      "rubric": [
+        { "criterion": "Ответ соответствует условию", "points": 70 },
+        { "criterion": "Ход решения можно проверить", "points": 30 }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.chart-integrity.task",
+      "topic_id": "spreadsheets.chart-integrity",
+      "prompt": "Продажи выросли со 100 до 102. Какая настройка столбчатого графика не преувеличит рост?",
+      "answer_type": "choice",
+      "options": ["Ось от 0", "Ось от 99.5", "3D-столбцы"],
+      "checker": { "mode": "exact", "expected_answers": ["Ось от 0"] },
+      "difficulty": "medium",
+      "estimated_minutes": 45,
+      "hints": [
+        "Сначала сформулируйте, какой факт или правило проверяется.",
+        "Сверьте ответ с определениями и контрольным примером из урока."
+      ],
+      "reference_solution": "Нулевая база сохраняет пропорцию длин 100 и 102.",
+      "rubric": [
+        { "criterion": "Ответ соответствует условию", "points": 70 },
+        { "criterion": "Ход решения можно проверить", "points": 30 }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.dashboard-layout.task",
+      "topic_id": "spreadsheets.dashboard-layout",
+      "prompt": "Опишите порядок трёх уровней дашборда сверху вниз.",
+      "answer_type": "text",
+      "options": [],
+      "checker": {
+        "mode": "normalized",
+        "expected_answers": [
+          "ключевые показатели",
+          "динамика и разрезы",
+          "детали",
+          "KPI динамика детали"
+        ]
+      },
+      "difficulty": "medium",
+      "estimated_minutes": 45,
+      "hints": [
+        "Сначала сформулируйте, какой факт или правило проверяется.",
+        "Сверьте ответ с определениями и контрольным примером из урока."
+      ],
+      "reference_solution": "KPI → динамика и основные разрезы → детализация.",
+      "rubric": [
+        { "criterion": "Ответ соответствует условию", "points": 70 },
+        { "criterion": "Ход решения можно проверить", "points": 30 }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.validation.task",
+      "topic_id": "spreadsheets.validation",
+      "prompt": "Как уменьшить варианты «оплачен», «Оплачен» и «paid» в поле статуса?",
+      "answer_type": "choice",
+      "options": [
+        "Выпадающий список",
+        "Цвет шрифта",
+        "Ручное исправление в отчёте"
+      ],
+      "checker": { "mode": "exact", "expected_answers": ["Выпадающий список"] },
+      "difficulty": "medium",
+      "estimated_minutes": 45,
+      "hints": [
+        "Сначала сформулируйте, какой факт или правило проверяется.",
+        "Сверьте ответ с определениями и контрольным примером из урока."
+      ],
+      "reference_solution": "Валидация по списку ограничивает ввод единым словарём.",
+      "rubric": [
+        { "criterion": "Ответ соответствует условию", "points": 70 },
+        { "criterion": "Ход решения можно проверить", "points": 30 }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.business-summary.task",
+      "topic_id": "spreadsheets.business-summary",
+      "prompt": "Назовите пять частей краткого аналитического итога.",
+      "answer_type": "text",
+      "options": [],
+      "checker": {
+        "mode": "normalized",
+        "expected_answers": [
+          "вывод доказательства интерпретация ограничение действие",
+          "ответ числа интерпретация ограничение рекомендация"
+        ]
+      },
+      "difficulty": "medium",
+      "estimated_minutes": 45,
+      "hints": [
+        "Сначала сформулируйте, какой факт или правило проверяется.",
+        "Сверьте ответ с определениями и контрольным примером из урока."
+      ],
+      "reference_solution": "Ответ → доказательства → интерпретация → ограничение → рекомендуемое действие.",
+      "rubric": [
+        { "criterion": "Ответ соответствует условию", "points": 70 },
+        { "criterion": "Ход решения можно проверить", "points": 30 }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "spreadsheets.business-summary.project-week-04",
+      "topic_id": "spreadsheets.business-summary",
+      "prompt": "Подготовьте итоговую книгу с листами README, raw, clean, calc и report. На report разместите 3–5 KPI, динамику, два категориальных разреза и фильтры. Добавьте контроли качества и краткий вывод с доказательствами, ограничением и действием.",
+      "answer_type": "text",
+      "options": [],
+      "checker": { "mode": "pending_review", "expected_answers": [] },
+      "difficulty": "hard",
+      "estimated_minutes": 180,
+      "hints": [
+        "Начните с результата и критериев приёмки, затем перечислите проверки.",
+        "Сохраните исходные данные и отделите их от преобразований и отчёта."
+      ],
+      "reference_solution": "Отчёт пересчитывается после замены raw, графики используют честные оси, KPI имеют период и единицы, а контрольные суммы и ошибки поиска видны читателю.",
+      "rubric": [
+        {
+          "criterion": "Корректность данных и контрольные проверки",
+          "points": 40
+        },
+        { "criterion": "Воспроизводимость результата", "points": 30 },
+        { "criterion": "Обоснованность вывода", "points": 30 }
+      ],
       "status": "active"
     }
   ],
+  "weeks": [
+    {
+      "week": 1,
+      "title": "Старт и грамотность работы с данными",
+      "outcome": "Подготовить паспорт небольшого датасета и выполнить пять проверок качества.",
+      "days": [
+        {
+          "day": 1,
+          "lesson_id": "foundations.data-tables.lesson",
+          "card_ids": [
+            "foundations.data-tables.card-001",
+            "foundations.data-tables.card-002",
+            "foundations.data-tables.card-003",
+            "foundations.data-tables.card-004",
+            "foundations.data-tables.card-005"
+          ],
+          "task_ids": ["foundations.data-tables.task"],
+          "target_minutes": 50
+        },
+        {
+          "day": 2,
+          "lesson_id": "foundations.data-types.lesson",
+          "card_ids": [
+            "foundations.data-types.card-001",
+            "foundations.data-types.card-002",
+            "foundations.data-types.card-003",
+            "foundations.data-types.card-004",
+            "foundations.data-types.card-005"
+          ],
+          "task_ids": ["foundations.data-types.task"],
+          "target_minutes": 50
+        },
+        {
+          "day": 3,
+          "lesson_id": "foundations.missing-duplicates.lesson",
+          "card_ids": [
+            "foundations.missing-duplicates.card-001",
+            "foundations.missing-duplicates.card-002",
+            "foundations.missing-duplicates.card-003",
+            "foundations.missing-duplicates.card-004",
+            "foundations.missing-duplicates.card-005"
+          ],
+          "task_ids": ["foundations.missing-duplicates.task"],
+          "target_minutes": 50
+        },
+        {
+          "day": 4,
+          "lesson_id": "foundations.quality-checks.lesson",
+          "card_ids": [
+            "foundations.quality-checks.card-001",
+            "foundations.quality-checks.card-002",
+            "foundations.quality-checks.card-003",
+            "foundations.quality-checks.card-004",
+            "foundations.quality-checks.card-005"
+          ],
+          "task_ids": ["foundations.quality-checks.task"],
+          "target_minutes": 50
+        },
+        {
+          "day": 5,
+          "lesson_id": "foundations.data-passport.lesson",
+          "card_ids": [
+            "foundations.data-passport.card-001",
+            "foundations.data-passport.card-002",
+            "foundations.data-passport.card-003",
+            "foundations.data-passport.card-004",
+            "foundations.data-passport.card-005"
+          ],
+          "task_ids": ["foundations.data-passport.task"],
+          "target_minutes": 50
+        }
+      ],
+      "project_task_id": "foundations.data-passport.project-week-01"
+    },
+    {
+      "week": 2,
+      "title": "Таблицы — базовые вычисления и очистка",
+      "outcome": "Очистить таблицу и построить воспроизводимый расчёт без ручного копирования значений.",
+      "days": [
+        {
+          "day": 1,
+          "lesson_id": "spreadsheets.formulas.lesson",
+          "card_ids": [
+            "spreadsheets.formulas.card-001",
+            "spreadsheets.formulas.card-002",
+            "spreadsheets.formulas.card-003",
+            "spreadsheets.formulas.card-004",
+            "spreadsheets.formulas.card-005"
+          ],
+          "task_ids": ["spreadsheets.formulas.task"],
+          "target_minutes": 60
+        },
+        {
+          "day": 2,
+          "lesson_id": "spreadsheets.references.lesson",
+          "card_ids": [
+            "spreadsheets.references.card-001",
+            "spreadsheets.references.card-002",
+            "spreadsheets.references.card-003",
+            "spreadsheets.references.card-004",
+            "spreadsheets.references.card-005"
+          ],
+          "task_ids": ["spreadsheets.references.task"],
+          "target_minutes": 60
+        },
+        {
+          "day": 3,
+          "lesson_id": "spreadsheets.sort-filter.lesson",
+          "card_ids": [
+            "spreadsheets.sort-filter.card-001",
+            "spreadsheets.sort-filter.card-002",
+            "spreadsheets.sort-filter.card-003",
+            "spreadsheets.sort-filter.card-004",
+            "spreadsheets.sort-filter.card-005"
+          ],
+          "task_ids": ["spreadsheets.sort-filter.task"],
+          "target_minutes": 60
+        },
+        {
+          "day": 4,
+          "lesson_id": "spreadsheets.cleaning.lesson",
+          "card_ids": [
+            "spreadsheets.cleaning.card-001",
+            "spreadsheets.cleaning.card-002",
+            "spreadsheets.cleaning.card-003",
+            "spreadsheets.cleaning.card-004",
+            "spreadsheets.cleaning.card-005"
+          ],
+          "task_ids": ["spreadsheets.cleaning.task"],
+          "target_minutes": 60
+        },
+        {
+          "day": 5,
+          "lesson_id": "spreadsheets.basic-metrics.lesson",
+          "card_ids": [
+            "spreadsheets.basic-metrics.card-001",
+            "spreadsheets.basic-metrics.card-002",
+            "spreadsheets.basic-metrics.card-003",
+            "spreadsheets.basic-metrics.card-004",
+            "spreadsheets.basic-metrics.card-005"
+          ],
+          "task_ids": ["spreadsheets.basic-metrics.task"],
+          "target_minutes": 60
+        }
+      ],
+      "project_task_id": "spreadsheets.cleaning.project-week-02"
+    },
+    {
+      "week": 3,
+      "title": "Таблицы — условия, агрегации и поиск",
+      "outcome": "Собрать расчёт показателей по условиям и сводный отчёт из нескольких справочников.",
+      "days": [
+        {
+          "day": 1,
+          "lesson_id": "spreadsheets.logic.lesson",
+          "card_ids": [
+            "spreadsheets.logic.card-001",
+            "spreadsheets.logic.card-002",
+            "spreadsheets.logic.card-003",
+            "spreadsheets.logic.card-004",
+            "spreadsheets.logic.card-005"
+          ],
+          "task_ids": ["spreadsheets.logic.task"],
+          "target_minutes": 60
+        },
+        {
+          "day": 2,
+          "lesson_id": "spreadsheets.conditional-aggregates.lesson",
+          "card_ids": [
+            "spreadsheets.conditional-aggregates.card-001",
+            "spreadsheets.conditional-aggregates.card-002",
+            "spreadsheets.conditional-aggregates.card-003",
+            "spreadsheets.conditional-aggregates.card-004",
+            "spreadsheets.conditional-aggregates.card-005"
+          ],
+          "task_ids": ["spreadsheets.conditional-aggregates.task"],
+          "target_minutes": 60
+        },
+        {
+          "day": 3,
+          "lesson_id": "spreadsheets.lookups.lesson",
+          "card_ids": [
+            "spreadsheets.lookups.card-001",
+            "spreadsheets.lookups.card-002",
+            "spreadsheets.lookups.card-003",
+            "spreadsheets.lookups.card-004",
+            "spreadsheets.lookups.card-005"
+          ],
+          "task_ids": ["spreadsheets.lookups.task"],
+          "target_minutes": 60
+        },
+        {
+          "day": 4,
+          "lesson_id": "spreadsheets.pivots.lesson",
+          "card_ids": [
+            "spreadsheets.pivots.card-001",
+            "spreadsheets.pivots.card-002",
+            "spreadsheets.pivots.card-003",
+            "spreadsheets.pivots.card-004",
+            "spreadsheets.pivots.card-005"
+          ],
+          "task_ids": ["spreadsheets.pivots.task"],
+          "target_minutes": 60
+        },
+        {
+          "day": 5,
+          "lesson_id": "spreadsheets.reproducible-report.lesson",
+          "card_ids": [
+            "spreadsheets.reproducible-report.card-001",
+            "spreadsheets.reproducible-report.card-002",
+            "spreadsheets.reproducible-report.card-003",
+            "spreadsheets.reproducible-report.card-004",
+            "spreadsheets.reproducible-report.card-005"
+          ],
+          "task_ids": ["spreadsheets.reproducible-report.task"],
+          "target_minutes": 60
+        }
+      ],
+      "project_task_id": "spreadsheets.reproducible-report.project-week-03"
+    },
+    {
+      "week": 4,
+      "title": "Визуализация и завершённый табличный отчёт",
+      "outcome": "Подготовить понятный отчёт с корректными графиками, проверками и кратким бизнес-выводом.",
+      "days": [
+        {
+          "day": 1,
+          "lesson_id": "spreadsheets.chart-choice.lesson",
+          "card_ids": [
+            "spreadsheets.chart-choice.card-001",
+            "spreadsheets.chart-choice.card-002",
+            "spreadsheets.chart-choice.card-003",
+            "spreadsheets.chart-choice.card-004",
+            "spreadsheets.chart-choice.card-005"
+          ],
+          "task_ids": ["spreadsheets.chart-choice.task"],
+          "target_minutes": 60
+        },
+        {
+          "day": 2,
+          "lesson_id": "spreadsheets.chart-integrity.lesson",
+          "card_ids": [
+            "spreadsheets.chart-integrity.card-001",
+            "spreadsheets.chart-integrity.card-002",
+            "spreadsheets.chart-integrity.card-003",
+            "spreadsheets.chart-integrity.card-004",
+            "spreadsheets.chart-integrity.card-005"
+          ],
+          "task_ids": ["spreadsheets.chart-integrity.task"],
+          "target_minutes": 60
+        },
+        {
+          "day": 3,
+          "lesson_id": "spreadsheets.dashboard-layout.lesson",
+          "card_ids": [
+            "spreadsheets.dashboard-layout.card-001",
+            "spreadsheets.dashboard-layout.card-002",
+            "spreadsheets.dashboard-layout.card-003",
+            "spreadsheets.dashboard-layout.card-004",
+            "spreadsheets.dashboard-layout.card-005"
+          ],
+          "task_ids": ["spreadsheets.dashboard-layout.task"],
+          "target_minutes": 60
+        },
+        {
+          "day": 4,
+          "lesson_id": "spreadsheets.validation.lesson",
+          "card_ids": [
+            "spreadsheets.validation.card-001",
+            "spreadsheets.validation.card-002",
+            "spreadsheets.validation.card-003",
+            "spreadsheets.validation.card-004",
+            "spreadsheets.validation.card-005"
+          ],
+          "task_ids": ["spreadsheets.validation.task"],
+          "target_minutes": 60
+        },
+        {
+          "day": 5,
+          "lesson_id": "spreadsheets.business-summary.lesson",
+          "card_ids": [
+            "spreadsheets.business-summary.card-001",
+            "spreadsheets.business-summary.card-002",
+            "spreadsheets.business-summary.card-003",
+            "spreadsheets.business-summary.card-004",
+            "spreadsheets.business-summary.card-005"
+          ],
+          "task_ids": ["spreadsheets.business-summary.task"],
+          "target_minutes": 60
+        }
+      ],
+      "project_task_id": "spreadsheets.business-summary.project-week-04"
+    }
+  ],
   "daily_plan": {
-    "date": "2026-08-18",
-    "target_minutes": 25,
-    "rationale": "Определите зерно таблицы, закрепите понятия карточками и решите одну задачу выбранного типа.",
+    "date": "2026-08-31",
+    "target_minutes": 50,
+    "rationale": "Начните с понятий строки, столбца и зерна таблицы.",
     "items": [
-      { "item_id": "foundations.data-tables.intro", "type": "lesson" },
+      { "item_id": "foundations.data-tables.lesson", "type": "lesson" },
       { "item_id": "foundations.data-tables.card-001", "type": "card" },
       { "item_id": "foundations.data-tables.card-002", "type": "card" },
       { "item_id": "foundations.data-tables.card-003", "type": "card" },
       { "item_id": "foundations.data-tables.card-004", "type": "card" },
       { "item_id": "foundations.data-tables.card-005", "type": "card" },
-      { "item_id": "foundations.data-tables.task-choice", "type": "task" }
+      { "item_id": "foundations.data-tables.task", "type": "task" }
     ]
   }
 }

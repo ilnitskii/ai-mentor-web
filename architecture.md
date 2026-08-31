@@ -2,7 +2,7 @@
 
 Статус: Architecture Baseline 2.0  
 Дата: 2026-08-18  
-Решения: [ADR-002](docs/adr/ADR-002-web-pwa-github-pages-supabase.md), [ADR-003](docs/adr/ADR-003-self-service-named-signup.md)
+Решения: [ADR-002](docs/adr/ADR-002-web-pwa-github-pages-supabase.md), [ADR-003](docs/adr/ADR-003-self-service-named-signup.md), [ADR-004](docs/adr/ADR-004-versioned-course-releases-in-supabase.md)
 
 ## 1. Зафиксированные решения
 
@@ -143,7 +143,7 @@ ai_mentor_app/
 | `reviews` | оценка свободного ответа | `id`, `user_id`, task_id, score, feedback |
 | `pipeline_runs` | аудит генерации без секретов | `run_id`, status, input_cursor, error_code |
 
-Учебные Topic/Lesson/Card/Task в MVP поставляются с frontend build из `content/`. Если персонализированный candidate изменяет или добавляет сущность, опубликованная версия хранится в БД с тем же stable ID и версией.
+Учебные Topic/Lesson/Card/Task собираются из `content/` в проверенный snapshot. Опубликованный общий snapshot хранится в `course_releases` по ADR-004, а frontend build содержит ту же версию как offline fallback. Если персонализированный candidate изменяет или добавляет сущность, он сохраняет stable ID и версию.
 
 ### Progress event
 

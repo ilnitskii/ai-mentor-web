@@ -70,6 +70,11 @@ export class FakeMentorDatabase implements MentorDatabase {
   private readonly masterySnapshots = new Map<string, MasterySnapshotInput>();
   private readonly cardStates = new Map<string, CardStateInput>();
 
+  async getPublishedCourse(_trackId: string) {
+    void _trackId;
+    return null;
+  }
+
   async getProfile(userId: string): Promise<Profile | null> {
     return this.profiles.get(userId) ?? null;
   }

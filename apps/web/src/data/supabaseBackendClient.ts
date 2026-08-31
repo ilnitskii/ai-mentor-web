@@ -102,6 +102,17 @@ export class SupabaseBackendClient implements BackendClient {
 export class SupabaseMentorDatabase implements MentorDatabase {
   constructor(private readonly client: SupabaseClient<Database>) {}
 
+  async getPublishedCourse(trackId: string) {
+    const { data, error } = await this.client
+      .from("course_releases")
+      .select("*")
+      .eq("track_id", trackId)
+      .eq("status", "published")
+      .maybeSingle();
+    if (error) throw error;
+    return data;
+  }
+
   async getProfile(userId: string): Promise<Profile | null> {
     const { data, error } = await this.client
       .from("profiles")

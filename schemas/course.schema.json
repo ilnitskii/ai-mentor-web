@@ -4,14 +4,20 @@
   "title": "AI Mentor normalized course snapshot",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "profile_id", "topics", "lessons", "cards", "tasks", "daily_plan"],
+  "required": ["schema_version", "profile_id", "track_id", "release_version", "title", "start_week", "end_week", "topics", "lessons", "cards", "tasks", "weeks", "daily_plan"],
   "properties": {
     "schema_version": { "const": 1 },
     "profile_id": { "$ref": "#/$defs/id" },
+    "track_id": { "$ref": "#/$defs/id" },
+    "release_version": { "type": "integer", "minimum": 1 },
+    "title": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "start_week": { "type": "integer", "minimum": 1 },
+    "end_week": { "type": "integer", "minimum": 1 },
     "topics": { "type": "array", "items": { "$ref": "#/$defs/topic" } },
     "lessons": { "type": "array", "items": { "$ref": "#/$defs/lesson" } },
     "cards": { "type": "array", "items": { "$ref": "#/$defs/card" } },
     "tasks": { "type": "array", "items": { "$ref": "#/$defs/task" } },
+    "weeks": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/courseWeek" } },
     "reviews": { "type": "array", "items": { "$ref": "#/$defs/review" } },
     "daily_plan": { "$ref": "#/$defs/dailyPlan" }
   },
@@ -185,6 +191,30 @@
       "properties": {
         "item_id": { "$ref": "#/$defs/id" },
         "type": { "enum": ["lesson", "card", "task"] }
+      }
+    },
+    "courseDay": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["day", "lesson_id", "card_ids", "task_ids", "target_minutes"],
+      "properties": {
+        "day": { "type": "integer", "minimum": 1, "maximum": 7 },
+        "lesson_id": { "$ref": "#/$defs/id" },
+        "card_ids": { "type": "array", "minItems": 5, "maxItems": 10, "items": { "$ref": "#/$defs/id" } },
+        "task_ids": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" } },
+        "target_minutes": { "type": "integer", "minimum": 15, "maximum": 180 }
+      }
+    },
+    "courseWeek": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["week", "title", "outcome", "days", "project_task_id"],
+      "properties": {
+        "week": { "type": "integer", "minimum": 1 },
+        "title": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "outcome": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "days": { "type": "array", "minItems": 5, "maxItems": 5, "items": { "$ref": "#/$defs/courseDay" } },
+        "project_task_id": { "$ref": "#/$defs/id" }
       }
     },
     "dailyPlan": {

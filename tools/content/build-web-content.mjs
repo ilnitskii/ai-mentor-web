@@ -1,156 +1,180 @@
-import { readFile, readdir, writeFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-
 import { parse as parseYaml } from "yaml";
 import { format } from "prettier";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
-const contentRoot = resolve(projectRoot, "content");
+const releasePath = resolve(
+  projectRoot,
+  "content/releases/data-analyst-zero.weeks-01-04.yaml",
+);
 const outputPath = resolve(projectRoot, "apps/web/src/generated/course.json");
 const fixturePath = resolve(projectRoot, "fixtures/course.valid.json");
+const release = parseYaml(await readFile(releasePath, "utf8"));
 
-async function filesIn(directory, suffix) {
-  return (await readdir(directory))
-    .filter((name) => name.endsWith(suffix))
-    .sort()
-    .map((name) => resolve(directory, name));
-}
-
-function parseLesson(source, path) {
-  const match = source.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
-  if (!match) throw new Error(`CONTENT_FRONT_MATTER_INVALID:${path}`);
-  const metadata = parseYaml(match[1]);
-  return { ...metadata, body: match[2].trim() };
+function required(value, label) {
+  if (value === undefined || value === null || value === "")
+    throw new Error(`CONTENT_REQUIRED:${label}`);
+  return value;
 }
 
 function assertUniqueIds(collections) {
   const ids = new Set();
-  for (const collection of collections) {
+  for (const collection of collections)
     for (const item of collection) {
       if (!item.id || ids.has(item.id))
         throw new Error(`CONTENT_ID_INVALID:${item.id ?? "missing"}`);
       ids.add(item.id);
     }
-  }
 }
 
-const lessonPaths = await filesIn(resolve(contentRoot, "lessons"), ".md");
-const rawLessons = await Promise.all(
-  lessonPaths.map(async (path) =>
-    parseLesson(await readFile(path, "utf8"), path),
-  ),
-);
-const lessons = rawLessons.map((lesson) => ({
-  id: lesson.id,
-  topic_id: lesson.topic_id,
-  title: lesson.title,
-  body: lesson.body,
-  estimated_minutes: lesson.estimated_minutes,
-  check: lesson.check ?? null,
-  status: lesson.status,
-}));
+const topics = [];
+const lessons = [];
+const cards = [];
+const tasks = [];
+const weeks = [];
+let previousTopicId = null;
 
-const cardPaths = await filesIn(resolve(contentRoot, "cards"), ".yaml");
-const rawCards = (
-  await Promise.all(
-    cardPaths.map(
-      async (path) => parseYaml(await readFile(path, "utf8")).cards,
-    ),
-  )
-).flat();
-const cards = rawCards.map((card) => ({
-  id: card.id,
-  topic_id: card.topic_id,
-  prompt: card.prompt,
-  answer: card.answer,
-  type: card.type ?? "question_answer",
-  choices: card.choices ?? [],
-  correct_choice_index: card.correct_choice_index ?? null,
-  explanation: card.explanation ?? "",
-  source_lesson_id: card.source_lesson_id ?? null,
-  difficulty: card.difficulty,
-  status: card.status,
-}));
-
-const taskPaths = await filesIn(resolve(contentRoot, "tasks"), ".yaml");
-const tasks = await Promise.all(
-  taskPaths.map(async (path) => {
-    const task = parseYaml(await readFile(path, "utf8"));
-    return {
-      id: task.id,
-      topic_id: task.topic_id,
+for (const week of release.weeks) {
+  const plannedDays = [];
+  for (const day of week.days) {
+    const topicId = required(day.topic_id, `week-${week.week}.day-${day.day}`);
+    const lessonId = `${topicId}.lesson`;
+    const taskId = `${topicId}.task`;
+    const cardIds = [];
+    topics.push({
+      id: topicId,
+      title: day.title,
+      prerequisites: previousTopicId ? [previousTopicId] : [],
+      status: "active",
+    });
+    lessons.push({
+      id: lessonId,
+      topic_id: topicId,
+      title: day.title,
+      body: required(day.body, `${lessonId}.body`).trim(),
+      estimated_minutes: day.minutes,
+      check: {
+        question: day.check_question,
+        rule: { mode: "normalized", expected_answers: day.check_answers },
+      },
+      status: "active",
+    });
+    if (!Array.isArray(day.knowledge) || day.knowledge.length !== 5)
+      throw new Error(`CONTENT_CARD_COUNT:${topicId}`);
+    day.knowledge.forEach(([prompt, answer, explanation], index) => {
+      const id = `${topicId}.card-${String(index + 1).padStart(3, "0")}`;
+      cardIds.push(id);
+      cards.push({
+        id,
+        topic_id: topicId,
+        prompt,
+        answer,
+        type: "question_answer",
+        choices: [],
+        correct_choice_index: null,
+        explanation,
+        source_lesson_id: lessonId,
+        difficulty: index < 3 ? "easy" : "medium",
+        status: "active",
+      });
+    });
+    const task = day.task;
+    tasks.push({
+      id: taskId,
+      topic_id: topicId,
       prompt: task.prompt,
-      answer_type: task.answer_type ?? task.type,
+      answer_type: task.answer_type,
       options: task.options ?? [],
-      checker: task.checker,
-      difficulty: task.difficulty,
-      estimated_minutes: task.estimated_minutes,
-      hints: task.hints,
-      reference_solution: task.reference_solution,
-      rubric: task.rubric,
-      status: task.status,
-    };
-  }),
-);
-
-const topicIds = [
-  ...new Set([...lessons, ...cards, ...tasks].map((item) => item.topic_id)),
-];
-const topics = topicIds.map((id) => {
-  const lesson = lessons.find((item) => item.topic_id === id);
-  return {
-    id,
-    title: lesson?.title ?? id,
-    prerequisites: [],
+      checker: {
+        mode: task.answer_type === "choice" ? "exact" : "normalized",
+        expected_answers: task.expected,
+      },
+      difficulty: "medium",
+      estimated_minutes: week.week === 1 ? 35 : 45,
+      hints: [
+        "Сначала сформулируйте, какой факт или правило проверяется.",
+        "Сверьте ответ с определениями и контрольным примером из урока.",
+      ],
+      reference_solution: task.reference,
+      rubric: [
+        { criterion: "Ответ соответствует условию", points: 70 },
+        { criterion: "Ход решения можно проверить", points: 30 },
+      ],
+      status: "active",
+    });
+    plannedDays.push({
+      day: day.day,
+      lesson_id: lessonId,
+      card_ids: cardIds,
+      task_ids: [taskId],
+      target_minutes: week.week === 1 ? 50 : 60,
+    });
+    previousTopicId = topicId;
+  }
+  const projectId = `${week.project.topic_id}.project-week-${String(week.week).padStart(2, "0")}`;
+  tasks.push({
+    id: projectId,
+    topic_id: week.project.topic_id,
+    prompt: week.project.prompt,
+    answer_type: "text",
+    options: [],
+    checker: { mode: "pending_review", expected_answers: [] },
+    difficulty: "hard",
+    estimated_minutes: 180,
+    hints: [
+      "Начните с результата и критериев приёмки, затем перечислите проверки.",
+      "Сохраните исходные данные и отделите их от преобразований и отчёта.",
+    ],
+    reference_solution: week.project.reference,
+    rubric: [
+      { criterion: "Корректность данных и контрольные проверки", points: 40 },
+      { criterion: "Воспроизводимость результата", points: 30 },
+      { criterion: "Обоснованность вывода", points: 30 },
+    ],
     status: "active",
-  };
-});
+  });
+  weeks.push({
+    week: week.week,
+    title: week.title,
+    outcome: week.outcome,
+    days: plannedDays,
+    project_task_id: projectId,
+  });
+}
 
 assertUniqueIds([topics, lessons, cards, tasks]);
-
-for (const task of tasks) {
-  if (!task.checker?.mode)
-    throw new Error(`CONTENT_CHECKER_MISSING:${task.id}`);
-}
-
-const foundationLesson = lessons.find(
-  (item) => item.id === "foundations.data-tables.intro",
-);
-const foundationCards = cards.filter(
-  (item) => item.topic_id === "foundations.data-tables",
-);
-const defaultTask = tasks.find(
-  (item) => item.id === "foundations.data-tables.task-choice",
-);
-if (!foundationLesson || foundationCards.length < 5 || !defaultTask)
-  throw new Error("CONTENT_DAILY_PLAN_INCOMPLETE");
-
+const firstDay = weeks[0].days[0];
 const course = {
-  schema_version: 1,
+  schema_version: release.schema_version,
   profile_id: "default",
+  track_id: release.track_id,
+  release_version: release.release_version,
+  title: release.title,
+  start_week: release.start_week,
+  end_week: release.end_week,
   topics,
   lessons,
   cards,
   tasks,
+  weeks,
   daily_plan: {
-    date: "2026-08-18",
-    target_minutes: 25,
-    rationale:
-      "Определите зерно таблицы, закрепите понятия карточками и решите одну задачу выбранного типа.",
+    date: "2026-08-31",
+    target_minutes: firstDay.target_minutes,
+    rationale: "Начните с понятий строки, столбца и зерна таблицы.",
     items: [
-      { item_id: foundationLesson.id, type: "lesson" },
-      ...foundationCards.map((card) => ({ item_id: card.id, type: "card" })),
-      { item_id: defaultTask.id, type: "task" },
+      { item_id: firstDay.lesson_id, type: "lesson" },
+      ...firstDay.card_ids.map((item_id) => ({ item_id, type: "card" })),
+      { item_id: firstDay.task_ids[0], type: "task" },
     ],
   },
 };
-
 const serialized = await format(JSON.stringify(course), { parser: "json" });
 await Promise.all([
   writeFile(outputPath, serialized, "utf8"),
   writeFile(fixturePath, serialized, "utf8"),
 ]);
 console.log(
-  `Built web content: ${lessons.length} lessons, ${cards.length} cards, ${tasks.length} tasks`,
+  `Built release ${release.track_id}@${release.release_version}: ${weeks.length} weeks, ${lessons.length} lessons, ${cards.length} cards, ${tasks.length} tasks`,
 );

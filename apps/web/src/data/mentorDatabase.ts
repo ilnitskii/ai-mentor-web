@@ -9,6 +9,8 @@ export type PendingReview =
 export type MasterySnapshot =
   Database["public"]["Tables"]["mastery_snapshots"]["Row"];
 export type CardState = Database["public"]["Tables"]["card_states"]["Row"];
+export type CourseRelease =
+  Database["public"]["Tables"]["course_releases"]["Row"];
 
 export interface NewProgressEvent {
   event_id: string;
@@ -23,6 +25,7 @@ export interface NewProgressEvent {
 }
 
 export interface MentorDatabase {
+  getPublishedCourse(trackId: string): Promise<CourseRelease | null>;
   getProfile(userId: string): Promise<Profile | null>;
   updateProfile(userId: string, update: ProfileUpdate): Promise<Profile>;
   listProgressEvents(userId: string, limit?: number): Promise<ProgressEvent[]>;

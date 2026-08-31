@@ -1,5 +1,11 @@
 import { useEffect } from "react";
-import { HashRouter, NavLink, Route, Routes } from "react-router-dom";
+import {
+  HashRouter,
+  NavLink,
+  Route,
+  Routes,
+  useParams,
+} from "react-router-dom";
 
 import { course } from "../content/course";
 import type { BackendServices } from "../data/backendServices";
@@ -83,10 +89,14 @@ function AppRoutes({ services }: { services: BackendServices }) {
       <main className="main-content" id="main-content">
         <Routes>
           <Route path="/" element={<TodayPage services={services} />} />
-          <Route path="/learn" element={<LearnPage />} />
+          <Route path="/learn" element={<LearnPage services={services} />} />
           <Route
             path="/session"
-            element={<LearningSessionPage services={services} />}
+            element={<SelectedLearningSession services={services} />}
+          />
+          <Route
+            path="/session/:week/:day"
+            element={<SelectedLearningSession services={services} />}
           />
           <Route
             path="/progress"
@@ -104,6 +114,19 @@ function AppRoutes({ services }: { services: BackendServices }) {
         <Navigation />
       </nav>
     </div>
+  );
+}
+
+function SelectedLearningSession({ services }: { services: BackendServices }) {
+  const { week, day } = useParams();
+  const selectionKey = `${week ?? "first"}:${day ?? "first"}`;
+  return (
+    <LearningSessionPage
+      key={selectionKey}
+      requestedDay={Number(day)}
+      requestedWeek={Number(week)}
+      services={services}
+    />
   );
 }
 

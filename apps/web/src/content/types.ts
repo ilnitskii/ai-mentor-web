@@ -62,10 +62,28 @@ export interface LearningTask {
 export interface Course {
   schema_version: 1;
   profile_id: string;
+  track_id: string;
+  release_version: number;
+  title: string;
+  start_week: number;
+  end_week: number;
   topics: Topic[];
   lessons: Lesson[];
   cards: LearningCard[];
   tasks: LearningTask[];
+  weeks: Array<{
+    week: number;
+    title: string;
+    outcome: string;
+    days: Array<{
+      day: number;
+      lesson_id: string;
+      card_ids: string[];
+      task_ids: string[];
+      target_minutes: number;
+    }>;
+    project_task_id: string;
+  }>;
   daily_plan: {
     date: string;
     target_minutes: number;

@@ -24,14 +24,9 @@ describe("daily learning vertical slice", () => {
     );
 
     await revealAndRate(user);
-    await user.click(screen.getByRole("button", { name: "Один признак" }));
-    await revealAndRate(user);
-    await user.click(screen.getByRole("button", { name: "Ложь" }));
     await revealAndRate(user);
     await revealAndRate(user);
-    await user.click(
-      screen.getByRole("button", { name: "Пропущенное значение" }),
-    );
+    await revealAndRate(user);
     await revealAndRate(user);
 
     await user.click(
@@ -104,6 +99,24 @@ describe("daily learning vertical slice", () => {
       configurable: true,
       value: originalOnline,
     });
+  });
+
+  it("opens a selected lesson instead of always falling back to the demo", async () => {
+    window.location.hash = "#/session/2/1";
+    const services = createFakeBackendServices({
+      id: "course-user",
+      username: "course-user",
+      displayName: "Course user",
+    });
+
+    render(<App services={services} />);
+
+    expect(
+      await screen.findByRole("heading", {
+        name: "Формулы и порядок вычислений",
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Неделя 2 · день 1")).toBeInTheDocument();
   });
 });
 

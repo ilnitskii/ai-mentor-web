@@ -9,6 +9,24 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      course_releases: {
+        Row: {
+          track_id: string;
+          release_version: number;
+          schema_version: 1;
+          title: string;
+          start_week: number;
+          end_week: number;
+          content: Json;
+          content_sha256: string;
+          status: "published" | "archived";
+          published_at: string;
+          created_at: string;
+        };
+        Insert: never;
+        Update: never;
+        Relationships: [];
+      };
       profiles: {
         Row: {
           user_id: string;

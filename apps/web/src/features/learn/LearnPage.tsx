@@ -1,21 +1,12 @@
-import { Card } from "../../ui/Card";
 import { Link } from "react-router-dom";
 
-const topics = [
-  {
-    title: "Таблицы и качество данных",
-    detail: "4 урока · 62% mastery",
-    tone: "green",
-  },
-  {
-    title: "SQL: оконные функции",
-    detail: "2 урока · 31% mastery",
-    tone: "orange",
-  },
-  { title: "Метрики продукта", detail: "Откроется после SQL", tone: "muted" },
-];
+import { useCourse } from "../../content/useCourse";
+import type { BackendServices } from "../../data/backendServices";
+import { Card } from "../../ui/Card";
 
-export function LearnPage() {
+export function LearnPage({ services }: { services: BackendServices }) {
+  const course = useCourse(services);
+
   return (
     <div className="page">
       <header className="page-header">
@@ -23,26 +14,44 @@ export function LearnPage() {
           <p className="eyebrow">Карта навыков</p>
           <h1>Учиться</h1>
           <p className="lede">
-            Темы открываются по мере появления проверяемых доказательств.
+            {course.title}: {course.weeks.length} недели,{" "}
+            {course.lessons.length} уроков.
           </p>
         </div>
       </header>
-      <div className="topic-list">
-        {topics.map((topic, index) => (
-          <Card className="topic-card" key={topic.title}>
-            <span className={`topic-number ${topic.tone}`}>
-              {String(index + 1).padStart(2, "0")}
-            </span>
-            <div>
-              <h2>{topic.title}</h2>
-              <p>{topic.detail}</p>
+      <div className="course-weeks">
+        {course.weeks.map((week) => (
+          <Card className="course-week" key={week.week}>
+            <div className="course-week-heading">
+              <span className="topic-number green">
+                {String(week.week).padStart(2, "0")}
+              </span>
+              <div>
+                <p className="eyebrow">Неделя {week.week}</p>
+                <h2>{week.title}</h2>
+                <p>{week.outcome}</p>
+              </div>
             </div>
+            <ol className="course-lessons">
+              {week.days.map((day) => {
+                const lesson = course.lessons.find(
+                  (item) => item.id === day.lesson_id,
+                );
+                if (!lesson) return null;
+                return (
+                  <li key={day.day}>
+                    <Link to={`/session/${week.week}/${day.day}`}>
+                      <span>День {day.day}</span>
+                      <strong>{lesson.title}</strong>
+                      <small>{day.target_minutes} минут</small>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ol>
           </Card>
         ))}
       </div>
-      <Link className="primary-button button-link learn-start" to="/session">
-        Начать сегодняшнюю сессию
-      </Link>
     </div>
   );
 }
