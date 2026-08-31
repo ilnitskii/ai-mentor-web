@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 
 import { createFakeBackendServices } from "../data/fakeBackendClient";
 import { MemoryUserCache } from "../data/userCache";
+import { createProgressEvent } from "../domain/progressEvent";
 import { App } from "./App";
 
 describe("App shell", () => {
@@ -66,7 +67,16 @@ describe("App shell", () => {
   });
 
   it("shows all four weeks and twenty selectable lessons", async () => {
-    render(<App services={createFakeBackendServices()} />);
+    const services = createFakeBackendServices();
+    await services.database.appendProgressEvent(
+      "local-demo-learner",
+      createProgressEvent(
+        "foundations.data-tables.lesson",
+        "lesson_completed",
+        { correct: true },
+      ),
+    );
+    render(<App services={services} />);
     const user = await signIn();
 
     await user.click(screen.getAllByRole("link", { name: /учиться/i })[0]);
@@ -82,6 +92,12 @@ describe("App shell", () => {
       }),
     ).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: /день \d/i })).toHaveLength(20);
+    expect(await screen.findByText("Завершено 1 из 20")).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", {
+        name: /день 1.*строка, столбец и зерно таблицы.*урок завершён/i,
+      }),
+    ).toHaveClass("completed");
   });
 
   it("clears the current user cache on logout", async () => {

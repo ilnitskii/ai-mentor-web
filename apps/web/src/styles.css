@@ -793,6 +793,17 @@ p {
   gap: 20px;
 }
 
+.course-completion {
+  width: fit-content;
+  margin: 18px 0 0;
+  border-radius: 999px;
+  padding: 7px 12px;
+  color: var(--green);
+  background: color-mix(in srgb, var(--green) 10%, var(--surface));
+  font-size: 0.875rem;
+  font-weight: 750;
+}
+
 .course-week {
   padding: clamp(20px, 4vw, 30px);
 }
@@ -807,6 +818,13 @@ p {
 .course-week-heading h2,
 .course-week-heading p {
   margin-top: 0;
+}
+
+.course-week-heading .week-completion {
+  margin-bottom: 0;
+  color: var(--green);
+  font-size: 0.875rem;
+  font-weight: 750;
 }
 
 .course-lessons {
@@ -835,9 +853,31 @@ p {
   background: color-mix(in srgb, var(--green) 6%, var(--surface));
 }
 
+.course-lessons a.completed {
+  border-color: color-mix(in srgb, var(--green) 45%, var(--line));
+  background: color-mix(in srgb, var(--green) 7%, var(--surface));
+}
+
 .course-lessons span,
 .course-lessons small {
   color: var(--muted);
+}
+
+.lesson-meta {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.course-lessons .lesson-completed {
+  border-radius: 999px;
+  padding: 4px 8px;
+  color: var(--green);
+  background: color-mix(in srgb, var(--green) 12%, var(--surface));
+  font-size: 0.75rem;
+  font-weight: 800;
+  white-space: nowrap;
 }
 
 .session-context {
@@ -866,6 +906,11 @@ p {
 
   .course-lessons a span {
     grid-column: 1 / -1;
+  }
+
+  .course-lessons .lesson-meta {
+    grid-column: 1 / -1;
+    justify-content: space-between;
   }
 }
 
