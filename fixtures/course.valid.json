@@ -2,7 +2,7 @@
   "schema_version": 1,
   "profile_id": "default",
   "track_id": "data-analytics.zero-to-job",
-  "release_version": 1,
+  "release_version": 2,
   "title": "С нуля до Data Analyst — недели 1–4",
   "start_week": 1,
   "end_week": 4,
@@ -137,9 +137,11 @@
       "estimated_minutes": 6,
       "check": {
         "question": "Что описывает одна строка в примере?",
+        "options": ["Один столбец", "Одну продажу", "Один город"],
         "rule": {
           "mode": "normalized",
           "expected_answers": [
+            "Одну продажу",
             "одну продажу",
             "продажу",
             "одно событие продажи"
@@ -156,9 +158,15 @@
       "estimated_minutes": 7,
       "check": {
         "question": "Почему номер телефона обычно считают текстом, а не числом?",
+        "options": [
+          "Потому что это идентификатор",
+          "Потому что в нём мало цифр",
+          "Потому что его всегда заполняют вручную"
+        ],
         "rule": {
           "mode": "normalized",
           "expected_answers": [
+            "Потому что это идентификатор",
             "это идентификатор",
             "номер телефона это идентификатор",
             "его не складывают",
@@ -176,9 +184,23 @@
       "estimated_minutes": 7,
       "check": {
         "question": "Можно ли всегда заменить пропуск нулём?",
+        "options": [
+          "Да",
+          "если строк больше ста",
+          "Нет",
+          "смысл пропуска и нуля может различаться",
+          "Да",
+          "если столбец числовой"
+        ],
         "rule": {
           "mode": "normalized",
-          "expected_answers": ["нет", "нельзя", "нет нельзя", "не всегда"]
+          "expected_answers": [
+            "Нет",
+            "нет",
+            "нельзя",
+            "нет нельзя",
+            "не всегда"
+          ]
         }
       },
       "status": "active"
@@ -191,9 +213,15 @@
       "estimated_minutes": 7,
       "check": {
         "question": "Назовите проверку, которая обнаружит отрицательную сумму продажи.",
+        "options": [
+          "Проверка сортировки строк",
+          "Проверка допустимого диапазона",
+          "Проверка кодировки файла"
+        ],
         "rule": {
           "mode": "normalized",
           "expected_answers": [
+            "Проверка допустимого диапазона",
             "допустимость значений",
             "проверка диапазона",
             "диапазон",
@@ -212,9 +240,15 @@
       "estimated_minutes": 7,
       "check": {
         "question": "Какой пункт паспорта объясняет смысл одной строки?",
+        "options": ["Зерно таблицы", "Кодировка файла", "Цвет заголовка"],
         "rule": {
           "mode": "normalized",
-          "expected_answers": ["зерно", "зерно таблицы", "описание зерна"]
+          "expected_answers": [
+            "Зерно таблицы",
+            "зерно",
+            "зерно таблицы",
+            "описание зерна"
+          ]
         }
       },
       "status": "active"
@@ -227,9 +261,15 @@
       "estimated_minutes": 6,
       "check": {
         "question": "Почему ссылка =C2*D2 лучше вручную введённой суммы?",
+        "options": [
+          "Формула пересчитывается при изменении исходных данных",
+          "Формула всегда округляет результат",
+          "Ручную сумму нельзя сохранить"
+        ],
         "rule": {
           "mode": "normalized",
           "expected_answers": [
+            "Формула пересчитывается при изменении исходных данных",
             "она пересчитывается",
             "формула пересчитывается",
             "зависит от исходных данных",
@@ -247,7 +287,11 @@
       "estimated_minutes": 7,
       "check": {
         "question": "Какая запись полностью закрепляет ячейку F1?",
-        "rule": { "mode": "normalized", "expected_answers": ["$F$1", "$F$1"] }
+        "options": ["F1", "$F1", "$F$1"],
+        "rule": {
+          "mode": "normalized",
+          "expected_answers": ["$F$1", "$F$1", "$F$1"]
+        }
       },
       "status": "active"
     },
@@ -259,9 +303,15 @@
       "estimated_minutes": 6,
       "check": {
         "question": "Почему опасно сортировать только один столбец таблицы?",
+        "options": [
+          "Файл обязательно удалится",
+          "Значения перестанут относиться к исходным строкам",
+          "Формулы станут текстом"
+        ],
         "rule": {
           "mode": "normalized",
           "expected_answers": [
+            "Значения перестанут относиться к исходным строкам",
             "строки рассинхронизируются",
             "данные рассинхронизируются",
             "нарушатся связи между столбцами",
@@ -279,9 +329,15 @@
       "estimated_minutes": 7,
       "check": {
         "question": "Почему исходный столбец лучше сохранить рядом с очищенным?",
+        "options": [
+          "Чтобы сравнить результат с исходными данными",
+          "Чтобы скрыть ошибки форматирования",
+          "Чтобы уменьшить число строк"
+        ],
         "rule": {
           "mode": "normalized",
           "expected_answers": [
+            "Чтобы сравнить результат с исходными данными",
             "для проверки",
             "чтобы проверить преобразование",
             "для воспроизводимости",
@@ -299,7 +355,11 @@
       "estimated_minutes": 7,
       "check": {
         "question": "Какая метрика устойчивее к одному очень крупному выбросу?",
-        "rule": { "mode": "normalized", "expected_answers": ["медиана"] }
+        "options": ["Среднее", "Сумма", "Медиана"],
+        "rule": {
+          "mode": "normalized",
+          "expected_answers": ["Медиана", "медиана"]
+        }
       },
       "status": "active"
     },
@@ -311,7 +371,11 @@
       "estimated_minutes": 7,
       "check": {
         "question": "Какую функцию используют, когда должны выполняться все условия?",
-        "rule": { "mode": "normalized", "expected_answers": ["AND", "И"] }
+        "options": ["OR", "SUM", "AND"],
+        "rule": {
+          "mode": "normalized",
+          "expected_answers": ["AND", "AND", "И"]
+        }
       },
       "status": "active"
     },
@@ -323,9 +387,10 @@
       "estimated_minutes": 7,
       "check": {
         "question": "Какая функция суммирует значения по нескольким условиям?",
+        "options": ["COUNTIF", "SUMIFS", "SUM"],
         "rule": {
           "mode": "normalized",
-          "expected_answers": ["SUMIFS", "СУММЕСЛИМН"]
+          "expected_answers": ["SUMIFS", "SUMIFS", "СУММЕСЛИМН"]
         }
       },
       "status": "active"
@@ -338,9 +403,11 @@
       "estimated_minutes": 7,
       "check": {
         "question": "Что нужно проверить в справочнике до XLOOKUP?",
+        "options": ["Уникальность ключа", "Цвет заголовков", "Порядок листов"],
         "rule": {
           "mode": "normalized",
           "expected_answers": [
+            "Уникальность ключа",
             "уникальность ключа",
             "ключ уникален",
             "уникальность идентификатора"
@@ -357,9 +424,19 @@
       "estimated_minutes": 7,
       "check": {
         "question": "Куда в сводной обычно помещают выручку?",
+        "options": [
+          "В название файла",
+          "В примечание ячейки",
+          "В область значений"
+        ],
         "rule": {
           "mode": "normalized",
-          "expected_answers": ["в значения", "значения", "в область значений"]
+          "expected_answers": [
+            "В область значений",
+            "в значения",
+            "значения",
+            "в область значений"
+          ]
         }
       },
       "status": "active"
@@ -372,9 +449,10 @@
       "estimated_minutes": 7,
       "check": {
         "question": "На каком листе сохраняют исходные данные без ручных исправлений?",
+        "options": ["report", "raw", "clean"],
         "rule": {
           "mode": "normalized",
-          "expected_answers": ["raw", "на листе raw", "исходные данные"]
+          "expected_answers": ["raw", "raw", "на листе raw", "исходные данные"]
         }
       },
       "status": "active"
@@ -387,9 +465,19 @@
       "estimated_minutes": 7,
       "check": {
         "question": "Какой график обычно выбирают для динамики выручки по месяцам?",
+        "options": [
+          "Таблица без временной оси",
+          "Линейный график",
+          "Круговая диаграмма"
+        ],
         "rule": {
           "mode": "normalized",
-          "expected_answers": ["линейный", "линия", "линейный график"]
+          "expected_answers": [
+            "Линейный график",
+            "линейный",
+            "линия",
+            "линейный график"
+          ]
         }
       },
       "status": "active"
@@ -402,9 +490,15 @@
       "estimated_minutes": 7,
       "check": {
         "question": "Почему столбчатую ось обычно начинают с нуля?",
+        "options": [
+          "Чтобы длины столбцов честно отражали величины",
+          "Чтобы увеличить число категорий",
+          "Чтобы скрыть подписи данных"
+        ],
         "rule": {
           "mode": "normalized",
           "expected_answers": [
+            "Чтобы длины столбцов честно отражали величины",
             "чтобы длины не искажали разницу",
             "длина показывает величину",
             "чтобы не преувеличивать различия",
@@ -422,9 +516,15 @@
       "estimated_minutes": 7,
       "check": {
         "question": "Что обычно размещают в верхней части дашборда?",
+        "options": [
+          "Полную сырую таблицу",
+          "Технический журнал формул",
+          "Ключевые показатели"
+        ],
         "rule": {
           "mode": "normalized",
           "expected_answers": [
+            "Ключевые показатели",
             "ключевые показатели",
             "KPI",
             "3–5 ключевых показателей",
@@ -442,9 +542,15 @@
       "estimated_minutes": 7,
       "check": {
         "question": "Почему нельзя бездумно заменять все ошибки нулём через IFERROR?",
+        "options": [
+          "Ноль нельзя показывать на графике",
+          "Ноль и ошибка имеют разный смысл",
+          "IFERROR удаляет весь файл"
+        ],
         "rule": {
           "mode": "normalized",
           "expected_answers": [
+            "Ноль и ошибка имеют разный смысл",
             "это скрывает ошибки",
             "ноль и ошибка имеют разный смысл",
             "потеряется причина ошибки",
@@ -462,9 +568,15 @@
       "estimated_minutes": 7,
       "check": {
         "question": "Что кроме вывода и доказательства обязательно назвать для честной рекомендации?",
+        "options": [
+          "Ограничение анализа",
+          "Цвет диаграммы",
+          "Имя автора формулы"
+        ],
         "rule": {
           "mode": "normalized",
           "expected_answers": [
+            "Ограничение анализа",
             "ограничение",
             "ограничения",
             "границы анализа",
@@ -481,9 +593,13 @@
       "topic_id": "foundations.data-tables",
       "prompt": "Что такое зерно таблицы?",
       "answer": "Смысл одной строки.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Смысл одной строки.",
+        "Один признак наблюдения.",
+        "Значение признака для конкретной строки."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Без зерна нельзя корректно считать и объединять данные.",
       "source_lesson_id": "foundations.data-tables.lesson",
       "difficulty": "easy",
@@ -494,9 +610,13 @@
       "topic_id": "foundations.data-tables",
       "prompt": "Что обычно представляет столбец?",
       "answer": "Один признак наблюдения.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Значение признака для конкретной строки.",
+        "Один признак наблюдения.",
+        "sale_id"
+      ],
+      "correct_choice_index": 1,
       "explanation": "Столбец city хранит один и тот же вид признака для всех продаж.",
       "source_lesson_id": "foundations.data-tables.lesson",
       "difficulty": "easy",
@@ -507,9 +627,13 @@
       "topic_id": "foundations.data-tables",
       "prompt": "Что представляет ячейка?",
       "answer": "Значение признака для конкретной строки.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "sale_id",
+        "Чтобы понимать смысл количества строк и агрегатов.",
+        "Значение признака для конкретной строки."
+      ],
+      "correct_choice_index": 2,
       "explanation": "Ячейка находится на пересечении наблюдения и признака.",
       "source_lesson_id": "foundations.data-tables.lesson",
       "difficulty": "easy",
@@ -520,9 +644,13 @@
       "topic_id": "foundations.data-tables",
       "prompt": "Какой кандидат на ключ есть в примере?",
       "answer": "sale_id",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "sale_id",
+        "Чтобы понимать смысл количества строк и агрегатов.",
+        "Смысл одной строки."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Идентификатор продажи должен отличать одну продажу от другой.",
       "source_lesson_id": "foundations.data-tables.lesson",
       "difficulty": "medium",
@@ -533,9 +661,13 @@
       "topic_id": "foundations.data-tables",
       "prompt": "Почему зерно формулируют до расчётов?",
       "answer": "Чтобы понимать смысл количества строк и агрегатов.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Смысл одной строки.",
+        "Чтобы понимать смысл количества строк и агрегатов.",
+        "Один признак наблюдения."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Иначе одна и та же сущность может быть посчитана несколько раз.",
       "source_lesson_id": "foundations.data-tables.lesson",
       "difficulty": "medium",
@@ -546,9 +678,9 @@
       "topic_id": "foundations.data-types",
       "prompt": "Какой тип подходит сумме заказа?",
       "answer": "Число.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": ["Число.", "Текст или идентификатор.", "YYYY-MM-DD"],
+      "correct_choice_index": 0,
       "explanation": "С суммой выполняют арифметические операции.",
       "source_lesson_id": "foundations.data-types.lesson",
       "difficulty": "easy",
@@ -559,9 +691,13 @@
       "topic_id": "foundations.data-types",
       "prompt": "Какой тип подходит номеру телефона?",
       "answer": "Текст или идентификатор.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "YYYY-MM-DD",
+        "Текст или идентификатор.",
+        "В значении смешаны число и текст."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Арифметика для номера не имеет смысла.",
       "source_lesson_id": "foundations.data-types.lesson",
       "difficulty": "easy",
@@ -572,9 +708,13 @@
       "topic_id": "foundations.data-types",
       "prompt": "Какой формат даты однозначнее?",
       "answer": "YYYY-MM-DD",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "В значении смешаны число и текст.",
+        "Его смысл и допустимые операции.",
+        "YYYY-MM-DD"
+      ],
+      "correct_choice_index": 2,
       "explanation": "Порядок год-месяц-день не зависит от локали.",
       "source_lesson_id": "foundations.data-types.lesson",
       "difficulty": "easy",
@@ -585,9 +725,13 @@
       "topic_id": "foundations.data-types",
       "prompt": "Почему «1200 руб.» не готово к суммированию?",
       "answer": "В значении смешаны число и текст.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "В значении смешаны число и текст.",
+        "Его смысл и допустимые операции.",
+        "Число."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Валюту хранят отдельно или очищают строку.",
       "source_lesson_id": "foundations.data-types.lesson",
       "difficulty": "medium",
@@ -598,9 +742,13 @@
       "topic_id": "foundations.data-types",
       "prompt": "Что важнее внешнего вида значения?",
       "answer": "Его смысл и допустимые операции.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Число.",
+        "Его смысл и допустимые операции.",
+        "Текст или идентификатор."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Цифры могут обозначать категорию или идентификатор.",
       "source_lesson_id": "foundations.data-types.lesson",
       "difficulty": "medium",
@@ -611,9 +759,13 @@
       "topic_id": "foundations.missing-duplicates",
       "prompt": "Что означает пропуск?",
       "answer": "Значение отсутствует или неизвестно.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Значение отсутствует или неизвестно.",
+        "Когда ноль является измеренным значением.",
+        "Относительно зерна и ключа."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Причину пропуска нужно выяснить до обработки.",
       "source_lesson_id": "foundations.missing-duplicates.lesson",
       "difficulty": "easy",
@@ -624,9 +776,13 @@
       "topic_id": "foundations.missing-duplicates",
       "prompt": "Когда ноль не равен пропуску?",
       "answer": "Когда ноль является измеренным значением.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Относительно зерна и ключа.",
+        "Когда ноль является измеренным значением.",
+        "Какие поля образуют ключ строки."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Нулевые продажи и неизвестные продажи — разные факты.",
       "source_lesson_id": "foundations.missing-duplicates.lesson",
       "difficulty": "easy",
@@ -637,9 +793,13 @@
       "topic_id": "foundations.missing-duplicates",
       "prompt": "Относительно чего определяют дубликат?",
       "answer": "Относительно зерна и ключа.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Какие поля образуют ключ строки.",
+        "Посчитать их и изучить причины.",
+        "Относительно зерна и ключа."
+      ],
+      "correct_choice_index": 2,
       "explanation": "Повтор customer_id допустим при зерне «заказ».",
       "source_lesson_id": "foundations.missing-duplicates.lesson",
       "difficulty": "easy",
@@ -650,9 +810,13 @@
       "topic_id": "foundations.missing-duplicates",
       "prompt": "Что проверить перед удалением дублей?",
       "answer": "Какие поля образуют ключ строки.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Какие поля образуют ключ строки.",
+        "Посчитать их и изучить причины.",
+        "Значение отсутствует или неизвестно."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Иначе можно удалить реальные повторные события.",
       "source_lesson_id": "foundations.missing-duplicates.lesson",
       "difficulty": "medium",
@@ -663,9 +827,13 @@
       "topic_id": "foundations.missing-duplicates",
       "prompt": "Что делать с пропусками сначала?",
       "answer": "Посчитать их и изучить причины.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Значение отсутствует или неизвестно.",
+        "Посчитать их и изучить причины.",
+        "Когда ноль является измеренным значением."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Способ обработки зависит от механизма появления.",
       "source_lesson_id": "foundations.missing-duplicates.lesson",
       "difficulty": "medium",
@@ -676,9 +844,13 @@
       "topic_id": "foundations.quality-checks",
       "prompt": "Что проверяет уникальность?",
       "answer": "Отсутствие повторов ключа зерна.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Отсутствие повторов ключа зерна.",
+        "Наличие значений в обязательных полях.",
+        "Принадлежность значений правилам и диапазонам."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Для одной продажи sale_id должен быть уникален.",
       "source_lesson_id": "foundations.quality-checks.lesson",
       "difficulty": "easy",
@@ -689,9 +861,13 @@
       "topic_id": "foundations.quality-checks",
       "prompt": "Что проверяет полнота?",
       "answer": "Наличие значений в обязательных полях.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Принадлежность значений правилам и диапазонам.",
+        "Наличие значений в обязательных полях.",
+        "Как измеримое условие с результатом."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Пропуски считают по каждому важному столбцу.",
       "source_lesson_id": "foundations.quality-checks.lesson",
       "difficulty": "easy",
@@ -702,9 +878,13 @@
       "topic_id": "foundations.quality-checks",
       "prompt": "Что проверяет допустимость?",
       "answer": "Принадлежность значений правилам и диапазонам.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Как измеримое условие с результатом.",
+        "Чтобы проверить причину и способ исправления.",
+        "Принадлежность значений правилам и диапазонам."
+      ],
+      "correct_choice_index": 2,
       "explanation": "Сумма продажи обычно не должна быть отрицательной.",
       "source_lesson_id": "foundations.quality-checks.lesson",
       "difficulty": "easy",
@@ -715,9 +895,13 @@
       "topic_id": "foundations.quality-checks",
       "prompt": "Как формулировать проверку?",
       "answer": "Как измеримое условие с результатом.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Как измеримое условие с результатом.",
+        "Чтобы проверить причину и способ исправления.",
+        "Отсутствие повторов ключа зерна."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Число нарушений позволяет воспроизвести вывод.",
       "source_lesson_id": "foundations.quality-checks.lesson",
       "difficulty": "medium",
@@ -728,9 +912,13 @@
       "topic_id": "foundations.quality-checks",
       "prompt": "Зачем сохранять пример ошибки?",
       "answer": "Чтобы проверить причину и способ исправления.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Отсутствие повторов ключа зерна.",
+        "Чтобы проверить причину и способ исправления.",
+        "Наличие значений в обязательных полях."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Один пример делает агрегированный счёт понятным.",
       "source_lesson_id": "foundations.quality-checks.lesson",
       "difficulty": "medium",
@@ -741,9 +929,9 @@
       "topic_id": "foundations.data-passport",
       "prompt": "Что нужно знать при чтении CSV?",
       "answer": "Кодировку и разделитель.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": ["Кодировку и разделитель.", "Формулы", "Источник"],
+      "correct_choice_index": 0,
       "explanation": "Неверные параметры искажают столбцы и символы.",
       "source_lesson_id": "foundations.data-passport.lesson",
       "difficulty": "easy",
@@ -754,9 +942,13 @@
       "topic_id": "foundations.data-passport",
       "prompt": "Что дополнительно хранит XLSX?",
       "answer": "Формулы",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Источник",
+        "Формулы",
+        "Чтобы определить смысл и тип каждого столбца."
+      ],
+      "correct_choice_index": 1,
       "explanation": "форматирование и листы.",
       "source_lesson_id": "foundations.data-passport.lesson",
       "difficulty": "easy",
@@ -767,9 +959,13 @@
       "topic_id": "foundations.data-passport",
       "prompt": "Что обязательно указать в паспорте?",
       "answer": "Источник",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Чтобы определить смысл и тип каждого столбца.",
+        "Ограничение описывает границы достоверности данных.",
+        "Источник"
+      ],
+      "correct_choice_index": 2,
       "explanation": "период",
       "source_lesson_id": "foundations.data-passport.lesson",
       "difficulty": "easy",
@@ -780,9 +976,13 @@
       "topic_id": "foundations.data-passport",
       "prompt": "Зачем нужен словарь полей?",
       "answer": "Чтобы определить смысл и тип каждого столбца.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Чтобы определить смысл и тип каждого столбца.",
+        "Ограничение описывает границы достоверности данных.",
+        "Кодировку и разделитель."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Название поля не всегда однозначно.",
       "source_lesson_id": "foundations.data-passport.lesson",
       "difficulty": "medium",
@@ -793,9 +993,13 @@
       "topic_id": "foundations.data-passport",
       "prompt": "Чем ограничение отличается от вывода?",
       "answer": "Ограничение описывает границы достоверности данных.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Кодировку и разделитель.",
+        "Ограничение описывает границы достоверности данных.",
+        "Формулы"
+      ],
+      "correct_choice_index": 1,
       "explanation": "Вывод отвечает на аналитический вопрос.",
       "source_lesson_id": "foundations.data-passport.lesson",
       "difficulty": "medium",
@@ -806,9 +1010,13 @@
       "topic_id": "spreadsheets.formulas",
       "prompt": "С какого знака начинается формула?",
       "answer": "=",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "=",
+        "Умножение и деление.",
+        "Он не обновится при изменении данных."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Так приложение отличает расчёт от текста.",
       "source_lesson_id": "spreadsheets.formulas.lesson",
       "difficulty": "easy",
@@ -819,9 +1027,13 @@
       "topic_id": "spreadsheets.formulas",
       "prompt": "Что вычисляется раньше сложения?",
       "answer": "Умножение и деление.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Он не обновится при изменении данных.",
+        "Умножение и деление.",
+        "На обычном и граничных примерах."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Скобки позволяют изменить порядок.",
       "source_lesson_id": "spreadsheets.formulas.lesson",
       "difficulty": "easy",
@@ -832,9 +1044,13 @@
       "topic_id": "spreadsheets.formulas",
       "prompt": "Почему нельзя вводить итог вручную?",
       "answer": "Он не обновится при изменении данных.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "На обычном и граничных примерах.",
+        "Знаменатель равен нулю или пуст.",
+        "Он не обновится при изменении данных."
+      ],
+      "correct_choice_index": 2,
       "explanation": "Формула сохраняет происхождение результата.",
       "source_lesson_id": "spreadsheets.formulas.lesson",
       "difficulty": "easy",
@@ -845,9 +1061,13 @@
       "topic_id": "spreadsheets.formulas",
       "prompt": "Как проверить новую формулу?",
       "answer": "На обычном и граничных примерах.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "На обычном и граничных примерах.",
+        "Знаменатель равен нулю или пуст.",
+        "="
+      ],
+      "correct_choice_index": 0,
       "explanation": "Ноль и крупное значение выявляют ошибки.",
       "source_lesson_id": "spreadsheets.formulas.lesson",
       "difficulty": "medium",
@@ -858,9 +1078,13 @@
       "topic_id": "spreadsheets.formulas",
       "prompt": "Что означает ошибка деления на ноль?",
       "answer": "Знаменатель равен нулю или пуст.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "=",
+        "Знаменатель равен нулю или пуст.",
+        "Умножение и деление."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Причину нужно обработать явно.",
       "source_lesson_id": "spreadsheets.formulas.lesson",
       "difficulty": "medium",
@@ -871,9 +1095,9 @@
       "topic_id": "spreadsheets.references",
       "prompt": "Как ведёт себя C2 при копировании вниз?",
       "answer": "Становится C3.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": ["Становится C3.", "$F$1", "Столбец F."],
+      "correct_choice_index": 0,
       "explanation": "Это относительная ссылка.",
       "source_lesson_id": "spreadsheets.references.lesson",
       "difficulty": "easy",
@@ -884,9 +1108,9 @@
       "topic_id": "spreadsheets.references",
       "prompt": "Как записать абсолютную ссылку на F1?",
       "answer": "$F$1",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": ["Столбец F.", "$F$1", "Первую строку."],
+      "correct_choice_index": 1,
       "explanation": "Закреплены и столбец и строка.",
       "source_lesson_id": "spreadsheets.references.lesson",
       "difficulty": "easy",
@@ -897,9 +1121,13 @@
       "topic_id": "spreadsheets.references",
       "prompt": "Что фиксирует $F1?",
       "answer": "Столбец F.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Первую строку.",
+        "Для общей ставки или параметра.",
+        "Столбец F."
+      ],
+      "correct_choice_index": 2,
       "explanation": "Номер строки может изменяться.",
       "source_lesson_id": "spreadsheets.references.lesson",
       "difficulty": "easy",
@@ -910,9 +1138,13 @@
       "topic_id": "spreadsheets.references",
       "prompt": "Что фиксирует F$1?",
       "answer": "Первую строку.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Первую строку.",
+        "Для общей ставки или параметра.",
+        "Становится C3."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Буква столбца может изменяться.",
       "source_lesson_id": "spreadsheets.references.lesson",
       "difficulty": "medium",
@@ -923,9 +1155,9 @@
       "topic_id": "spreadsheets.references",
       "prompt": "Когда полезна абсолютная ссылка?",
       "answer": "Для общей ставки или параметра.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": ["Становится C3.", "Для общей ставки или параметра.", "$F$1"],
+      "correct_choice_index": 1,
       "explanation": "Одна константа используется во многих строках.",
       "source_lesson_id": "spreadsheets.references.lesson",
       "difficulty": "medium",
@@ -936,9 +1168,13 @@
       "topic_id": "spreadsheets.sort-filter",
       "prompt": "Что делает фильтр?",
       "answer": "Временно показывает строки по условию.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Временно показывает строки по условию.",
+        "Меняет порядок строк.",
+        "Сортировать весь диапазон."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Остальные строки не удаляются.",
       "source_lesson_id": "spreadsheets.sort-filter.lesson",
       "difficulty": "easy",
@@ -949,9 +1185,13 @@
       "topic_id": "spreadsheets.sort-filter",
       "prompt": "Что делает сортировка?",
       "answer": "Меняет порядок строк.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Сортировать весь диапазон.",
+        "Меняет порядок строк.",
+        "Она задаёт имена полей для фильтра."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Значения внутри строки должны двигаться вместе.",
       "source_lesson_id": "spreadsheets.sort-filter.lesson",
       "difficulty": "easy",
@@ -962,9 +1202,13 @@
       "topic_id": "spreadsheets.sort-filter",
       "prompt": "Как избежать рассинхронизации?",
       "answer": "Сортировать весь диапазон.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Она задаёт имена полей для фильтра.",
+        "Нет.",
+        "Сортировать весь диапазон."
+      ],
+      "correct_choice_index": 2,
       "explanation": "Один столбец отдельно сортировать нельзя.",
       "source_lesson_id": "spreadsheets.sort-filter.lesson",
       "difficulty": "easy",
@@ -975,9 +1219,13 @@
       "topic_id": "spreadsheets.sort-filter",
       "prompt": "Зачем нужна одна строка заголовков?",
       "answer": "Она задаёт имена полей для фильтра.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Она задаёт имена полей для фильтра.",
+        "Нет.",
+        "Временно показывает строки по условию."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Сложные шапки мешают табличным операциям.",
       "source_lesson_id": "spreadsheets.sort-filter.lesson",
       "difficulty": "medium",
@@ -988,9 +1236,13 @@
       "topic_id": "spreadsheets.sort-filter",
       "prompt": "Удаляет ли фильтр данные?",
       "answer": "Нет.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Временно показывает строки по условию.",
+        "Нет.",
+        "Меняет порядок строк."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Он меняет только видимость строк.",
       "source_lesson_id": "spreadsheets.sort-filter.lesson",
       "difficulty": "medium",
@@ -1001,9 +1253,13 @@
       "topic_id": "spreadsheets.cleaning",
       "prompt": "Что исправляет TRIM?",
       "answer": "Лишние пробелы.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Лишние пробелы.",
+        "Чтобы одинаковые категории совпадали.",
+        "Удалить текст и преобразовать в число."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Пробелы создают разные категории с одинаковым видом.",
       "source_lesson_id": "spreadsheets.cleaning.lesson",
       "difficulty": "easy",
@@ -1014,9 +1270,13 @@
       "topic_id": "spreadsheets.cleaning",
       "prompt": "Зачем стандартизировать регистр?",
       "answer": "Чтобы одинаковые категории совпадали.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Удалить текст и преобразовать в число.",
+        "Чтобы одинаковые категории совпадали.",
+        "Изменить формат и выполнить расчёт с датой."
+      ],
+      "correct_choice_index": 1,
       "explanation": "«Москва» и «МОСКВА» иначе могут считаться разными.",
       "source_lesson_id": "spreadsheets.cleaning.lesson",
       "difficulty": "easy",
@@ -1027,9 +1287,13 @@
       "topic_id": "spreadsheets.cleaning",
       "prompt": "Что сделать с «1 200 руб.»?",
       "answer": "Удалить текст и преобразовать в число.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Изменить формат и выполнить расчёт с датой.",
+        "Нужна возможность сравнения и отката.",
+        "Удалить текст и преобразовать в число."
+      ],
+      "correct_choice_index": 2,
       "explanation": "Только затем значение можно суммировать.",
       "source_lesson_id": "spreadsheets.cleaning.lesson",
       "difficulty": "easy",
@@ -1040,9 +1304,13 @@
       "topic_id": "spreadsheets.cleaning",
       "prompt": "Как проверить настоящую дату?",
       "answer": "Изменить формат и выполнить расчёт с датой.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Изменить формат и выполнить расчёт с датой.",
+        "Нужна возможность сравнения и отката.",
+        "Лишние пробелы."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Текст не ведёт себя как дата.",
       "source_lesson_id": "spreadsheets.cleaning.lesson",
       "difficulty": "medium",
@@ -1053,9 +1321,13 @@
       "topic_id": "spreadsheets.cleaning",
       "prompt": "Почему не перезаписывать исходник?",
       "answer": "Нужна возможность сравнения и отката.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Лишние пробелы.",
+        "Нужна возможность сравнения и отката.",
+        "Чтобы одинаковые категории совпадали."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Очистка должна быть воспроизводимой.",
       "source_lesson_id": "spreadsheets.cleaning.lesson",
       "difficulty": "medium",
@@ -1066,9 +1338,13 @@
       "topic_id": "spreadsheets.basic-metrics",
       "prompt": "Что показывает сумма?",
       "answer": "Общий объём.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Общий объём.",
+        "Сумму на одно наблюдение.",
+        "Центральное упорядоченное значение."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Она зависит от числа наблюдений.",
       "source_lesson_id": "spreadsheets.basic-metrics.lesson",
       "difficulty": "easy",
@@ -1079,9 +1355,13 @@
       "topic_id": "spreadsheets.basic-metrics",
       "prompt": "Что показывает среднее?",
       "answer": "Сумму на одно наблюдение.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Центральное упорядоченное значение.",
+        "Сумму на одно наблюдение.",
+        "Часть разделить на целое."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Выбросы могут сильно его изменить.",
       "source_lesson_id": "spreadsheets.basic-metrics.lesson",
       "difficulty": "easy",
@@ -1092,9 +1372,13 @@
       "topic_id": "spreadsheets.basic-metrics",
       "prompt": "Что показывает медиана?",
       "answer": "Центральное упорядоченное значение.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Часть разделить на целое.",
+        "Расхождение указывает на асимметрию или выбросы.",
+        "Центральное упорядоченное значение."
+      ],
+      "correct_choice_index": 2,
       "explanation": "Половина наблюдений не больше медианы.",
       "source_lesson_id": "spreadsheets.basic-metrics.lesson",
       "difficulty": "easy",
@@ -1105,9 +1389,13 @@
       "topic_id": "spreadsheets.basic-metrics",
       "prompt": "Как вычислить долю?",
       "answer": "Часть разделить на целое.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Часть разделить на целое.",
+        "Расхождение указывает на асимметрию или выбросы.",
+        "Общий объём."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Знаменатель должен соответствовать вопросу.",
       "source_lesson_id": "spreadsheets.basic-metrics.lesson",
       "difficulty": "medium",
@@ -1118,9 +1406,13 @@
       "topic_id": "spreadsheets.basic-metrics",
       "prompt": "Почему сравнивают среднее и медиану?",
       "answer": "Расхождение указывает на асимметрию или выбросы.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Общий объём.",
+        "Расхождение указывает на асимметрию или выбросы.",
+        "Сумму на одно наблюдение."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Одна метрика скрывает форму распределения.",
       "source_lesson_id": "spreadsheets.basic-metrics.lesson",
       "difficulty": "medium",
@@ -1131,9 +1423,13 @@
       "topic_id": "spreadsheets.logic",
       "prompt": "Что делает IF?",
       "answer": "Выбирает результат по условию.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Выбирает результат по условию.",
+        "Когда истинны все условия.",
+        "Когда достаточно любого условия."
+      ],
+      "correct_choice_index": 0,
       "explanation": "У функции есть ветви истина и ложь.",
       "source_lesson_id": "spreadsheets.logic.lesson",
       "difficulty": "easy",
@@ -1144,9 +1440,13 @@
       "topic_id": "spreadsheets.logic",
       "prompt": "Когда нужен AND?",
       "answer": "Когда истинны все условия.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Когда достаточно любого условия.",
+        "Когда истинны все условия.",
+        "Первое включает границу."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Одного выполненного условия недостаточно.",
       "source_lesson_id": "spreadsheets.logic.lesson",
       "difficulty": "easy",
@@ -1157,9 +1457,13 @@
       "topic_id": "spreadsheets.logic",
       "prompt": "Когда нужен OR?",
       "answer": "Когда достаточно любого условия.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Первое включает границу.",
+        "Граница",
+        "Когда достаточно любого условия."
+      ],
+      "correct_choice_index": 2,
       "explanation": "Он истинен при хотя бы одном совпадении.",
       "source_lesson_id": "spreadsheets.logic.lesson",
       "difficulty": "easy",
@@ -1170,9 +1474,13 @@
       "topic_id": "spreadsheets.logic",
       "prompt": "Чем >= отличается от >?",
       "answer": "Первое включает границу.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Первое включает границу.",
+        "Граница",
+        "Выбирает результат по условию."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Для суммы ровно 10000 ответы различаются.",
       "source_lesson_id": "spreadsheets.logic.lesson",
       "difficulty": "medium",
@@ -1183,9 +1491,13 @@
       "topic_id": "spreadsheets.logic",
       "prompt": "Какие тесты нужны условию?",
       "answer": "Граница",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Выбирает результат по условию.",
+        "Граница",
+        "Когда истинны все условия."
+      ],
+      "correct_choice_index": 1,
       "explanation": "пустое и обычные значения.",
       "source_lesson_id": "spreadsheets.logic.lesson",
       "difficulty": "medium",
@@ -1196,9 +1508,13 @@
       "topic_id": "spreadsheets.conditional-aggregates",
       "prompt": "Что возвращает COUNTIF?",
       "answer": "Количество совпавших строк.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Количество совпавших строк.",
+        "Сумму по одному условию.",
+        "При нескольких условиях."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Значения не суммируются.",
       "source_lesson_id": "spreadsheets.conditional-aggregates.lesson",
       "difficulty": "easy",
@@ -1209,9 +1525,13 @@
       "topic_id": "spreadsheets.conditional-aggregates",
       "prompt": "Что возвращает SUMIF?",
       "answer": "Сумму по одному условию.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "При нескольких условиях.",
+        "Сумму по одному условию.",
+        "Одинакового размера."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Критерий определяет включённые строки.",
       "source_lesson_id": "spreadsheets.conditional-aggregates.lesson",
       "difficulty": "easy",
@@ -1222,9 +1542,13 @@
       "topic_id": "spreadsheets.conditional-aggregates",
       "prompt": "Когда нужен SUMIFS?",
       "answer": "При нескольких условиях.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Одинакового размера.",
+        "Сравнить с фильтром и общим итогом.",
+        "При нескольких условиях."
+      ],
+      "correct_choice_index": 2,
       "explanation": "Например город и статус оплаты.",
       "source_lesson_id": "spreadsheets.conditional-aggregates.lesson",
       "difficulty": "easy",
@@ -1235,9 +1559,13 @@
       "topic_id": "spreadsheets.conditional-aggregates",
       "prompt": "Какими должны быть диапазоны?",
       "answer": "Одинакового размера.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Одинакового размера.",
+        "Сравнить с фильтром и общим итогом.",
+        "Количество совпавших строк."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Иначе строки не сопоставляются.",
       "source_lesson_id": "spreadsheets.conditional-aggregates.lesson",
       "difficulty": "medium",
@@ -1248,9 +1576,13 @@
       "topic_id": "spreadsheets.conditional-aggregates",
       "prompt": "Как быстро проверить результат?",
       "answer": "Сравнить с фильтром и общим итогом.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Количество совпавших строк.",
+        "Сравнить с фильтром и общим итогом.",
+        "Сумму по одному условию."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Условная сумма не должна превышать общую при неотрицательных значениях.",
       "source_lesson_id": "spreadsheets.conditional-aggregates.lesson",
       "difficulty": "medium",
@@ -1261,9 +1593,13 @@
       "topic_id": "spreadsheets.lookups",
       "prompt": "Что делает XLOOKUP?",
       "answer": "Возвращает значение по найденному ключу.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Возвращает значение по найденному ключу.",
+        "Иначе результат неоднозначен.",
+        "У ключей разный формат или тип."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Основная таблица обогащается признаком.",
       "source_lesson_id": "spreadsheets.lookups.lesson",
       "difficulty": "easy",
@@ -1274,9 +1610,13 @@
       "topic_id": "spreadsheets.lookups",
       "prompt": "Почему ключ справочника должен быть уникален?",
       "answer": "Иначе результат неоднозначен.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "У ключей разный формат или тип.",
+        "Иначе результат неоднозначен.",
+        "Вернуть явную метку и посчитать такие строки."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Одному product_id должно соответствовать одно значение категории.",
       "source_lesson_id": "spreadsheets.lookups.lesson",
       "difficulty": "easy",
@@ -1287,9 +1627,13 @@
       "topic_id": "spreadsheets.lookups",
       "prompt": "Почему 001 и 1 могут не совпасть?",
       "answer": "У ключей разный формат или тип.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Вернуть явную метку и посчитать такие строки.",
+        "Число строк не изменилось.",
+        "У ключей разный формат или тип."
+      ],
+      "correct_choice_index": 2,
       "explanation": "Идентификаторы нужно нормализовать.",
       "source_lesson_id": "spreadsheets.lookups.lesson",
       "difficulty": "easy",
@@ -1300,9 +1644,13 @@
       "topic_id": "spreadsheets.lookups",
       "prompt": "Как обработать ненайденный ключ?",
       "answer": "Вернуть явную метку и посчитать такие строки.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Вернуть явную метку и посчитать такие строки.",
+        "Число строк не изменилось.",
+        "Возвращает значение по найденному ключу."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Пустота не должна скрывать проблему.",
       "source_lesson_id": "spreadsheets.lookups.lesson",
       "difficulty": "medium",
@@ -1313,9 +1661,13 @@
       "topic_id": "spreadsheets.lookups",
       "prompt": "Какой контроль нужен после поиска?",
       "answer": "Число строк не изменилось.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Возвращает значение по найденному ключу.",
+        "Число строк не изменилось.",
+        "Иначе результат неоднозначен."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Поиск не должен терять заказы.",
       "source_lesson_id": "spreadsheets.lookups.lesson",
       "difficulty": "medium",
@@ -1326,9 +1678,13 @@
       "topic_id": "spreadsheets.pivots",
       "prompt": "Что является измерением?",
       "answer": "Категория для разреза.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Категория для разреза.",
+        "Числовой показатель для агрегации.",
+        "Среднее и сумма дают разные смыслы."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Например город или месяц.",
       "source_lesson_id": "spreadsheets.pivots.lesson",
       "difficulty": "easy",
@@ -1339,9 +1695,13 @@
       "topic_id": "spreadsheets.pivots",
       "prompt": "Что является мерой?",
       "answer": "Числовой показатель для агрегации.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Среднее и сумма дают разные смыслы.",
+        "Числовой показатель для агрегации.",
+        "Прямоугольным с одной шапкой."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Например сумма выручки.",
       "source_lesson_id": "spreadsheets.pivots.lesson",
       "difficulty": "easy",
@@ -1352,9 +1712,13 @@
       "topic_id": "spreadsheets.pivots",
       "prompt": "Почему важно проверить агрегацию?",
       "answer": "Среднее и сумма дают разные смыслы.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Прямоугольным с одной шапкой.",
+        "Обновить сводную и сверить итог.",
+        "Среднее и сумма дают разные смыслы."
+      ],
+      "correct_choice_index": 2,
       "explanation": "Приложение может выбрать функцию автоматически.",
       "source_lesson_id": "spreadsheets.pivots.lesson",
       "difficulty": "easy",
@@ -1365,9 +1729,13 @@
       "topic_id": "spreadsheets.pivots",
       "prompt": "Каким должен быть источник?",
       "answer": "Прямоугольным с одной шапкой.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Прямоугольным с одной шапкой.",
+        "Обновить сводную и сверить итог.",
+        "Категория для разреза."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Объединённые ячейки мешают обновлению.",
       "source_lesson_id": "spreadsheets.pivots.lesson",
       "difficulty": "medium",
@@ -1378,9 +1746,13 @@
       "topic_id": "spreadsheets.pivots",
       "prompt": "Что сделать после изменения raw?",
       "answer": "Обновить сводную и сверить итог.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Категория для разреза.",
+        "Обновить сводную и сверить итог.",
+        "Числовой показатель для агрегации."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Старая сводная может не включить новые строки.",
       "source_lesson_id": "spreadsheets.pivots.lesson",
       "difficulty": "medium",
@@ -1391,9 +1763,13 @@
       "topic_id": "spreadsheets.reproducible-report",
       "prompt": "Что хранит raw?",
       "answer": "Неизменённый входной набор.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Неизменённый входной набор.",
+        "Явно очищенные поля.",
+        "Итоговые показатели и графики."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Это точка для повторного запуска.",
       "source_lesson_id": "spreadsheets.reproducible-report.lesson",
       "difficulty": "easy",
@@ -1404,9 +1780,13 @@
       "topic_id": "spreadsheets.reproducible-report",
       "prompt": "Что хранит clean?",
       "answer": "Явно очищенные поля.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Итоговые показатели и графики.",
+        "Явно очищенные поля.",
+        "Чтобы менять правило в одном месте."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Исходные значения остаются доступны.",
       "source_lesson_id": "spreadsheets.reproducible-report.lesson",
       "difficulty": "easy",
@@ -1417,9 +1797,13 @@
       "topic_id": "spreadsheets.reproducible-report",
       "prompt": "Что хранит report?",
       "answer": "Итоговые показатели и графики.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Чтобы менять правило в одном месте.",
+        "Строки",
+        "Итоговые показатели и графики."
+      ],
+      "correct_choice_index": 2,
       "explanation": "Технические расчёты не должны заслонять вывод.",
       "source_lesson_id": "spreadsheets.reproducible-report.lesson",
       "difficulty": "easy",
@@ -1430,9 +1814,13 @@
       "topic_id": "spreadsheets.reproducible-report",
       "prompt": "Зачем выносить параметры?",
       "answer": "Чтобы менять правило в одном месте.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Чтобы менять правило в одном месте.",
+        "Строки",
+        "Неизменённый входной набор."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Захардкоженные значения трудно проверить.",
       "source_lesson_id": "spreadsheets.reproducible-report.lesson",
       "difficulty": "medium",
@@ -1443,9 +1831,13 @@
       "topic_id": "spreadsheets.reproducible-report",
       "prompt": "Какие контрольные итоги нужны?",
       "answer": "Строки",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Неизменённый входной набор.",
+        "Строки",
+        "Явно очищенные поля."
+      ],
+      "correct_choice_index": 1,
       "explanation": "сумма",
       "source_lesson_id": "spreadsheets.reproducible-report.lesson",
       "difficulty": "medium",
@@ -1456,9 +1848,9 @@
       "topic_id": "spreadsheets.chart-choice",
       "prompt": "Какой график показывает динамику?",
       "answer": "Линейный.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": ["Линейный.", "Столбчатой диаграммой.", "Гистограммой."],
+      "correct_choice_index": 0,
       "explanation": "Ось X сохраняет порядок времени.",
       "source_lesson_id": "spreadsheets.chart-choice.lesson",
       "difficulty": "easy",
@@ -1469,9 +1861,13 @@
       "topic_id": "spreadsheets.chart-choice",
       "prompt": "Как сравнить категории?",
       "answer": "Столбчатой диаграммой.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Гистограммой.",
+        "Столбчатой диаграммой.",
+        "Точечной диаграммой."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Длины столбцов легко сопоставлять.",
       "source_lesson_id": "spreadsheets.chart-choice.lesson",
       "difficulty": "easy",
@@ -1482,9 +1878,13 @@
       "topic_id": "spreadsheets.chart-choice",
       "prompt": "Как показать распределение?",
       "answer": "Гистограммой.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Точечной диаграммой.",
+        "Вопрос или ключевое наблюдение.",
+        "Гистограммой."
+      ],
+      "correct_choice_index": 2,
       "explanation": "Она группирует числовые значения по интервалам.",
       "source_lesson_id": "spreadsheets.chart-choice.lesson",
       "difficulty": "easy",
@@ -1495,9 +1895,13 @@
       "topic_id": "spreadsheets.chart-choice",
       "prompt": "Как показать связь двух чисел?",
       "answer": "Точечной диаграммой.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Точечной диаграммой.",
+        "Вопрос или ключевое наблюдение.",
+        "Линейный."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Каждая точка представляет наблюдение.",
       "source_lesson_id": "spreadsheets.chart-choice.lesson",
       "difficulty": "medium",
@@ -1508,9 +1912,13 @@
       "topic_id": "spreadsheets.chart-choice",
       "prompt": "Что должен сообщать заголовок?",
       "answer": "Вопрос или ключевое наблюдение.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Линейный.",
+        "Вопрос или ключевое наблюдение.",
+        "Столбчатой диаграммой."
+      ],
+      "correct_choice_index": 1,
       "explanation": "«График 1» не помогает читателю.",
       "source_lesson_id": "spreadsheets.chart-choice.lesson",
       "difficulty": "medium",
@@ -1521,9 +1929,13 @@
       "topic_id": "spreadsheets.chart-integrity",
       "prompt": "Почему опасна обрезанная ось столбцов?",
       "answer": "Она преувеличивает различия.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Она преувеличивает различия.",
+        "Иногда для линии при явной маркировке.",
+        "Перспектива искажает размеры."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Длина столбца воспринимается от нулевой базы.",
       "source_lesson_id": "spreadsheets.chart-integrity.lesson",
       "difficulty": "easy",
@@ -1534,9 +1946,13 @@
       "topic_id": "spreadsheets.chart-integrity",
       "prompt": "Когда ненулевой минимум допустим?",
       "answer": "Иногда для линии при явной маркировке.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Перспектива искажает размеры.",
+        "Иногда для линии при явной маркировке.",
+        "Масштабы можно подобрать для ложной связи."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Контекст изменения должен оставаться видимым.",
       "source_lesson_id": "spreadsheets.chart-integrity.lesson",
       "difficulty": "easy",
@@ -1547,9 +1963,13 @@
       "topic_id": "spreadsheets.chart-integrity",
       "prompt": "Почему вреден 3D?",
       "answer": "Перспектива искажает размеры.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Масштабы можно подобрать для ложной связи.",
+        "Значения",
+        "Перспектива искажает размеры."
+      ],
+      "correct_choice_index": 2,
       "explanation": "Декор мешает точному сравнению.",
       "source_lesson_id": "spreadsheets.chart-integrity.lesson",
       "difficulty": "easy",
@@ -1560,9 +1980,13 @@
       "topic_id": "spreadsheets.chart-integrity",
       "prompt": "Чем опасна двойная ось?",
       "answer": "Масштабы можно подобрать для ложной связи.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Масштабы можно подобрать для ложной связи.",
+        "Значения",
+        "Она преувеличивает различия."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Лучше разделить графики или явно обосновать.",
       "source_lesson_id": "spreadsheets.chart-integrity.lesson",
       "difficulty": "medium",
@@ -1573,9 +1997,13 @@
       "topic_id": "spreadsheets.chart-integrity",
       "prompt": "Что сверить после построения?",
       "answer": "Значения",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Она преувеличивает различия.",
+        "Значения",
+        "Иногда для линии при явной маркировке."
+      ],
+      "correct_choice_index": 1,
       "explanation": "фильтры",
       "source_lesson_id": "spreadsheets.chart-integrity.lesson",
       "difficulty": "medium",
@@ -1586,9 +2014,13 @@
       "topic_id": "spreadsheets.dashboard-layout",
       "prompt": "Что находится сверху дашборда?",
       "answer": "Ключевые показатели.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Ключевые показатели.",
+        "Динамику и основные разрезы.",
+        "Только необходимые для решений."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Читатель сначала получает общий ответ.",
       "source_lesson_id": "spreadsheets.dashboard-layout.lesson",
       "difficulty": "easy",
@@ -1599,9 +2031,13 @@
       "topic_id": "spreadsheets.dashboard-layout",
       "prompt": "Что размещают ниже KPI?",
       "answer": "Динамику и основные разрезы.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Только необходимые для решений.",
+        "Динамику и основные разрезы.",
+        "Одна категория сохраняет значение во всех графиках."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Они объясняют изменение итогов.",
       "source_lesson_id": "spreadsheets.dashboard-layout.lesson",
       "difficulty": "easy",
@@ -1612,9 +2048,13 @@
       "topic_id": "spreadsheets.dashboard-layout",
       "prompt": "Сколько фильтров нужно?",
       "answer": "Только необходимые для решений.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Одна категория сохраняет значение во всех графиках.",
+        "Период",
+        "Только необходимые для решений."
+      ],
+      "correct_choice_index": 2,
       "explanation": "Избыток усложняет интерпретацию.",
       "source_lesson_id": "spreadsheets.dashboard-layout.lesson",
       "difficulty": "easy",
@@ -1625,9 +2065,13 @@
       "topic_id": "spreadsheets.dashboard-layout",
       "prompt": "Почему цвета должны быть стабильны?",
       "answer": "Одна категория сохраняет значение во всех графиках.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Одна категория сохраняет значение во всех графиках.",
+        "Период",
+        "Ключевые показатели."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Иначе читатель заново расшифровывает легенду.",
       "source_lesson_id": "spreadsheets.dashboard-layout.lesson",
       "difficulty": "medium",
@@ -1638,9 +2082,13 @@
       "topic_id": "spreadsheets.dashboard-layout",
       "prompt": "Что указать рядом с метрикой?",
       "answer": "Период",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Ключевые показатели.",
+        "Период",
+        "Динамику и основные разрезы."
+      ],
+      "correct_choice_index": 1,
       "explanation": "единицы и правило расчёта.",
       "source_lesson_id": "spreadsheets.dashboard-layout.lesson",
       "difficulty": "medium",
@@ -1651,9 +2099,13 @@
       "topic_id": "spreadsheets.validation",
       "prompt": "Что даёт выпадающий список?",
       "answer": "Ограниченный словарь допустимых значений.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Ограниченный словарь допустимых значений.",
+        "Визуально отмечает условие.",
+        "Подменяет результат при ошибке."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Это предотвращает варианты написания.",
       "source_lesson_id": "spreadsheets.validation.lesson",
       "difficulty": "easy",
@@ -1664,9 +2116,13 @@
       "topic_id": "spreadsheets.validation",
       "prompt": "Что делает условное форматирование?",
       "answer": "Визуально отмечает условие.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Подменяет результат при ошибке.",
+        "Визуально отмечает условие.",
+        "Ноль может быть валидным измерением."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Оно не меняет исходное значение.",
       "source_lesson_id": "spreadsheets.validation.lesson",
       "difficulty": "easy",
@@ -1677,9 +2133,13 @@
       "topic_id": "spreadsheets.validation",
       "prompt": "Что делает IFERROR?",
       "answer": "Подменяет результат при ошибке.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Ноль может быть валидным измерением.",
+        "Считать и показывать их количество.",
+        "Подменяет результат при ошибке."
+      ],
+      "correct_choice_index": 2,
       "explanation": "Подмена должна сохранять смысл проблемы.",
       "source_lesson_id": "spreadsheets.validation.lesson",
       "difficulty": "easy",
@@ -1690,9 +2150,13 @@
       "topic_id": "spreadsheets.validation",
       "prompt": "Почему ошибка не равна нулю?",
       "answer": "Ноль может быть валидным измерением.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Ноль может быть валидным измерением.",
+        "Считать и показывать их количество.",
+        "Ограниченный словарь допустимых значений."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Ошибка означает",
       "source_lesson_id": "spreadsheets.validation.lesson",
       "difficulty": "medium",
@@ -1703,9 +2167,13 @@
       "topic_id": "spreadsheets.validation",
       "prompt": "Как контролировать ошибки?",
       "answer": "Считать и показывать их количество.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Ограниченный словарь допустимых значений.",
+        "Считать и показывать их количество.",
+        "Визуально отмечает условие."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Скрытая ошибка опаснее явной.",
       "source_lesson_id": "spreadsheets.validation.lesson",
       "difficulty": "medium",
@@ -1716,9 +2184,13 @@
       "topic_id": "spreadsheets.business-summary",
       "prompt": "С чего начинается итог?",
       "answer": "С ответа на бизнес-вопрос.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "С ответа на бизнес-вопрос.",
+        "Двумя-тремя релевантными числами.",
+        "Причина не обобщать вывод безусловно."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Детали идут после решения.",
       "source_lesson_id": "spreadsheets.business-summary.lesson",
       "difficulty": "easy",
@@ -1729,9 +2201,13 @@
       "topic_id": "spreadsheets.business-summary",
       "prompt": "Чем подкрепляют вывод?",
       "answer": "Двумя-тремя релевантными числами.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Причина не обобщать вывод безусловно.",
+        "Двумя-тремя релевантными числами.",
+        "Возможны другие факторы и обратная связь."
+      ],
+      "correct_choice_index": 1,
       "explanation": "График без чисел допускает разное чтение.",
       "source_lesson_id": "spreadsheets.business-summary.lesson",
       "difficulty": "easy",
@@ -1742,9 +2218,13 @@
       "topic_id": "spreadsheets.business-summary",
       "prompt": "Что такое ограничение?",
       "answer": "Причина не обобщать вывод безусловно.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Возможны другие факторы и обратная связь.",
+        "Действием или следующей проверкой.",
+        "Причина не обобщать вывод безусловно."
+      ],
+      "correct_choice_index": 2,
       "explanation": "Например неполный период или пропуски.",
       "source_lesson_id": "spreadsheets.business-summary.lesson",
       "difficulty": "easy",
@@ -1755,9 +2235,13 @@
       "topic_id": "spreadsheets.business-summary",
       "prompt": "Почему корреляция не доказывает причину?",
       "answer": "Возможны другие факторы и обратная связь.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "Возможны другие факторы и обратная связь.",
+        "Действием или следующей проверкой.",
+        "С ответа на бизнес-вопрос."
+      ],
+      "correct_choice_index": 0,
       "explanation": "Нужен дизайн причинной проверки.",
       "source_lesson_id": "spreadsheets.business-summary.lesson",
       "difficulty": "medium",
@@ -1768,9 +2252,13 @@
       "topic_id": "spreadsheets.business-summary",
       "prompt": "Чем заканчивается записка?",
       "answer": "Действием или следующей проверкой.",
-      "type": "question_answer",
-      "choices": [],
-      "correct_choice_index": null,
+      "type": "multiple_choice",
+      "choices": [
+        "С ответа на бизнес-вопрос.",
+        "Действием или следующей проверкой.",
+        "Двумя-тремя релевантными числами."
+      ],
+      "correct_choice_index": 1,
       "explanation": "Анализ должен помогать принять решение.",
       "source_lesson_id": "spreadsheets.business-summary.lesson",
       "difficulty": "medium",
@@ -1783,7 +2271,7 @@
       "topic_id": "foundations.data-tables",
       "prompt": "В таблице каждая строка имеет уникальный sale_id. Выберите зерно таблицы.",
       "answer_type": "choice",
-      "options": ["Одна продажа", "Один город", "Один месяц"],
+      "options": ["Один месяц", "Одна продажа", "Один город"],
       "checker": { "mode": "exact", "expected_answers": ["Одна продажа"] },
       "difficulty": "medium",
       "estimated_minutes": 35,
@@ -1822,9 +2310,9 @@
       "id": "foundations.missing-duplicates.task",
       "topic_id": "foundations.missing-duplicates",
       "prompt": "В столбце city 100 строк, из них 7 пустых. Сколько пропусков нужно указать в отчёте качества?",
-      "answer_type": "number",
-      "options": [],
-      "checker": { "mode": "normalized", "expected_answers": ["7"] },
+      "answer_type": "choice",
+      "options": ["93", "100", "7"],
+      "checker": { "mode": "exact", "expected_answers": ["7"] },
       "difficulty": "medium",
       "estimated_minutes": 35,
       "hints": [
@@ -1841,15 +2329,17 @@
     {
       "id": "foundations.quality-checks.task",
       "topic_id": "foundations.quality-checks",
-      "prompt": "Сформулируйте измеримую проверку качества для столбца sale_id.",
-      "answer_type": "text",
-      "options": [],
+      "prompt": "Какая проверка качества для столбца sale_id сформулирована измеримо?",
+      "answer_type": "choice",
+      "options": [
+        "Иногда проверять sale_id вручную",
+        "Количество уникальных sale_id равно количеству строк и пропусков нет",
+        "sale_id выглядит правильно"
+      ],
       "checker": {
-        "mode": "normalized",
+        "mode": "exact",
         "expected_answers": [
-          "sale_id уникален",
-          "уникальность sale_id",
-          "sale_id не повторяется"
+          "Количество уникальных sale_id равно количеству строк и пропусков нет"
         ]
       },
       "difficulty": "medium",
@@ -1868,16 +2358,16 @@
     {
       "id": "foundations.data-passport.task",
       "topic_id": "foundations.data-passport",
-      "prompt": "Напишите одной фразой зерно таблицы, где уникальный order_id обозначает заказ.",
-      "answer_type": "text",
-      "options": [],
+      "prompt": "Как сформулировать зерно таблицы, где уникальный order_id обозначает заказ?",
+      "answer_type": "choice",
+      "options": [
+        "Одна строка — один заказ",
+        "Одна строка — один клиент",
+        "Одна строка — один месяц"
+      ],
       "checker": {
-        "mode": "normalized",
-        "expected_answers": [
-          "одна строка — один заказ",
-          "одна строка один заказ",
-          "один заказ"
-        ]
+        "mode": "exact",
+        "expected_answers": ["Одна строка — один заказ"]
       },
       "difficulty": "medium",
       "estimated_minutes": 35,
@@ -1896,9 +2386,22 @@
       "id": "foundations.data-passport.project-week-01",
       "topic_id": "foundations.data-passport",
       "prompt": "Подготовьте паспорт учебной таблицы продаж: источник и период, зерно, ключ, словарь пяти полей, количество строк и пять измеримых проверок качества. Для каждой найденной проблемы укажите количество и пример.",
-      "answer_type": "text",
-      "options": [],
-      "checker": { "mode": "pending_review", "expected_answers": [] },
+      "answer_type": "choice",
+      "options": [
+        "ключом",
+        "словарём полей и измеримыми проверками",
+        "Только диаграмма продаж без описания данных",
+        "Копия исходной таблицы без проверок",
+        "Паспорт с зерном"
+      ],
+      "checker": {
+        "mode": "exact",
+        "expected_answers": [
+          "Паспорт с зерном",
+          "ключом",
+          "словарём полей и измеримыми проверками"
+        ]
+      },
       "difficulty": "hard",
       "estimated_minutes": 180,
       "hints": [
@@ -1920,12 +2423,9 @@
       "id": "spreadsheets.formulas.task",
       "topic_id": "spreadsheets.formulas",
       "prompt": "Количество равно 4, цена — 750. Чему равна выручка по формуле количество × цена?",
-      "answer_type": "number",
-      "options": [],
-      "checker": {
-        "mode": "normalized",
-        "expected_answers": ["3000", "3 000"]
-      },
+      "answer_type": "choice",
+      "options": ["3000", "754", "187.5"],
+      "checker": { "mode": "exact", "expected_answers": ["3000", "3 000"] },
       "difficulty": "medium",
       "estimated_minutes": 45,
       "hints": [
@@ -1942,10 +2442,10 @@
     {
       "id": "spreadsheets.references.task",
       "topic_id": "spreadsheets.references",
-      "prompt": "Запишите ссылку на ячейку B1, которая не изменится при копировании формулы ни вниз, ни вправо.",
-      "answer_type": "text",
-      "options": [],
-      "checker": { "mode": "normalized", "expected_answers": ["$B$1"] },
+      "prompt": "Какая ссылка на ячейку B1 не изменится при копировании формулы ни вниз, ни вправо?",
+      "answer_type": "choice",
+      "options": ["B1", "B$1", "$B$1"],
+      "checker": { "mode": "exact", "expected_answers": ["$B$1"] },
       "difficulty": "medium",
       "estimated_minutes": 45,
       "hints": [
@@ -1965,9 +2465,9 @@
       "prompt": "Что безопаснее сделать перед сортировкой продаж по сумме?",
       "answer_type": "choice",
       "options": [
+        "Скопировать суммы вручную",
         "Выделить только сумму",
-        "Выделить всю таблицу",
-        "Скопировать суммы вручную"
+        "Выделить всю таблицу"
       ],
       "checker": {
         "mode": "exact",
@@ -2017,9 +2517,9 @@
       "id": "spreadsheets.basic-metrics.task",
       "topic_id": "spreadsheets.basic-metrics",
       "prompt": "Найдите медиану набора 2, 3, 3, 5, 100.",
-      "answer_type": "number",
-      "options": [],
-      "checker": { "mode": "normalized", "expected_answers": ["3"] },
+      "answer_type": "choice",
+      "options": ["22.6", "5", "3"],
+      "checker": { "mode": "exact", "expected_answers": ["3"] },
       "difficulty": "medium",
       "estimated_minutes": 45,
       "hints": [
@@ -2037,9 +2537,20 @@
       "id": "spreadsheets.cleaning.project-week-02",
       "topic_id": "spreadsheets.cleaning",
       "prompt": "Создайте очищенную копию учебной таблицы заказов. Сохраните исходные столбцы, стандартизируйте города, преобразуйте суммы и даты, отметьте дубликаты, посчитайте пропуски и добавьте контрольные итоги до и после очистки.",
-      "answer_type": "text",
-      "options": [],
-      "checker": { "mode": "pending_review", "expected_answers": [] },
+      "answer_type": "choice",
+      "options": [
+        "Только вручную исправленный лист без raw",
+        "Только итоговая сумма без проверок",
+        "Raw и clean отдельно",
+        "журнал правил и контрольные итоги"
+      ],
+      "checker": {
+        "mode": "exact",
+        "expected_answers": [
+          "Raw и clean отдельно",
+          "журнал правил и контрольные итоги"
+        ]
+      },
       "difficulty": "hard",
       "estimated_minutes": 180,
       "hints": [
@@ -2062,7 +2573,7 @@
       "topic_id": "spreadsheets.logic",
       "prompt": "Заказ считается срочным, если priority = high И paid = yes. Какой оператор связывает условия?",
       "answer_type": "choice",
-      "options": ["AND", "OR", "SUM"],
+      "options": ["OR", "SUM", "AND"],
       "checker": { "mode": "exact", "expected_answers": ["AND"] },
       "difficulty": "medium",
       "estimated_minutes": 45,
@@ -2081,9 +2592,9 @@
       "id": "spreadsheets.conditional-aggregates.task",
       "topic_id": "spreadsheets.conditional-aggregates",
       "prompt": "Оплаченные заказы имеют суммы 100, 250 и 150, неоплаченный — 900. Чему равна SUMIF по статусу paid?",
-      "answer_type": "number",
-      "options": [],
-      "checker": { "mode": "normalized", "expected_answers": ["500"] },
+      "answer_type": "choice",
+      "options": ["900", "500", "1400"],
+      "checker": { "mode": "exact", "expected_answers": ["500"] },
       "difficulty": "medium",
       "estimated_minutes": 45,
       "hints": [
@@ -2126,9 +2637,9 @@
       "prompt": "Нужно получить выручку по городам. Что поместить в строки и значения сводной?",
       "answer_type": "choice",
       "options": [
-        "Строки — город; значения — сумма выручки",
         "Строки — выручка; значения — город",
-        "Только фильтр"
+        "Только фильтр",
+        "Строки — город; значения — сумма выручки"
       ],
       "checker": {
         "mode": "exact",
@@ -2150,18 +2661,16 @@
     {
       "id": "spreadsheets.reproducible-report.task",
       "topic_id": "spreadsheets.reproducible-report",
-      "prompt": "Назовите четыре слоя воспроизводимой рабочей книги по порядку.",
-      "answer_type": "text",
-      "options": [],
+      "prompt": "Каков правильный порядок четырёх слоёв воспроизводимой рабочей книги?",
+      "answer_type": "choice",
+      "options": [
+        "clean → report → raw → calc",
+        "raw → clean → calc → report",
+        "report → raw → clean → calc"
+      ],
       "checker": {
-        "mode": "normalized",
-        "expected_answers": [
-          "raw clean calc report",
-          "raw",
-          "clean",
-          "calc",
-          "report"
-        ]
+        "mode": "exact",
+        "expected_answers": ["raw → clean → calc → report"]
       },
       "difficulty": "medium",
       "estimated_minutes": 45,
@@ -2180,9 +2689,18 @@
       "id": "spreadsheets.reproducible-report.project-week-03",
       "topic_id": "spreadsheets.reproducible-report",
       "prompt": "Соберите книгу raw → clean → calc → report. Добавьте категории из справочника, рассчитайте выручку и статус заказа, постройте сводную по городам и категориям и добавьте минимум четыре контрольных итога.",
-      "answer_type": "text",
-      "options": [],
-      "checker": { "mode": "pending_review", "expected_answers": [] },
+      "answer_type": "choice",
+      "options": [
+        "Книга raw → clean → calc → report с контролями и ненайденными ключами",
+        "Один лист с вручную введёнными итогами",
+        "Только сводная без исходных данных и проверок"
+      ],
+      "checker": {
+        "mode": "exact",
+        "expected_answers": [
+          "Книга raw → clean → calc → report с контролями и ненайденными ключами"
+        ]
+      },
       "difficulty": "hard",
       "estimated_minutes": 180,
       "hints": [
@@ -2206,9 +2724,9 @@
       "prompt": "Какой график выбрать для сравнения выручки десяти городов?",
       "answer_type": "choice",
       "options": [
+        "Круговой из десяти секторов",
         "Столбчатый",
-        "Линейный без временной оси",
-        "Круговой из десяти секторов"
+        "Линейный без временной оси"
       ],
       "checker": { "mode": "exact", "expected_answers": ["Столбчатый"] },
       "difficulty": "medium",
@@ -2247,17 +2765,16 @@
     {
       "id": "spreadsheets.dashboard-layout.task",
       "topic_id": "spreadsheets.dashboard-layout",
-      "prompt": "Опишите порядок трёх уровней дашборда сверху вниз.",
-      "answer_type": "text",
-      "options": [],
+      "prompt": "Каков правильный порядок трёх уровней дашборда сверху вниз?",
+      "answer_type": "choice",
+      "options": [
+        "Детали → raw → KPI",
+        "Фильтры → детали → название файла",
+        "KPI → динамика и разрезы → детали"
+      ],
       "checker": {
-        "mode": "normalized",
-        "expected_answers": [
-          "ключевые показатели",
-          "динамика и разрезы",
-          "детали",
-          "KPI динамика детали"
-        ]
+        "mode": "exact",
+        "expected_answers": ["KPI → динамика и разрезы → детали"]
       },
       "difficulty": "medium",
       "estimated_minutes": 45,
@@ -2278,9 +2795,9 @@
       "prompt": "Как уменьшить варианты «оплачен», «Оплачен» и «paid» в поле статуса?",
       "answer_type": "choice",
       "options": [
+        "Ручное исправление в отчёте",
         "Выпадающий список",
-        "Цвет шрифта",
-        "Ручное исправление в отчёте"
+        "Цвет шрифта"
       ],
       "checker": { "mode": "exact", "expected_answers": ["Выпадающий список"] },
       "difficulty": "medium",
@@ -2299,14 +2816,17 @@
     {
       "id": "spreadsheets.business-summary.task",
       "topic_id": "spreadsheets.business-summary",
-      "prompt": "Назовите пять частей краткого аналитического итога.",
-      "answer_type": "text",
-      "options": [],
+      "prompt": "Какие пять частей образуют краткий аналитический итог?",
+      "answer_type": "choice",
+      "options": [
+        "Ответ → доказательства → интерпретация → ограничение → действие",
+        "Заголовок → таблица → цвет → шрифт → подпись",
+        "Raw → clean → формула → фильтр → файл"
+      ],
       "checker": {
-        "mode": "normalized",
+        "mode": "exact",
         "expected_answers": [
-          "вывод доказательства интерпретация ограничение действие",
-          "ответ числа интерпретация ограничение рекомендация"
+          "Ответ → доказательства → интерпретация → ограничение → действие"
         ]
       },
       "difficulty": "medium",
@@ -2326,9 +2846,23 @@
       "id": "spreadsheets.business-summary.project-week-04",
       "topic_id": "spreadsheets.business-summary",
       "prompt": "Подготовьте итоговую книгу с листами README, raw, clean, calc и report. На report разместите 3–5 KPI, динамику, два категориальных разреза и фильтры. Добавьте контроли качества и краткий вывод с доказательствами, ограничением и действием.",
-      "answer_type": "text",
-      "options": [],
-      "checker": { "mode": "pending_review", "expected_answers": [] },
+      "answer_type": "choice",
+      "options": [
+        "Один KPI без периода",
+        "единиц и пояснения",
+        "Воспроизводимая книга с KPI",
+        "честными графиками",
+        "контролями и ограничением",
+        "Набор статичных картинок без raw и проверок"
+      ],
+      "checker": {
+        "mode": "exact",
+        "expected_answers": [
+          "Воспроизводимая книга с KPI",
+          "честными графиками",
+          "контролями и ограничением"
+        ]
+      },
       "difficulty": "hard",
       "estimated_minutes": 180,
       "hints": [

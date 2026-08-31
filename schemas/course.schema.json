@@ -119,9 +119,16 @@
     "lessonCheck": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["question", "rule"],
+      "required": ["question", "options", "rule"],
       "properties": {
         "question": { "type": "string", "minLength": 1, "maxLength": 2000 },
+        "options": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 2000 }
+        },
         "rule": { "$ref": "#/$defs/answerCheckRule" }
       }
     },

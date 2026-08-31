@@ -18,7 +18,7 @@ describe("daily learning vertical slice", () => {
     const user = userEvent.setup();
     const view = render(<App services={services} />);
 
-    await user.type(await screen.findByLabelText("Ваш ответ"), "Одну продажу");
+    await user.click(await screen.findByLabelText("Одну продажу"));
     await user.click(
       screen.getByRole("button", { name: "Проверить и продолжить" }),
     );
@@ -69,7 +69,7 @@ describe("daily learning vertical slice", () => {
     const user = userEvent.setup();
     render(<App services={services} />);
 
-    await user.type(await screen.findByLabelText("Ваш ответ"), "Одну продажу");
+    await user.click(await screen.findByLabelText("Одну продажу"));
     await user.click(
       screen.getByRole("button", { name: "Проверить и продолжить" }),
     );
@@ -121,8 +121,12 @@ describe("daily learning vertical slice", () => {
 });
 
 async function revealAndRate(user: ReturnType<typeof userEvent.setup>) {
-  await user.click(
-    await screen.findByRole("button", { name: "Показать ответ" }),
-  );
+  const reveal = await screen.findByRole("button", { name: "Показать ответ" });
+  const choice = screen
+    .getAllByRole("button")
+    .find((button) => button.classList.contains("option"));
+  expect(choice).toBeDefined();
+  await user.click(choice!);
+  await user.click(reveal);
   await user.click(await screen.findByRole("button", { name: "Хорошо" }));
 }

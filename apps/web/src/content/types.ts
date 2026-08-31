@@ -18,7 +18,7 @@ export interface Lesson {
   title: string;
   body: string;
   estimated_minutes: number;
-  check?: { question: string; rule: AnswerCheckRule };
+  check?: { question: string; options: string[]; rule: AnswerCheckRule };
   status: "active" | "archived";
 }
 

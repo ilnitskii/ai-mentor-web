@@ -138,7 +138,7 @@ export function LearningSessionPage({
     const result = checkAnswer(foundationLesson.check.rule, lessonAnswer);
     if (!result.correct) {
       setLessonFeedback(
-        "Вернитесь к понятию зерна таблицы и попробуйте ещё раз.",
+        "Это не тот вариант. Вернитесь к объяснению и попробуйте ещё раз.",
       );
       return;
     }
@@ -278,14 +278,23 @@ export function LearningSessionPage({
           {foundationLesson.check && (
             <div className="lesson-check">
               <h2>{foundationLesson.check.question}</h2>
-              <label>
-                Ваш ответ
-                <input
-                  onChange={(event) => setLessonAnswer(event.target.value)}
-                  type="text"
-                  value={lessonAnswer}
-                />
-              </label>
+              <div className="answer-options">
+                {foundationLesson.check.options.map((option) => (
+                  <label className="option" key={option}>
+                    <input
+                      checked={lessonAnswer === option}
+                      name="lesson-answer"
+                      onChange={() => {
+                        setLessonAnswer(option);
+                        setLessonFeedback(null);
+                      }}
+                      type="radio"
+                      value={option}
+                    />
+                    <span>{option}</span>
+                  </label>
+                ))}
+              </div>
               {lessonFeedback && <p role="alert">{lessonFeedback}</p>}
               <button
                 className="primary-button"

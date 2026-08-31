@@ -19,6 +19,21 @@ function required(value, label) {
   return value;
 }
 
+function choiceOptions(value, expectedAnswers, label) {
+  if (!Array.isArray(value) || value.length < 2)
+    throw new Error(`CONTENT_CHOICE_OPTIONS:${label}`);
+  if (!value.every((option) => typeof option === "string" && option.trim()))
+    throw new Error(`CONTENT_CHOICE_OPTION_INVALID:${label}`);
+  if (!expectedAnswers.some((answer) => value.includes(answer)))
+    throw new Error(`CONTENT_CHOICE_ANSWER_MISSING:${label}`);
+  return value;
+}
+
+function rotateChoices(value, offset) {
+  const position = offset % value.length;
+  return [...value.slice(position), ...value.slice(0, position)];
+}
+
 function assertUniqueIds(collections) {
   const ids = new Set();
   for (const collection of collections)
@@ -49,6 +64,11 @@ for (const week of release.weeks) {
       prerequisites: previousTopicId ? [previousTopicId] : [],
       status: "active",
     });
+    const lessonSourceOptions = choiceOptions(
+      day.check_options,
+      [day.check_options?.[0]],
+      `${lessonId}.check`,
+    );
     lessons.push({
       id: lessonId,
       topic_id: topicId,
@@ -57,23 +77,35 @@ for (const week of release.weeks) {
       estimated_minutes: day.minutes,
       check: {
         question: day.check_question,
-        rule: { mode: "normalized", expected_answers: day.check_answers },
+        options: rotateChoices(lessonSourceOptions, week.week + day.day),
+        rule: {
+          mode: "normalized",
+          expected_answers: [lessonSourceOptions[0], ...day.check_answers],
+        },
       },
       status: "active",
     });
     if (!Array.isArray(day.knowledge) || day.knowledge.length !== 5)
       throw new Error(`CONTENT_CARD_COUNT:${topicId}`);
+    const knowledgeAnswers = day.knowledge.map(([, answer]) => answer);
     day.knowledge.forEach(([prompt, answer, explanation], index) => {
       const id = `${topicId}.card-${String(index + 1).padStart(3, "0")}`;
+      const distractors = [
+        knowledgeAnswers[(index + 1) % knowledgeAnswers.length],
+        knowledgeAnswers[(index + 2) % knowledgeAnswers.length],
+      ];
+      const correctChoiceIndex = index % 3;
+      const choices = [...distractors];
+      choices.splice(correctChoiceIndex, 0, answer);
       cardIds.push(id);
       cards.push({
         id,
         topic_id: topicId,
         prompt,
         answer,
-        type: "question_answer",
-        choices: [],
-        correct_choice_index: null,
+        type: "multiple_choice",
+        choices,
+        correct_choice_index: correctChoiceIndex,
         explanation,
         source_lesson_id: lessonId,
         difficulty: index < 3 ? "easy" : "medium",
@@ -81,14 +113,19 @@ for (const week of release.weeks) {
       });
     });
     const task = day.task;
+    if (task.answer_type !== "choice")
+      throw new Error(`CONTENT_OPEN_ANSWER_FORBIDDEN:${taskId}`);
     tasks.push({
       id: taskId,
       topic_id: topicId,
       prompt: task.prompt,
       answer_type: task.answer_type,
-      options: task.options ?? [],
+      options: rotateChoices(
+        choiceOptions(task.options, task.expected, taskId),
+        week.week + day.day,
+      ),
       checker: {
-        mode: task.answer_type === "choice" ? "exact" : "normalized",
+        mode: "exact",
         expected_answers: task.expected,
       },
       difficulty: "medium",
@@ -118,9 +155,12 @@ for (const week of release.weeks) {
     id: projectId,
     topic_id: week.project.topic_id,
     prompt: week.project.prompt,
-    answer_type: "text",
-    options: [],
-    checker: { mode: "pending_review", expected_answers: [] },
+    answer_type: "choice",
+    options: rotateChoices(
+      choiceOptions(week.project.options, week.project.expected, projectId),
+      week.week,
+    ),
+    checker: { mode: "exact", expected_answers: week.project.expected },
     difficulty: "hard",
     estimated_minutes: 180,
     hints: [
